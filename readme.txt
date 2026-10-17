@@ -4,7 +4,7 @@ Tags: sicurezza, security, login, 2fa, firewall
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,7 +43,7 @@ Dopo l'attivazione analizza il sito, assegna un punteggio e propone le correzion
 
 == Installation ==
 
-1. Plugin > Aggiungi nuovo > Carica plugin, scegli grs-security-1.1.1.zip e attiva.
+1. Plugin > Aggiungi nuovo > Carica plugin, scegli grs-security-1.2.0.zip e attiva.
 2. Si apre GRS DEVs > Security, scheda Analisi: controlla le correzioni selezionate e premi "Applica le correzioni selezionate".
 3. Configura la verifica in due passaggi dal tuo profilo (Utenti > Profilo).
 4. In GRS DEVs > Security, scheda Impostazioni, verifica la sorgente dell'IP (importante se il sito è dietro Cloudflare) e l'email degli avvisi.
@@ -76,6 +76,9 @@ Le regole .htaccess non hanno effetto: l'analisi mostra le regole equivalenti da
 
 == Changelog ==
 
+= 1.2.0 =
+* Grafica rinnovata con lo stile comune dei plugin GRS (componente GRS DEVs 1.1.0, lo stesso di GRS SMTP): intestazione con il marchio, schede a pillola, punteggio ad anello, contatori dei problemi, sezioni in riquadri arrotondati, pulsante principale giallo GRS, etichette di stato più chiare. Solo CSS, nessuna risorsa esterna.
+
 = 1.1.1 =
 * Aggiornamenti automatici attivi: il plugin controlla le release pubblicate su https://github.com/grsdigitaldev/grs-security e scarica lo zip allegato.
 * Update URI dell'header impostato all'indirizzo del repository.
@@ -88,6 +91,9 @@ Le regole .htaccess non hanno effetto: l'analisi mostra le regole equivalenti da
 * Prima release.
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+Nuova grafica delle pagine con lo stile comune dei plugin GRS. Nessuna modifica a impostazioni o dati.
 
 = 1.1.1 =
 Da installare a mano una volta: da questa versione gli aggiornamenti arrivano in automatico dalle release GitHub.

@@ -3,7 +3,7 @@
  * Plugin Name:       GRS Security
  * Plugin URI:        https://grsdigital.it
  * Description:       Analizza la sicurezza del sito, applica con un clic le correzioni consigliate e protegge login, utenti e file.
- * Version:           1.1.1
+ * Version:           1.2.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            GRS Digital
@@ -19,7 +19,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'GRS_SECURITY_VERSION', '1.1.1' );
+define( 'GRS_SECURITY_VERSION', '1.2.0' );
 define( 'GRS_SECURITY_FILE', __FILE__ );
 define( 'GRS_SECURITY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'GRS_SECURITY_URL', plugin_dir_url( __FILE__ ) );

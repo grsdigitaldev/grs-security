@@ -123,7 +123,9 @@ class Admin {
 	 */
 	public static function assets( $hook ) {
 		if ( in_array( $hook, self::$hooks, true ) ) {
-			wp_enqueue_style( 'grs-security-admin', GRS_SECURITY_URL . 'assets/css/admin.css', array(), GRS_SECURITY_VERSION );
+			// Dopo lo stile condiviso GRS DEVs (grs-ui.css), se caricato.
+			$deps = wp_style_is( 'grs-devs-ui', 'enqueued' ) ? array( 'grs-devs-ui' ) : array();
+			wp_enqueue_style( 'grs-security-admin', GRS_SECURITY_URL . 'assets/css/admin.css', $deps, GRS_SECURITY_VERSION );
 			wp_enqueue_script( 'grs-security-admin', GRS_SECURITY_URL . 'assets/js/admin.js', array(), GRS_SECURITY_VERSION, true );
 			wp_localize_script(
 				'grs-security-admin',

@@ -104,8 +104,14 @@ class Pages {
 	 */
 	private static function header( $title ) {
 		$current = self::current_tab();
-		echo '<div class="wrap grs-sec">';
-		echo '<h1>GRS Security</h1>';
+		echo '<div class="wrap grs-sec grs-ui">';
+		$meta = '<span class="grs-ui-version">v' . esc_html( GRS_SECURITY_VERSION ) . '</span>';
+		if ( class_exists( 'GRS_Devs_Menu', false ) && method_exists( 'GRS_Devs_Menu', 'render_header' ) ) {
+			\GRS_Devs_Menu::render_header( 'GRS Security', __( 'Analisi, correzioni e protezioni del sito.', 'grs-security' ), $meta );
+		} else {
+			// Componente GRS DEVs < 1.1.0 caricato da un altro plugin: intestazione semplice.
+			echo '<h1>GRS Security</h1><hr class="wp-header-end">';
+		}
 		echo '<nav class="nav-tab-wrapper wp-clearfix" aria-label="' . esc_attr__( 'Sezioni di GRS Security', 'grs-security' ) . '">';
 		foreach ( self::tabs() as $tab => $label ) {
 			$class = 'nav-tab' . ( $tab === $current ? ' nav-tab-active' : '' );
@@ -114,6 +120,18 @@ class Pages {
 		echo '</nav>';
 		echo '<h2 class="screen-reader-text">' . esc_html( $title ) . '</h2>';
 		Admin::render_notices();
+	}
+
+	/**
+	 * Piede comune (chiude anche il contenitore aperto da header()).
+	 *
+	 * @return void
+	 */
+	private static function footer() {
+		if ( class_exists( 'GRS_Devs_Menu', false ) && method_exists( 'GRS_Devs_Menu', 'render_footer' ) ) {
+			\GRS_Devs_Menu::render_footer();
+		}
+		echo '</div>';
 	}
 
 	/**
@@ -134,16 +152,56 @@ class Pages {
 		$wizard    = ! get_option( Admin::WIZARD );
 		$score     = (int) $scan['score'];
 		$level     = $score >= 85 ? 'good' : ( $score >= 60 ? 'fair' : 'poor' );
+		$counts    = array(
+			'critical' => 0,
+			'warning'  => 0,
+			'ok'       => 0,
+		);
+		foreach ( $scan['results'] as $id => $row ) {
+			if ( isset( $counts[ $row['status'] ] ) && ! in_array( $id, $dismissed, true ) ) {
+				++$counts[ $row['status'] ];
+			}
+		}
+		$verdicts = array(
+			'good' => __( 'Il sito è ben protetto.', 'grs-security' ),
+			'fair' => __( 'Buona base, con alcuni punti da migliorare.', 'grs-security' ),
+			'poor' => __( 'Ci sono interventi importanti da fare.', 'grs-security' ),
+		);
 
 		self::header( __( 'GRS Security: analisi e correzioni', 'grs-security' ) );
 		?>
 		<div class="grs-sec-summary">
-			<div class="grs-sec-score grs-sec-score--<?php echo esc_attr( $level ); ?>">
+			<div class="grs-sec-score grs-sec-score--<?php echo esc_attr( $level ); ?>" style="--grs-score: <?php echo esc_attr( (string) max( 0, min( 100, $score ) ) ); ?>" role="img" aria-label="<?php echo esc_attr( sprintf( /* translators: %d: punteggio */ __( 'Punteggio di sicurezza: %d su 100', 'grs-security' ), $score ) ); ?>">
 				<span class="grs-sec-score__value"><?php echo esc_html( (string) $score ); ?></span>
 				<span class="grs-sec-score__label"><?php esc_html_e( 'su 100', 'grs-security' ); ?></span>
 			</div>
 			<div class="grs-sec-summary__text">
-				<p>
+				<p class="grs-sec-summary__title"><?php echo esc_html( $verdicts[ $level ] ); ?></p>
+				<ul class="grs-sec-counters">
+					<?php if ( $counts['critical'] ) : ?>
+						<li><span class="grs-sec-badge grs-sec-badge--critical">
+						<?php
+						/* translators: %d: numero */
+						echo esc_html( sprintf( _n( '%d critico', '%d critici', $counts['critical'], 'grs-security' ), $counts['critical'] ) );
+						?>
+						</span></li>
+					<?php endif; ?>
+					<?php if ( $counts['warning'] ) : ?>
+						<li><span class="grs-sec-badge grs-sec-badge--warning">
+						<?php
+						/* translators: %d: numero */
+						echo esc_html( sprintf( _n( '%d da migliorare', '%d da migliorare', $counts['warning'], 'grs-security' ), $counts['warning'] ) );
+						?>
+						</span></li>
+					<?php endif; ?>
+					<li><span class="grs-sec-badge grs-sec-badge--ok">
+					<?php
+					/* translators: %d: numero */
+					echo esc_html( sprintf( _n( '%d OK', '%d OK', $counts['ok'], 'grs-security' ), $counts['ok'] ) );
+					?>
+					</span></li>
+				</ul>
+				<p class="grs-sec-muted">
 					<?php
 					/* translators: %s: data e ora */
 					echo esc_html( sprintf( __( 'Ultima analisi: %s.', 'grs-security' ), wp_date( 'd/m/Y H:i', (int) $scan['time'] ) ) );
@@ -187,12 +245,24 @@ class Pages {
 				if ( ! $rows ) {
 					continue;
 				}
-				echo '<h2 class="grs-sec-cat">' . esc_html( $cat_label ) . '</h2>';
-				echo '<table class="widefat grs-sec-checks"><tbody>';
+				$issues = 0;
+				foreach ( $rows as $id => $row ) {
+					if ( in_array( $row['status'], array( 'warning', 'critical' ), true ) && ! in_array( $id, $dismissed, true ) ) {
+						++$issues;
+					}
+				}
+				echo '<section class="grs-ui-card grs-sec-cat"><div class="grs-sec-cat__head"><h2 class="grs-ui-card__title">' . esc_html( $cat_label ) . '</h2>';
+				if ( $issues ) {
+					/* translators: %d: numero */
+					echo '<span class="grs-sec-cat-count grs-sec-badge grs-sec-badge--warning">' . esc_html( sprintf( _n( '%d da sistemare', '%d da sistemare', $issues, 'grs-security' ), $issues ) ) . '</span>';
+				} else {
+					echo '<span class="grs-sec-cat-count grs-sec-badge grs-sec-badge--ok">' . esc_html__( 'Tutto a posto', 'grs-security' ) . '</span>';
+				}
+				echo '</div><table class="widefat grs-sec-checks"><tbody>';
 				foreach ( $rows as $id => $row ) {
 					self::check_row( $id, $row, in_array( $id, $dismissed, true ), $labels );
 				}
-				echo '</tbody></table>';
+				echo '</tbody></table></section>';
 			}
 			?>
 			<div class="grs-sec-bulkbar">
@@ -203,8 +273,8 @@ class Pages {
 		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" id="grs-sec-skip"><?php self::form_fields( 'wizard_skip' ); ?></form>
 		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" id="grs-sec-single"><?php self::form_fields( 'fix' ); ?></form>
 		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" id="grs-sec-dismiss"><?php self::form_fields( 'dismiss' ); ?></form>
-		</div>
 		<?php
+		self::footer();
 	}
 
 	/**
@@ -355,7 +425,7 @@ class Pages {
 		}
 		/* translators: %d: giorni */
 		echo '<p class="grs-sec-muted">' . esc_html( sprintf( __( 'Gli eventi vengono conservati per %d giorni.', 'grs-security' ), (int) Settings::get( 'log_retention', 90 ) ) ) . '</p>';
-		echo '</div>';
+		self::footer();
 	}
 
 	/**
@@ -399,7 +469,8 @@ class Pages {
 		</form>
 		<?php
 		if ( ! is_array( $stored ) || ! isset( $stored['results'] ) ) {
-			echo '<p>' . esc_html__( 'Nessun controllo eseguito finora.', 'grs-security' ) . '</p></div>';
+			echo '<p>' . esc_html__( 'Nessun controllo eseguito finora.', 'grs-security' ) . '</p>';
+			self::footer();
 			return;
 		}
 		/* translators: %s: data */
@@ -438,7 +509,7 @@ class Pages {
 		if ( $not_checked ) {
 			echo '<p class="grs-sec-muted">' . esc_html__( 'Plugin non verificabili (non presenti su wordpress.org o checksum non disponibili):', 'grs-security' ) . ' ' . esc_html( implode( ', ', $not_checked ) ) . '</p>';
 		}
-		echo '</div>';
+		self::footer();
 	}
 
 	/**
@@ -460,6 +531,7 @@ class Pages {
 		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="grs-sec-settings">
 			<?php self::form_fields( 'settings' ); ?>
 
+			<div class="grs-ui-card">
 			<h2><?php esc_html_e( 'Protezioni', 'grs-security' ); ?></h2>
 			<p class="grs-sec-muted"><?php esc_html_e( 'Le stesse correzioni proposte nella scheda Analisi. Togliendo la spunta la protezione viene rimossa.', 'grs-security' ); ?></p>
 			<?php if ( ! Htaccess::supported() ) : ?>
@@ -492,7 +564,9 @@ class Pages {
 					</td>
 				</tr>
 			</table>
+			</div>
 
+			<div class="grs-ui-card">
 			<h2><?php esc_html_e( 'Accesso', 'grs-security' ); ?></h2>
 			<table class="form-table" role="presentation">
 				<tr>
@@ -553,7 +627,9 @@ class Pages {
 					</td>
 				</tr>
 			</table>
+			</div>
 
+			<div class="grs-ui-card">
 			<h2><?php esc_html_e( 'Avvisi e registro', 'grs-security' ); ?></h2>
 			<table class="form-table" role="presentation">
 				<tr>
@@ -573,9 +649,11 @@ class Pages {
 					<td><label><input type="checkbox" name="grs[keep_data]" value="1" <?php checked( $s['keep_data'] ); ?> /> <?php esc_html_e( 'Conserva impostazioni e registro quando il plugin viene eliminato', 'grs-security' ); ?></label></td>
 				</tr>
 			</table>
+			</div>
 			<?php submit_button( __( 'Salva le impostazioni', 'grs-security' ) ); ?>
 		</form>
 
+		<div class="grs-ui-card">
 		<h2><?php esc_html_e( 'IP bloccati ora', 'grs-security' ); ?></h2>
 		<?php
 		$locked = Login_Guard::locked_list();
@@ -592,5 +670,6 @@ class Pages {
 			echo '</tbody></table>';
 		}
 		echo '</div>';
+		self::footer();
 	}
 }

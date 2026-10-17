@@ -1,43 +1,100 @@
-/* GRS Security - stile delle pagine di amministrazione. */
-.grs-sec-summary { display: flex; gap: 24px; align-items: center; background: #fff; border: 1px solid #dcdcde; padding: 16px 20px; margin: 16px 0; }
-.grs-sec-score { width: 96px; height: 96px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; flex: 0 0 96px; }
-.grs-sec-score--good { background: #008a20; }
-.grs-sec-score--fair { background: #b26200; }
-.grs-sec-score--poor { background: #b32d2e; }
-.grs-sec-score__value { font-size: 32px; font-weight: 700; line-height: 1; }
-.grs-sec-score__label { font-size: 12px; }
-.grs-sec-summary__text p { margin: 0 0 8px; }
-.grs-sec-muted { color: #646970; }
-.grs-sec-ok { color: #008a20; font-weight: 600; }
-.grs-sec-wizard { background: #f0f6fc; border-left: 4px solid #2271b1; padding: 12px 16px; margin: 16px 0; }
-.grs-sec-wizard h2 { margin-top: 0; }
-.grs-sec-bulkbar { margin: 12px 0; display: flex; gap: 16px; align-items: center; }
-.grs-sec-cat { margin-top: 28px; }
-.grs-sec-checks td { vertical-align: top; padding: 12px 10px; }
-.grs-sec-check__select { width: 24px; }
-.grs-sec-check__status { width: 120px; }
-.grs-sec-check__actions { width: 220px; text-align: right; }
+/*
+ * GRS Security - componenti specifici delle pagine del plugin (prefisso grs-sec-).
+ *
+ * Lo stile generale (colori, schede, card, pulsanti, campi, tabelle) arriva dal foglio
+ * condiviso grs-ui.css del componente GRS DEVs 1.1.0+ (fonte: dev/grs-devs-menu.md).
+ * Qui si usano le sue variabili, con valori di riserva per il profilo utente (fuori da .grs-ui).
+ * Solo CSS, nessun font o immagine esterna.
+ */
+
+.grs-sec-muted { color: var(--grs-muted, #626a75) !important; }
+.grs-sec-ok { color: var(--grs-ok, #0a7a45); font-weight: 600; }
+
+/* Etichette di stato (stesso aspetto di grs-ui-badge; usate anche nel profilo) */
+.grs-sec-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 999px; font-size: 12px; font-weight: 600; line-height: 1; white-space: nowrap; background: var(--grs-surface-soft, #f7f8fa); color: var(--grs-ink-soft, #2c3138); }
+.grs-sec-badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: .85; }
+.grs-sec-badge--ok { background: var(--grs-ok-soft, #e7f6ee); color: var(--grs-ok, #0a7a45); }
+.grs-sec-badge--warning { background: var(--grs-warn-soft, #fff4dc); color: var(--grs-warn, #8a5a00); }
+.grs-sec-badge--critical { background: var(--grs-err-soft, #fdecea); color: var(--grs-err, #b42318); }
+.grs-sec-badge--info, .grs-sec-badge--unknown { background: var(--grs-info-soft, #eaf2fc); color: var(--grs-info, #1d5fae); }
+
+/* Riepilogo con punteggio ad anello */
+.grs-sec-summary { display: flex; gap: 26px; align-items: center; padding: 20px 24px; margin: 0 0 18px; background: var(--grs-surface); border: 1px solid var(--grs-line); border-radius: var(--grs-radius); box-shadow: var(--grs-shadow); }
+.grs-sec-score { --grs-ring: var(--grs-err); position: relative; flex: 0 0 116px; width: 116px; height: 116px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: conic-gradient(var(--grs-ring) calc(var(--grs-score, 0) * 1%), #eceef1 0); }
+.grs-sec-score::before { content: ""; position: absolute; inset: 11px; border-radius: 50%; background: var(--grs-surface); }
+.grs-sec-score > * { position: relative; }
+.grs-sec-score--good { --grs-ring: #1e8e3e; }
+.grs-sec-score--fair { --grs-ring: #d98c00; }
+.grs-sec-score--poor { --grs-ring: #d63638; }
+.grs-sec-score__value { font-size: 34px; font-weight: 700; line-height: 1; color: var(--grs-ink); }
+.grs-sec-score__label { margin-top: 4px; font-size: 12px; color: var(--grs-muted); }
+.grs-sec-summary__text { flex: 1; }
+.grs-sec-summary__text p { margin: 0 0 10px; }
+.grs-sec-summary__title { margin: 0 0 6px !important; font-size: 16px; font-weight: 600; color: var(--grs-ink); }
+.grs-sec-counters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; padding: 0; list-style: none; }
+.grs-sec-counters li { margin: 0; }
+
+/* Procedura guidata */
+.grs-sec-wizard { position: relative; padding: 16px 20px 6px 24px; margin: 0 0 16px; background: var(--grs-accent-soft); border: 1px solid #f1e48a; border-radius: var(--grs-radius); }
+.grs-sec-wizard::before { content: ""; position: absolute; left: 0; top: 12px; bottom: 12px; width: 4px; border-radius: 0 4px 4px 0; background: var(--grs-accent); }
+.grs-sec-wizard h2 { margin: 0 0 6px; font-size: 16px; color: var(--grs-ink); }
+
+/* Barra azioni */
+.grs-sec-bulkbar { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin: 0 0 18px; }
+.grs-ui .button-link { color: var(--grs-muted); text-decoration: underline; text-underline-offset: 2px; border-radius: 4px; }
+.grs-ui .button-link:hover { color: var(--grs-ink); }
+.grs-ui .button-link:focus { box-shadow: var(--grs-focus); outline: none; }
+
+/* Categorie di controlli: card senza margine interno, tabella a tutta larghezza */
+.grs-ui .grs-sec-cat { padding: 0; overflow: hidden; }
+.grs-sec-cat__head { display: flex; align-items: center; gap: 10px; padding: 16px 20px 12px; border-bottom: 1px solid var(--grs-line); }
+.grs-ui .grs-sec-cat__head .grs-ui-card__title { margin: 0; padding: 0; border: 0; }
+.grs-sec-cat-count { margin-left: auto; }
+.grs-ui .grs-sec-cat .widefat { border: 0; border-radius: 0; }
+
+/* Righe dei controlli */
+.grs-sec-checks td { vertical-align: top !important; padding: 14px 12px; border-top: 1px solid var(--grs-line); }
+.grs-sec-checks tr:first-child td { border-top: 0; }
+.grs-sec-check { box-shadow: inset 3px 0 0 transparent; }
+.grs-sec-check--critical { box-shadow: inset 3px 0 0 #d63638; }
+.grs-sec-check--warning { box-shadow: inset 3px 0 0 #e3a008; }
+.grs-sec-check__select { width: 26px; padding-left: 20px !important; }
+.grs-sec-check__status { width: 132px; }
+.grs-sec-check__actions { width: 230px; text-align: right; padding-right: 20px !important; }
 .grs-sec-check__actions .button, .grs-sec-check__actions .button-link { margin: 0 0 6px 6px; }
-.grs-sec-check__body p { margin: 4px 0; }
-.grs-sec-check--dismissed { opacity: .6; }
-.grs-sec-check details summary { cursor: pointer; color: #2271b1; }
-.grs-sec-pre { white-space: pre-line; background: #f6f7f7; padding: 8px 10px; }
-.grs-sec-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 600; background: #dcdcde; color: #1d2327; }
-.grs-sec-badge--ok { background: #d1f0d8; color: #00450c; }
-.grs-sec-badge--warning { background: #fcf0d0; color: #6e4300; }
-.grs-sec-badge--critical { background: #facfd2; color: #8a2424; }
-.grs-sec-badge--info, .grs-sec-badge--unknown { background: #e5e5e5; color: #3c434a; }
-.grs-sec-tag { display: inline-block; margin-left: 6px; font-size: 11px; padding: 0 6px; border: 1px solid #c3c4c7; border-radius: 3px; color: #50575e; }
-.grs-sec-tag--on { border-color: #00a32a; color: #00701a; }
-.grs-sec-filters { margin: 12px 0; }
-.grs-sec-log td { vertical-align: top; }
-.grs-sec-fixes label { line-height: 2; }
-.grs-sec-qr { display: inline-block; }
-.grs-sec-qr svg { display: block; background: #fff; border: 1px solid #dcdcde; }
-.grs-sec-secret { font-size: 14px; letter-spacing: 1px; }
-.grs-sec-codes pre { font-size: 14px; line-height: 1.6; background: #fff; padding: 8px 12px; display: inline-block; }
+.grs-sec-check__body label strong { font-size: 14px; color: var(--grs-ink); }
+.grs-sec-check__body p { margin: 4px 0 0; color: var(--grs-muted); }
+.grs-sec-check--dismissed { opacity: .55; }
+.grs-sec-check details { margin-top: 8px; }
+.grs-sec-check details summary { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; color: var(--grs-ink); font-weight: 500; list-style: none; }
+.grs-sec-check details summary::-webkit-details-marker { display: none; }
+.grs-sec-check details summary::before { content: ""; width: 6px; height: 6px; border: solid currentColor; border-width: 0 2px 2px 0; transform: rotate(-45deg); transition: transform .12s ease; }
+.grs-sec-check details[open] summary::before { transform: rotate(45deg); }
+.grs-sec-check details summary:focus { outline: none; box-shadow: var(--grs-focus); border-radius: 4px; }
+.grs-sec-pre { white-space: pre-line; margin: 8px 0 0 !important; padding: 10px 12px; background: var(--grs-surface-soft); border-radius: var(--grs-radius-sm); color: var(--grs-text) !important; }
+.grs-sec-tag { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; background: var(--grs-surface-soft); color: var(--grs-muted); vertical-align: 1px; }
+.grs-sec-tag--on { background: var(--grs-ink); color: var(--grs-accent); }
+
+/* Registro, integrità, impostazioni */
+.grs-sec-filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 14px; }
+.grs-sec-log td { vertical-align: top !important; }
+.grs-sec-log code { font-size: 11px; }
+.grs-sec-fixes { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2px 18px; margin: 12px 0 4px; padding: 0; border: 0; }
+.grs-sec-fixes br { display: none; }
+.grs-sec-fixes label { padding: 6px 0; line-height: 1.5; }
+
+/* Profilo: verifica in due passaggi */
+.grs-sec-qr { display: inline-block; padding: 6px; background: #ffffff; border: 1px solid var(--grs-line, #e2e5ea); border-radius: var(--grs-radius, 12px); }
+.grs-sec-qr svg { display: block; }
+.grs-sec-secret { font-size: 14px; letter-spacing: 1px; border-radius: 4px; }
+.grs-sec-codes pre { display: inline-block; padding: 10px 14px; font-size: 14px; line-height: 1.6; background: #ffffff; border: 1px solid var(--grs-line, #e2e5ea); border-radius: var(--grs-radius-sm, 8px); }
+
+@media (prefers-reduced-motion: reduce) {
+	.grs-sec-check details summary::before { transition: none; }
+}
+
 @media (max-width: 782px) {
 	.grs-sec-summary { flex-direction: column; align-items: flex-start; }
-	.grs-sec-check__actions { width: auto; text-align: left; }
+	.grs-sec-check__actions { width: auto; text-align: left; padding-right: 12px !important; }
 	.grs-sec-check__status { width: auto; }
 }

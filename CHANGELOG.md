@@ -2,6 +2,13 @@
 
 Tutte le modifiche rilevanti a questo plugin. Formato [Keep a Changelog](https://keepachangelog.com/it/1.1.0/), versioni [SemVer](https://semver.org/lang/it/).
 
+## [1.2.0] - 2026-10-17
+
+### Modificato
+- Grafica delle pagine con lo stile condiviso dei plugin GRS: componente GRS DEVs aggiornato da 1.0.1 a 1.1.0 (copia invariata da `dev/grs-devs-menu.md`, con `grs-ui.css`, `render_header()` e `render_footer()`), come GRS SMTP 1.2.0. Intestazione con logo e versione, schede a pillola, impostazioni e categorie dei controlli in card, pulsante principale giallo GRS, campi arrotondati, focus da tastiera ben visibile.
+- Analisi: punteggio ad anello (CSS `conic-gradient`) con giudizio sintetico e contatori critici/da migliorare/OK, conteggio dei punti da sistemare per categoria, righe con striscia di stato.
+- `assets/css/admin.css` contiene solo i componenti propri di GRS Security e usa le variabili del foglio condiviso. Nessuna risorsa esterna (font, immagini, librerie) e nessun JavaScript aggiunto; stili limitati alle pagine del plugin.
+
 ## [1.1.1] - 2026-10-17
 
 ### Modificato
