@@ -1,0 +1,43 @@
+/* GRS Security - stile delle pagine di amministrazione. */
+.grs-sec-summary { display: flex; gap: 24px; align-items: center; background: #fff; border: 1px solid #dcdcde; padding: 16px 20px; margin: 16px 0; }
+.grs-sec-score { width: 96px; height: 96px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; flex: 0 0 96px; }
+.grs-sec-score--good { background: #008a20; }
+.grs-sec-score--fair { background: #b26200; }
+.grs-sec-score--poor { background: #b32d2e; }
+.grs-sec-score__value { font-size: 32px; font-weight: 700; line-height: 1; }
+.grs-sec-score__label { font-size: 12px; }
+.grs-sec-summary__text p { margin: 0 0 8px; }
+.grs-sec-muted { color: #646970; }
+.grs-sec-ok { color: #008a20; font-weight: 600; }
+.grs-sec-wizard { background: #f0f6fc; border-left: 4px solid #2271b1; padding: 12px 16px; margin: 16px 0; }
+.grs-sec-wizard h2 { margin-top: 0; }
+.grs-sec-bulkbar { margin: 12px 0; display: flex; gap: 16px; align-items: center; }
+.grs-sec-cat { margin-top: 28px; }
+.grs-sec-checks td { vertical-align: top; padding: 12px 10px; }
+.grs-sec-check__select { width: 24px; }
+.grs-sec-check__status { width: 120px; }
+.grs-sec-check__actions { width: 220px; text-align: right; }
+.grs-sec-check__actions .button, .grs-sec-check__actions .button-link { margin: 0 0 6px 6px; }
+.grs-sec-check__body p { margin: 4px 0; }
+.grs-sec-check--dismissed { opacity: .6; }
+.grs-sec-check details summary { cursor: pointer; color: #2271b1; }
+.grs-sec-pre { white-space: pre-line; background: #f6f7f7; padding: 8px 10px; }
+.grs-sec-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 600; background: #dcdcde; color: #1d2327; }
+.grs-sec-badge--ok { background: #d1f0d8; color: #00450c; }
+.grs-sec-badge--warning { background: #fcf0d0; color: #6e4300; }
+.grs-sec-badge--critical { background: #facfd2; color: #8a2424; }
+.grs-sec-badge--info, .grs-sec-badge--unknown { background: #e5e5e5; color: #3c434a; }
+.grs-sec-tag { display: inline-block; margin-left: 6px; font-size: 11px; padding: 0 6px; border: 1px solid #c3c4c7; border-radius: 3px; color: #50575e; }
+.grs-sec-tag--on { border-color: #00a32a; color: #00701a; }
+.grs-sec-filters { margin: 12px 0; }
+.grs-sec-log td { vertical-align: top; }
+.grs-sec-fixes label { line-height: 2; }
+.grs-sec-qr { display: inline-block; }
+.grs-sec-qr svg { display: block; background: #fff; border: 1px solid #dcdcde; }
+.grs-sec-secret { font-size: 14px; letter-spacing: 1px; }
+.grs-sec-codes pre { font-size: 14px; line-height: 1.6; background: #fff; padding: 8px 12px; display: inline-block; }
+@media (max-width: 782px) {
+	.grs-sec-summary { flex-direction: column; align-items: flex-start; }
+	.grs-sec-check__actions { width: auto; text-align: left; }
+	.grs-sec-check__status { width: auto; }
+}
