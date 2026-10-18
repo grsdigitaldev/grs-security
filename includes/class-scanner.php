@@ -23,11 +23,11 @@ class Scanner {
 	 */
 	public static function categories() {
 		return array(
-			'updates'    => __( 'Aggiornamenti', 'grs-security' ),
-			'users'      => __( 'Utenti e accessi', 'grs-security' ),
-			'config'     => __( 'Configurazione', 'grs-security' ),
-			'exposure'   => __( 'Esposizione del sito', 'grs-security' ),
-			'monitoring' => __( 'Protezioni attive e monitoraggio', 'grs-security' ),
+			'updates'    => __( 'Updates', 'grs-security' ),
+			'users'      => __( 'Users and logins', 'grs-security' ),
+			'config'     => __( 'Configuration', 'grs-security' ),
+			'exposure'   => __( 'Site exposure', 'grs-security' ),
+			'monitoring' => __( 'Active protections and monitoring', 'grs-security' ),
 		);
 	}
 
@@ -85,6 +85,7 @@ class Scanner {
 
 		$scan          = array(
 			'time'     => time(),
+			'locale'   => function_exists( 'determine_locale' ) ? determine_locale() : get_locale(),
 			'results'  => $indexed,
 			'loopback' => ! Loopback::is_broken(),
 		);

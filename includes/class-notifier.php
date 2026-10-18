@@ -69,10 +69,12 @@ class Notifier {
 			set_transient( $key, 1, 15 * MINUTE_IN_SECONDS );
 		}
 
-		$lines = array( $message, '' );
+		// Testi dell'email nella lingua del destinatario (il messaggio dell'evento resta come è stato registrato).
+		$switched = Plugin::switch_to_recipient_locale( Settings::alert_email() );
+		$lines    = array( $message, '' );
 		if ( ! empty( $args['username'] ) ) {
-			/* translators: %s: utente */
-			$lines[] = sprintf( __( 'Utente: %s', 'grs-security' ), $args['username'] );
+			/* translators: %s: user */
+			$lines[] = sprintf( __( 'User: %s', 'grs-security' ), $args['username'] );
 		}
 		$ip = isset( $args['ip'] ) ? (string) $args['ip'] : Ip::current();
 		if ( '' !== $ip ) {
@@ -83,16 +85,19 @@ class Notifier {
 			$lines[] = '';
 			$lines[] = (string) $args['context']['files'];
 		}
-		/* translators: %s: data e ora */
-		$lines[] = sprintf( __( 'Data: %s', 'grs-security' ), wp_date( 'd/m/Y H:i:s' ) );
+		/* translators: %s: date and time */
+		$lines[] = sprintf( __( 'Date: %s', 'grs-security' ), wp_date( Plugin::datetime_format() ) );
 		$lines[] = '';
-		$lines[] = __( 'Se non riconosci questa attività, controlla subito il sito:', 'grs-security' );
+		$lines[] = __( 'If you do not recognize this activity, check the site immediately:', 'grs-security' );
 		$lines[] = Plugin::admin_url( 'log' );
 
 		self::send(
-			'critical' === $severity ? __( 'Avviso di sicurezza importante', 'grs-security' ) : __( 'Avviso di sicurezza', 'grs-security' ),
+			'critical' === $severity ? __( 'Important security alert', 'grs-security' ) : __( 'Security alert', 'grs-security' ),
 			implode( "\n", $lines )
 		);
+		if ( $switched ) {
+			restore_previous_locale();
+		}
 	}
 
 	/**
@@ -109,8 +114,8 @@ class Notifier {
 		}
 		$site = wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES );
 		$body = $body . "\n\n-- \n" . sprintf(
-			/* translators: 1: sito, 2: URL */
-			__( 'GRS Security su %1$s (%2$s)', 'grs-security' ),
+			/* translators: 1: site, 2: URL */
+			__( 'GRS Security on %1$s (%2$s)', 'grs-security' ),
 			$site,
 			home_url( '/' )
 		);

@@ -42,19 +42,19 @@ class Salts {
 		$values   = array();
 		foreach ( self::KEYS as $key ) {
 			if ( ! defined( $key ) ) {
-				/* translators: %s: nome costante */
-				$problems[] = sprintf( __( '%s non definita', 'grs-security' ), $key );
+				/* translators: %s: constant name */
+				$problems[] = sprintf( __( '%s not defined', 'grs-security' ), $key );
 				continue;
 			}
 			$value = (string) constant( $key );
 			if ( strlen( $value ) < 32 || false !== stripos( $value, 'put your unique phrase here' ) || false !== stripos( $value, 'inserisci' ) ) {
-				/* translators: %s: nome costante */
-				$problems[] = sprintf( __( '%s debole o predefinita', 'grs-security' ), $key );
+				/* translators: %s: constant name */
+				$problems[] = sprintf( __( '%s weak or default', 'grs-security' ), $key );
 			}
 			$values[] = $value;
 		}
 		if ( count( $values ) !== count( array_unique( $values ) ) ) {
-			$problems[] = __( 'alcune chiavi hanno lo stesso valore', 'grs-security' );
+			$problems[] = __( 'some keys have the same value', 'grs-security' );
 		}
 		return array(
 			'status'   => $problems ? 'weak' : 'ok',
@@ -80,19 +80,19 @@ class Salts {
 	public static function can_regenerate() {
 		$path = self::config_path();
 		if ( '' === $path ) {
-			return new \WP_Error( 'grs_security_no_config', __( 'File wp-config.php non trovato.', 'grs-security' ) );
+			return new \WP_Error( 'grs_security_no_config', __( 'wp-config.php file not found.', 'grs-security' ) );
 		}
 		if ( ! wp_is_writable( $path ) ) {
-			return new \WP_Error( 'grs_security_config_not_writable', __( 'Il file wp-config.php non è scrivibile dal server.', 'grs-security' ) );
+			return new \WP_Error( 'grs_security_config_not_writable', __( 'The wp-config.php file is not writable by the server.', 'grs-security' ) );
 		}
 		if ( ! wp_is_writable( dirname( $path ) ) ) {
-			return new \WP_Error( 'grs_security_config_dir', __( 'La cartella di wp-config.php non è scrivibile (serve per la copia di sicurezza).', 'grs-security' ) );
+			return new \WP_Error( 'grs_security_config_dir', __( 'The wp-config.php folder is not writable (needed for the backup copy).', 'grs-security' ) );
 		}
 		$content = (string) file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- file locale.
 		foreach ( self::KEYS as $key ) {
 			if ( 1 !== preg_match_all( self::pattern( $key ), $content ) ) {
-				/* translators: %s: nome costante */
-				return new \WP_Error( 'grs_security_key_pattern', sprintf( __( 'La definizione di %s in wp-config.php non è nel formato standard: modifica manuale consigliata.', 'grs-security' ), $key ) );
+				/* translators: %s: constant name */
+				return new \WP_Error( 'grs_security_key_pattern', sprintf( __( 'The definition of %s in wp-config.php is not in the standard format: manual editing recommended.', 'grs-security' ), $key ) );
 			}
 		}
 		return true;
@@ -143,12 +143,12 @@ class Salts {
 		}
 
 		if ( ! self::valid_php( $content ) ) {
-			return new \WP_Error( 'grs_security_config_syntax', __( 'Il nuovo wp-config.php non supera il controllo di sintassi: nessuna modifica eseguita.', 'grs-security' ) );
+			return new \WP_Error( 'grs_security_config_syntax', __( 'The new wp-config.php fails the syntax check: no change made.', 'grs-security' ) );
 		}
 
 		$backup = dirname( $path ) . '/wp-config-grs-backup-' . gmdate( 'Ymd-His' ) . '-' . wp_generate_password( 8, false, false ) . '.php';
 		if ( ! copy( $path, $backup ) ) {
-			return new \WP_Error( 'grs_security_backup_failed', __( 'Impossibile creare la copia di sicurezza di wp-config.php: nessuna modifica eseguita.', 'grs-security' ) );
+			return new \WP_Error( 'grs_security_backup_failed', __( 'Unable to create the backup copy of wp-config.php: no change made.', 'grs-security' ) );
 		}
 		$perms = fileperms( $path );
 
@@ -158,7 +158,7 @@ class Salts {
 		if ( false === $written || $check !== $content ) {
 			copy( $backup, $path );
 			wp_delete_file( $backup );
-			return new \WP_Error( 'grs_security_write_failed', __( 'Scrittura di wp-config.php non riuscita: ripristinato il file originale.', 'grs-security' ) );
+			return new \WP_Error( 'grs_security_write_failed', __( 'Writing wp-config.php failed: the original file was restored.', 'grs-security' ) );
 		}
 		if ( false !== $perms ) {
 			chmod( $path, $perms & 0777 ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_chmod -- mantiene i permessi originali.
@@ -188,13 +188,13 @@ class Salts {
 			Logger::log(
 				'salts_listener_error',
 				'warning',
-				/* translators: %s: messaggio di errore */
-				sprintf( __( 'Un plugin collegato alla rigenerazione delle chiavi ha generato un errore: %s', 'grs-security' ), $e->getMessage() ),
+				/* translators: %s: error message */
+				sprintf( __( 'A plugin hooked to the key regeneration raised an error: %s', 'grs-security' ), $e->getMessage() ),
 				array()
 			);
 		}
 
-		Logger::log( 'salts_regenerated', 'warning', __( 'Chiavi di sicurezza (SALT) rigenerate: tutti gli utenti sono stati disconnessi.', 'grs-security' ), array() );
+		Logger::log( 'salts_regenerated', 'warning', __( 'Security keys (SALT) regenerated: all users have been logged out.', 'grs-security' ), array() );
 		return true;
 	}
 

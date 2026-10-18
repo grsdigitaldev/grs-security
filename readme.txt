@@ -4,7 +4,7 @@ Tags: sicurezza, security, login, 2fa, firewall
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,7 +43,7 @@ Dopo l'attivazione analizza il sito, assegna un punteggio e propone le correzion
 
 == Installation ==
 
-1. Plugin > Aggiungi nuovo > Carica plugin, scegli grs-security-1.2.0.zip e attiva.
+1. Plugin > Aggiungi nuovo > Carica plugin, scegli grs-security-1.3.0.zip e attiva.
 2. Si apre GRS DEVs > Security, scheda Analisi: controlla le correzioni selezionate e premi "Applica le correzioni selezionate".
 3. Configura la verifica in due passaggi dal tuo profilo (Utenti > Profilo).
 4. In GRS DEVs > Security, scheda Impostazioni, verifica la sorgente dell'IP (importante se il sito è dietro Cloudflare) e l'email degli avvisi.
@@ -76,6 +76,13 @@ Le regole .htaccess non hanno effetto: l'analisi mostra le regole equivalenti da
 
 == Changelog ==
 
+= 1.3.0 =
+* Multilingua: testi del plugin in inglese con traduzione italiana inclusa (sui siti in italiano non cambia nulla); ogni amministratore vede il plugin nella lingua del proprio profilo.
+* Pagina di login, verifica in due passaggi e messaggi di blocco nella lingua del visitatore (WPML, Polylang, Loco Translate).
+* Email di avviso e del nuovo indirizzo di login nella lingua del destinatario.
+* Pagina di blocco del firewall in italiano o inglese secondo la lingua del sito.
+* Date nel formato impostato in Impostazioni > Generali.
+
 = 1.2.0 =
 * Grafica rinnovata con lo stile comune dei plugin GRS (componente GRS DEVs 1.1.0, lo stesso di GRS SMTP): intestazione con il marchio, schede a pillola, punteggio ad anello, contatori dei problemi, sezioni in riquadri arrotondati, pulsante principale giallo GRS, etichette di stato più chiare. Solo CSS, nessuna risorsa esterna.
 
@@ -91,6 +98,9 @@ Le regole .htaccess non hanno effetto: l'analisi mostra le regole equivalenti da
 * Prima release.
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+Plugin multilingua: nessuna modifica alle impostazioni.
 
 = 1.2.0 =
 Nuova grafica delle pagine con lo stile comune dei plugin GRS. Nessuna modifica a impostazioni o dati.

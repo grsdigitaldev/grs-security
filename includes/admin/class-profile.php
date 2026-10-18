@@ -61,7 +61,7 @@ class Profile {
 		}
 		$user = wp_get_current_user();
 		if ( Two_Factor::is_required( $user ) && ! Two_Factor::is_enabled( $user->ID ) ) {
-			echo '<div class="notice notice-warning"><p><strong>' . esc_html__( 'Verifica in due passaggi obbligatoria.', 'grs-security' ) . '</strong> ' . esc_html__( 'Per continuare a usare la bacheca configura la verifica in due passaggi nella sezione qui sotto.', 'grs-security' ) . ' <a href="#grs-security-2fa">' . esc_html__( 'Vai alla configurazione', 'grs-security' ) . '</a></p></div>';
+			echo '<div class="notice notice-warning"><p><strong>' . esc_html__( 'Two-step verification is mandatory.', 'grs-security' ) . '</strong> ' . esc_html__( 'To keep using the dashboard, set up two-step verification in the section below.', 'grs-security' ) . ' <a href="#grs-security-2fa">' . esc_html__( 'Go to setup', 'grs-security' ) . '</a></p></div>';
 		}
 	}
 
@@ -73,10 +73,10 @@ class Profile {
 	 */
 	public static function render_own( $user ) {
 		?>
-		<h2 id="grs-security-2fa"><?php esc_html_e( 'Verifica in due passaggi', 'grs-security' ); ?></h2>
+		<h2 id="grs-security-2fa"><?php esc_html_e( 'Two-step verification', 'grs-security' ); ?></h2>
 		<?php
 		if ( Two_Factor::globally_disabled() ) {
-			echo '<p>' . esc_html__( 'La verifica in due passaggi è temporaneamente disattivata su tutto il sito (costante GRS_SECURITY_DISABLE_2FA).', 'grs-security' ) . '</p>';
+			echo '<p>' . esc_html__( 'Two-step verification is temporarily disabled on the whole site (GRS_SECURITY_DISABLE_2FA constant).', 'grs-security' ) . '</p>';
 			if ( Two_Factor::is_enabled( $user->ID ) ) {
 				self::reset_field( $user );
 			}
@@ -89,7 +89,7 @@ class Profile {
 			delete_transient( 'grs_security_codes_' . $user->ID );
 			?>
 			<div class="grs-sec-codes notice notice-success inline">
-				<p><strong><?php esc_html_e( 'Salva ora i codici di recupero.', 'grs-security' ); ?></strong> <?php esc_html_e( 'Ogni codice funziona una sola volta, al posto del codice dell\'app, se perdi il telefono. Non verranno mostrati di nuovo.', 'grs-security' ); ?></p>
+				<p><strong><?php esc_html_e( 'Save your recovery codes now.', 'grs-security' ); ?></strong> <?php esc_html_e( 'Each code works only once, instead of the app code, if you lose your phone. They will not be shown again.', 'grs-security' ); ?></p>
 				<pre><?php echo esc_html( implode( "\n", $codes ) ); ?></pre>
 			</div>
 			<?php
@@ -101,30 +101,30 @@ class Profile {
 			?>
 			<table class="form-table" role="presentation">
 				<tr>
-					<th scope="row"><?php esc_html_e( 'Stato', 'grs-security' ); ?></th>
+					<th scope="row"><?php esc_html_e( 'Status', 'grs-security' ); ?></th>
 					<td>
-						<p><span class="grs-sec-badge grs-sec-badge--ok"><?php esc_html_e( 'Attiva', 'grs-security' ); ?></span>
+						<p><span class="grs-sec-badge grs-sec-badge--ok"><?php esc_html_e( 'Active', 'grs-security' ); ?></span>
 						<?php
-						/* translators: %d: codici rimasti */
-						echo esc_html( sprintf( _n( 'Ti resta %d codice di recupero.', 'Ti restano %d codici di recupero.', $left, 'grs-security' ), $left ) );
+						/* translators: %d: codes left */
+						echo esc_html( sprintf( _n( 'You have %d recovery code left.', 'You have %d recovery codes left.', $left, 'grs-security' ), $left ) );
 						?>
 						</p>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="grs_2fa_action"><?php esc_html_e( 'Gestione', 'grs-security' ); ?></label></th>
+					<th scope="row"><label for="grs_2fa_action"><?php esc_html_e( 'Management', 'grs-security' ); ?></label></th>
 					<td>
 						<select name="grs_2fa_action" id="grs_2fa_action">
-							<option value=""><?php esc_html_e( 'Nessuna modifica', 'grs-security' ); ?></option>
-							<option value="regen"><?php esc_html_e( 'Genera nuovi codici di recupero', 'grs-security' ); ?></option>
+							<option value=""><?php esc_html_e( 'No change', 'grs-security' ); ?></option>
+							<option value="regen"><?php esc_html_e( 'Generate new recovery codes', 'grs-security' ); ?></option>
 							<?php if ( ! $required ) : ?>
-								<option value="disable"><?php esc_html_e( 'Disattiva la verifica in due passaggi', 'grs-security' ); ?></option>
+								<option value="disable"><?php esc_html_e( 'Disable two-step verification', 'grs-security' ); ?></option>
 							<?php endif; ?>
 						</select>
-						<input type="text" name="grs_2fa_confirm" value="" class="regular-text" autocomplete="one-time-code" placeholder="<?php esc_attr_e( 'Codice attuale dell\'app', 'grs-security' ); ?>" />
-						<p class="description"><?php esc_html_e( 'Per confermare inserisci il codice attuale dell\'app (o un codice di recupero) e premi "Aggiorna profilo".', 'grs-security' ); ?>
+						<input type="text" name="grs_2fa_confirm" value="" class="regular-text" autocomplete="one-time-code" placeholder="<?php esc_attr_e( 'Current app code', 'grs-security' ); ?>" />
+						<p class="description"><?php esc_html_e( 'To confirm, enter the current app code (or a recovery code) and click "Update Profile".', 'grs-security' ); ?>
 						<?php if ( $required ) : ?>
-							<?php esc_html_e( 'Per il tuo ruolo la verifica in due passaggi è obbligatoria e non può essere disattivata.', 'grs-security' ); ?>
+							<?php esc_html_e( 'Two-step verification is mandatory for your role and cannot be disabled.', 'grs-security' ); ?>
 						<?php endif; ?>
 						</p>
 					</td>
@@ -140,18 +140,18 @@ class Profile {
 		?>
 		<table class="form-table" role="presentation">
 			<tr>
-				<th scope="row"><?php esc_html_e( '1. Collega l\'app', 'grs-security' ); ?></th>
+				<th scope="row"><?php esc_html_e( '1. Connect the app', 'grs-security' ); ?></th>
 				<td>
-					<p><?php esc_html_e( 'Inquadra il codice QR con un\'app di autenticazione (Google Authenticator, Microsoft Authenticator, 1Password, Bitwarden...).', 'grs-security' ); ?></p>
+					<p><?php esc_html_e( 'Scan the QR code with an authenticator app (Google Authenticator, Microsoft Authenticator, 1Password, Bitwarden...).', 'grs-security' ); ?></p>
 					<div class="grs-sec-qr" data-otpauth="<?php echo esc_attr( $uri ); ?>"></div>
-					<p><?php esc_html_e( 'Oppure inserisci a mano questa chiave:', 'grs-security' ); ?> <code class="grs-sec-secret"><?php echo esc_html( trim( chunk_split( $secret, 4, ' ' ) ) ); ?></code></p>
+					<p><?php esc_html_e( 'Or enter this key manually:', 'grs-security' ); ?> <code class="grs-sec-secret"><?php echo esc_html( trim( chunk_split( $secret, 4, ' ' ) ) ); ?></code></p>
 				</td>
 			</tr>
 			<tr>
-				<th scope="row"><label for="grs_2fa_setup_code"><?php esc_html_e( '2. Conferma', 'grs-security' ); ?></label></th>
+				<th scope="row"><label for="grs_2fa_setup_code"><?php esc_html_e( '2. Confirm', 'grs-security' ); ?></label></th>
 				<td>
 					<input type="text" name="grs_2fa_setup_code" id="grs_2fa_setup_code" value="" class="regular-text" inputmode="numeric" autocomplete="one-time-code" placeholder="123456" />
-					<p class="description"><?php esc_html_e( 'Inserisci il codice di 6 cifre mostrato dall\'app e premi "Aggiorna profilo". Riceverai i codici di recupero da conservare.', 'grs-security' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Enter the 6-digit code shown by the app and click "Update Profile". You will receive recovery codes to keep.', 'grs-security' ); ?></p>
 				</td>
 			</tr>
 		</table>
@@ -169,11 +169,11 @@ class Profile {
 			return;
 		}
 		?>
-		<h2 id="grs-security-2fa"><?php esc_html_e( 'Verifica in due passaggi', 'grs-security' ); ?></h2>
+		<h2 id="grs-security-2fa"><?php esc_html_e( 'Two-step verification', 'grs-security' ); ?></h2>
 		<?php
 		wp_nonce_field( 'grs_security_profile_2fa_' . $user->ID, '_grs_2fa_profile_nonce' );
 		if ( ! Two_Factor::is_enabled( $user->ID ) ) {
-			echo '<p>' . esc_html__( 'Non attiva per questo utente.', 'grs-security' ) . ( Two_Factor::is_required( $user ) ? ' ' . esc_html__( 'È obbligatoria per il suo ruolo: dovrà configurarla al prossimo accesso.', 'grs-security' ) : '' ) . '</p>';
+			echo '<p>' . esc_html__( 'Not active for this user.', 'grs-security' ) . ( Two_Factor::is_required( $user ) ? ' ' . esc_html__( 'It is mandatory for their role: they will have to set it up at the next login.', 'grs-security' ) : '' ) . '</p>';
 			return;
 		}
 		self::reset_field( $user );
@@ -189,9 +189,9 @@ class Profile {
 		?>
 		<table class="form-table" role="presentation">
 			<tr>
-				<th scope="row"><?php esc_html_e( 'Azzera', 'grs-security' ); ?></th>
+				<th scope="row"><?php esc_html_e( 'Reset', 'grs-security' ); ?></th>
 				<td>
-					<label><input type="checkbox" name="grs_2fa_reset" value="1" /> <?php esc_html_e( 'Disattiva la verifica in due passaggi per questo account (ad esempio se l\'utente ha perso il telefono)', 'grs-security' ); ?></label>
+					<label><input type="checkbox" name="grs_2fa_reset" value="1" /> <?php esc_html_e( 'Disable two-step verification for this account (for example if the user lost their phone)', 'grs-security' ); ?></label>
 				</td>
 			</tr>
 		</table>
@@ -236,7 +236,7 @@ class Profile {
 			}
 			$codes = Two_Factor::enable( $user_id, $code );
 			if ( false === $codes ) {
-				$errors->add( 'grs_2fa_setup', __( 'Verifica in due passaggi: il codice non è corretto. Controlla che l\'ora del telefono sia automatica e riprova.', 'grs-security' ) );
+				$errors->add( 'grs_2fa_setup', __( 'Two-step verification: the code is not correct. Make sure the phone time is set automatically and try again.', 'grs-security' ) );
 				return;
 			}
 			set_transient( 'grs_security_codes_' . $user_id, $codes, 10 * MINUTE_IN_SECONDS );
@@ -250,7 +250,7 @@ class Profile {
 		$code    = isset( $_POST['grs_2fa_confirm'] ) ? sanitize_text_field( wp_unslash( $_POST['grs_2fa_confirm'] ) ) : '';
 		$wp_user = get_userdata( $user_id );
 		if ( ! $wp_user || ! Two_Factor::verify_login_code( $wp_user, $code ) ) {
-			$errors->add( 'grs_2fa_confirm', __( 'Verifica in due passaggi: codice di conferma non valido, nessuna modifica eseguita.', 'grs-security' ) );
+			$errors->add( 'grs_2fa_confirm', __( 'Two-step verification: invalid confirmation code, no change made.', 'grs-security' ) );
 			return;
 		}
 		if ( 'regen' === $action ) {
@@ -258,7 +258,7 @@ class Profile {
 			return;
 		}
 		if ( Two_Factor::is_required( $wp_user ) ) {
-			$errors->add( 'grs_2fa_required', __( 'La verifica in due passaggi è obbligatoria per il tuo ruolo.', 'grs-security' ) );
+			$errors->add( 'grs_2fa_required', __( 'Two-step verification is mandatory for your role.', 'grs-security' ) );
 			return;
 		}
 		Two_Factor::disable( $user_id, 'self' );

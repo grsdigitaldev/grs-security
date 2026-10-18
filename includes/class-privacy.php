@@ -36,7 +36,7 @@ class Privacy {
 		if ( ! function_exists( 'wp_add_privacy_policy_content' ) ) {
 			return;
 		}
-		$text = '<p>' . esc_html__( 'Per proteggere il sito da accessi non autorizzati e attacchi informatici registriamo, per un periodo limitato, l\'indirizzo IP, il nome utente usato nei tentativi di accesso e alcune azioni compiute dagli utenti registrati (ad esempio accessi, modifiche ai ruoli e alle impostazioni). Questi dati sono trattati sulla base del legittimo interesse alla sicurezza del sito e vengono cancellati automaticamente dopo il periodo di conservazione impostato.', 'grs-security' ) . '</p>';
+		$text = '<p>' . esc_html__( 'To protect the site from unauthorized access and cyber attacks we record, for a limited period, the IP address, the username used in login attempts and some actions performed by registered users (for example logins, changes to roles and settings). This data is processed on the basis of the legitimate interest in site security and is deleted automatically after the configured retention period.', 'grs-security' ) . '</p>';
 		wp_add_privacy_policy_content( 'GRS Security', wp_kses_post( $text ) );
 	}
 
@@ -48,7 +48,7 @@ class Privacy {
 	 */
 	public static function register_exporter( $exporters ) {
 		$exporters['grs-security'] = array(
-			'exporter_friendly_name' => __( 'Registro di sicurezza (GRS Security)', 'grs-security' ),
+			'exporter_friendly_name' => __( 'Security log (GRS Security)', 'grs-security' ),
 			'callback'               => array( __CLASS__, 'export' ),
 		);
 		return $exporters;
@@ -62,7 +62,7 @@ class Privacy {
 	 */
 	public static function register_eraser( $erasers ) {
 		$erasers['grs-security'] = array(
-			'eraser_friendly_name' => __( 'Registro di sicurezza (GRS Security)', 'grs-security' ),
+			'eraser_friendly_name' => __( 'Security log (GRS Security)', 'grs-security' ),
 			'callback'             => array( __CLASS__, 'erase' ),
 		);
 		return $erasers;
@@ -92,15 +92,15 @@ class Privacy {
 		foreach ( (array) $rows as $row ) {
 			$data[] = array(
 				'group_id'    => 'grs-security-log',
-				'group_label' => __( 'Registro di sicurezza', 'grs-security' ),
+				'group_label' => __( 'Security log', 'grs-security' ),
 				'item_id'     => 'grs-security-log-' . $row['id'],
 				'data'        => array(
 					array(
-						'name'  => __( 'Data', 'grs-security' ),
+						'name'  => __( 'Date', 'grs-security' ),
 						'value' => $row['created_at'] . ' UTC',
 					),
 					array(
-						'name'  => __( 'Evento', 'grs-security' ),
+						'name'  => __( 'Event', 'grs-security' ),
 						'value' => $row['message'],
 					),
 					array(

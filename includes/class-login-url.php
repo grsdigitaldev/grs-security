@@ -76,23 +76,27 @@ class Login_Url {
 			'login_url_changed',
 			'warning',
 			/* translators: %s: URL */
-			sprintf( __( 'Nuovo indirizzo di login: %s', 'grs-security' ), $url ),
+			sprintf( __( 'New login address: %s', 'grs-security' ), $url ),
 			array( 'ip' => Ip::current() )
 		);
 		$recipients = array_unique( array( Settings::alert_email(), (string) get_option( 'admin_email' ) ) );
 		$site       = wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES );
 		foreach ( $recipients as $to ) {
 			if ( is_email( $to ) ) {
+				$switched = Plugin::switch_to_recipient_locale( $to );
 				wp_mail(
 					$to,
-					'[' . $site . '] ' . __( 'Nuovo indirizzo di accesso al sito', 'grs-security' ),
+					'[' . $site . '] ' . __( 'New site login address', 'grs-security' ),
 					sprintf(
-						/* translators: 1: URL, 2: costante */
-						__( "La pagina di accesso al sito è stata spostata. Il nuovo indirizzo è:\n\n%1\$s\n\nSalvalo nei preferiti: wp-login.php e wp-admin non mostrano più il login ai visitatori.\nIn caso di emergenza aggiungi in wp-config.php: %2\$s", 'grs-security' ),
+						/* translators: 1: URL, 2: constant */
+						__( "The site login page has been moved. The new address is:\n\n%1\$s\n\nBookmark it: wp-login.php and wp-admin no longer show the login to visitors.\nIn an emergency add to wp-config.php: %2\$s", 'grs-security' ),
 						$url,
 						"define( 'GRS_SECURITY_DISABLE_LOGIN_URL', true );"
 					)
 				);
+				if ( $switched ) {
+					restore_previous_locale();
+				}
 			}
 		}
 	}
@@ -233,8 +237,8 @@ class Login_Url {
 	private static function not_found() {
 		nocache_headers();
 		wp_die(
-			esc_html__( 'Pagina non trovata.', 'grs-security' ),
-			esc_html__( 'Pagina non trovata', 'grs-security' ),
+			esc_html__( 'Page not found.', 'grs-security' ),
+			esc_html__( 'Page not found', 'grs-security' ),
 			array( 'response' => 404 )
 		);
 	}

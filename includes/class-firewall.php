@@ -28,11 +28,11 @@ class Firewall {
 	public static function rules() {
 		$rules = array(
 			'sqli_union'     => array( '/\bunion\b(?:\s|\/\*.*?\*\/|\+)+(?:all(?:\s|\+)+)?select\b/i', array( 'get', 'post', 'uri' ), 'SQL injection (UNION SELECT)' ),
-			'sqli_functions' => array( '/\binformation_schema\b|\bsleep\s*\(\s*\d+\s*\)|\bbenchmark\s*\(|\bload_file\s*\(|\binto\s+(?:out|dump)file\b/i', array( 'get', 'post', 'uri' ), 'SQL injection (funzioni)' ),
+			'sqli_functions' => array( '/\binformation_schema\b|\bsleep\s*\(\s*\d+\s*\)|\bbenchmark\s*\(|\bload_file\s*\(|\binto\s+(?:out|dump)file\b/i', array( 'get', 'post', 'uri' ), 'SQL injection (functions)' ),
 			'traversal'      => array( '/(?:\.\.[\/\\\\]){2,}|\/etc\/passwd|(?:\.\.[\/\\\\])+wp-config\.php/i', array( 'get', 'post', 'uri' ), 'Directory traversal' ),
-			'php_injection'  => array( '/<\?php|\b(?:base64_decode|gzinflate|str_rot13|shell_exec|passthru)\s*\(|\b(?:php|phar|expect|zip|data):\/\/(?:input|filter|text|stdin|[a-z0-9])/i', array( 'get', 'post' ), 'Iniezione di codice PHP' ),
+			'php_injection'  => array( '/<\?php|\b(?:base64_decode|gzinflate|str_rot13|shell_exec|passthru)\s*\(|\b(?:php|phar|expect|zip|data):\/\/(?:input|filter|text|stdin|[a-z0-9])/i', array( 'get', 'post' ), 'PHP code injection' ),
 			'xss'            => array( '/<script\b|javascript\s*:|\bon(?:error|load|mouseover|focus|toggle)\s*=|<(?:iframe|svg|img)\b[^>]*\bon[a-z]+\s*=/i', array( 'get', 'uri' ), 'Cross-site scripting (XSS)' ),
-			'scanner_ua'     => array( '/\b(?:sqlmap|nikto|wpscan|acunetix|nessus|masscan|nmap\s+scripting|dirbuster|gobuster|nuclei|zgrab|havij|w3af|fimap|netsparker)\b/i', array( 'ua' ), 'Scanner di vulnerabilità' ),
+			'scanner_ua'     => array( '/\b(?:sqlmap|nikto|wpscan|acunetix|nessus|masscan|nmap\s+scripting|dirbuster|gobuster|nuclei|zgrab|havij|w3af|fimap|netsparker)\b/i', array( 'ua' ), 'Vulnerability scanner' ),
 		);
 		/**
 		 * Regole del firewall.
@@ -164,13 +164,13 @@ class Firewall {
 		if ( ! get_transient( $key ) ) {
 			set_transient( $key, 1, 10 * MINUTE_IN_SECONDS );
 			$uri = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
-			// Stringhe non tradotte: qui siamo prima di after_setup_theme e WP 6.7+ segnalerebbe il caricamento anticipato delle traduzioni.
+			// Testi fissi (vedi text()): qui siamo prima di after_setup_theme e WP 6.7+ segnalerebbe il caricamento anticipato delle traduzioni.
 			Logger::log(
 				'firewall_' . ( $block ? 'blocked' : 'detected' ),
 				'warning',
 				sprintf(
-					$block ? 'Richiesta bloccata: %1$s (in %2$s).' : 'Richiesta sospetta (solo registrata): %1$s (in %2$s).',
-					$found[1],
+					self::text( $block ? 'logged_blocked' : 'logged_detected' ),
+					self::text( 'rule_' . $found[0], $found[1] ),
 					$found[2]
 				),
 				array(
@@ -190,8 +190,56 @@ class Firewall {
 		nocache_headers();
 		header( 'Content-Type: text/html; charset=utf-8' );
 		echo '<!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>403</title></head><body style="font-family:sans-serif;padding:3em;text-align:center"><h1>403</h1><p>'
-			. esc_html( 'La richiesta è stata bloccata per motivi di sicurezza. Se pensi sia un errore, contatta il gestore del sito.' )
+			. esc_html( self::text( 'blocked_page' ) )
 			. '</p></body></html>';
 		exit;
+	}
+
+	/**
+	 * Testi del firewall in inglese o in italiano, scelti in base alla lingua del sito.
+	 *
+	 * Il firewall gira su plugins_loaded, prima di after_setup_theme: da WP 6.7 le funzioni
+	 * di traduzione qui genererebbero un avviso, quindi i testi sono fissi nelle due lingue
+	 * principali e si possono cambiare con il filtro grs_security_firewall_text.
+	 *
+	 * @param string $key      Chiave del testo.
+	 * @param string $fallback Testo se la chiave non esiste (es. descrizione di una regola personalizzata).
+	 * @return string
+	 */
+	public static function text( $key, $fallback = '' ) {
+		$texts = array(
+			'en' => array(
+				'blocked_page'        => 'The request was blocked for security reasons. If you think this is an error, contact the site owner.',
+				'logged_blocked'      => 'Request blocked: %1$s (in %2$s).',
+				'logged_detected'     => 'Suspicious request (logged only): %1$s (in %2$s).',
+				'rule_sqli_union'     => 'SQL injection (UNION SELECT)',
+				'rule_sqli_functions' => 'SQL injection (functions)',
+				'rule_traversal'      => 'Directory traversal',
+				'rule_php_injection'  => 'PHP code injection',
+				'rule_xss'            => 'Cross-site scripting (XSS)',
+				'rule_scanner_ua'     => 'Vulnerability scanner',
+			),
+			'it' => array(
+				'blocked_page'        => 'La richiesta è stata bloccata per motivi di sicurezza. Se pensi sia un errore, contatta il gestore del sito.',
+				'logged_blocked'      => 'Richiesta bloccata: %1$s (in %2$s).',
+				'logged_detected'     => 'Richiesta sospetta (solo registrata): %1$s (in %2$s).',
+				'rule_sqli_union'     => 'SQL injection (UNION SELECT)',
+				'rule_sqli_functions' => 'SQL injection (funzioni)',
+				'rule_traversal'      => 'Directory traversal',
+				'rule_php_injection'  => 'Iniezione di codice PHP',
+				'rule_xss'            => 'Cross-site scripting (XSS)',
+				'rule_scanner_ua'     => 'Scanner di vulnerabilità',
+			),
+		);
+		$lang  = 'it' === strtolower( substr( (string) get_locale(), 0, 2 ) ) ? 'it' : 'en';
+		$text  = isset( $texts[ $lang ][ $key ] ) ? $texts[ $lang ][ $key ] : ( '' !== $fallback ? $fallback : ( isset( $texts['en'][ $key ] ) ? $texts['en'][ $key ] : $key ) );
+		/**
+		 * Testi del firewall (pagina di blocco, righe del registro, nomi delle regole).
+		 *
+		 * @param string $text Testo.
+		 * @param string $key  Chiave (blocked_page, logged_blocked, logged_detected, rule_<id>).
+		 * @param string $lang Lingua scelta (en o it).
+		 */
+		return (string) apply_filters( 'grs_security_firewall_text', $text, $key, $lang );
 	}
 }

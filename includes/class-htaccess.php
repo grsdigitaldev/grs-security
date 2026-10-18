@@ -184,8 +184,8 @@ class Htaccess {
 		if ( ( $exists && ! wp_is_writable( $file ) ) || ( ! $exists && ! wp_is_writable( $dir ) ) ) {
 			return new \WP_Error(
 				'grs_security_htaccess_not_writable',
-				/* translators: %s: percorso del file */
-				sprintf( __( 'Il file %s non è scrivibile.', 'grs-security' ), $file )
+				/* translators: %s: file path */
+				sprintf( __( 'The file %s is not writable.', 'grs-security' ), $file )
 			);
 		}
 
@@ -194,7 +194,7 @@ class Htaccess {
 		$new      = $clean;
 		if ( ! empty( $lines ) ) {
 			$block = '# BEGIN ' . self::MARKER . "\n"
-				. '# Regole aggiunte da GRS Security: si rimuovono disattivando la correzione o il plugin.' . "\n"
+				. '# Rules added by GRS Security: removed when the fix or the plugin is disabled.' . "\n"
 				. implode( "\n", $lines ) . "\n"
 				. '# END ' . self::MARKER . "\n";
 			$new   = $block . ( '' !== $clean ? "\n" . $clean : '' );
@@ -222,14 +222,14 @@ class Htaccess {
 		}
 		$written = file_put_contents( $file, $new, LOCK_EX ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- scrittura atomica del file locale, come insert_with_markers().
 		if ( false === $written ) {
-			return new \WP_Error( 'grs_security_htaccess_write_failed', __( 'Scrittura del file .htaccess non riuscita.', 'grs-security' ) );
+			return new \WP_Error( 'grs_security_htaccess_write_failed', __( 'Writing the .htaccess file failed.', 'grs-security' ) );
 		}
 
 		if ( $verify && ! empty( $lines ) && ! self::site_responds() ) {
 			file_put_contents( $file, $original, LOCK_EX ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- ripristino del contenuto originale.
 			return new \WP_Error(
 				'grs_security_htaccess_reverted',
-				__( 'Dopo la modifica del file .htaccess il sito ha risposto con un errore del server: la modifica è stata annullata automaticamente. Probabilmente l\'hosting non consente alcune direttive; applica le regole a mano o chiedi all\'hosting.', 'grs-security' )
+				__( 'After the .htaccess change the site answered with a server error: the change was undone automatically. The hosting probably does not allow some directives; apply the rules manually or ask the hosting.', 'grs-security' )
 			);
 		}
 		return true;

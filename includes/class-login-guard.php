@@ -52,10 +52,10 @@ class Login_Guard {
 			$minutes = (int) ceil( $remaining / MINUTE_IN_SECONDS );
 			return new \WP_Error(
 				'grs_security_locked',
-				'<strong>' . esc_html__( 'Accesso temporaneamente bloccato:', 'grs-security' ) . '</strong> ' . esc_html(
+				'<strong>' . esc_html__( 'Access temporarily blocked:', 'grs-security' ) . '</strong> ' . esc_html(
 					sprintf(
-						/* translators: %d: minuti */
-						_n( 'troppi tentativi non riusciti. Riprova tra %d minuto.', 'troppi tentativi non riusciti. Riprova tra %d minuti.', $minutes, 'grs-security' ),
+						/* translators: %d: minutes */
+						_n( 'too many failed attempts. Try again in %d minute.', 'too many failed attempts. Try again in %d minutes.', $minutes, 'grs-security' ),
 						$minutes
 					)
 				)
@@ -147,8 +147,8 @@ class Login_Guard {
 				'login_lockout',
 				'warning',
 				sprintf(
-					/* translators: 1: IP, 2: minuti */
-					__( 'IP %1$s bloccato per %2$d minuti dopo troppi tentativi di accesso non riusciti.', 'grs-security' ),
+					/* translators: 1: IP, 2: minutes */
+					__( 'IP %1$s blocked for %2$d minutes after too many failed login attempts.', 'grs-security' ),
 					$ip,
 					(int) round( $duration / MINUTE_IN_SECONDS )
 				),

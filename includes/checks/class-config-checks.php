@@ -77,16 +77,16 @@ class Config_Checks {
 			array(
 				'id'           => 'file_edit',
 				'category'     => 'config',
-				'title'        => __( 'Editor di plugin e temi disattivato', 'grs-security' ),
+				'title'        => __( 'Plugin and theme editor disabled', 'grs-security' ),
 				'status'       => ( $constant || $applied ) ? 'ok' : 'warning',
 				'weight'       => 2,
 				'message'      => ( $constant || $applied )
-					? __( 'Dalla bacheca non è possibile modificare il codice di plugin e temi.', 'grs-security' )
-					: __( 'Chi entra come amministratore può modificare il codice PHP di plugin e temi dalla bacheca: è il modo più rapido per installare una backdoor.', 'grs-security' ),
+					? __( 'Plugin and theme code cannot be edited from the dashboard.', 'grs-security' )
+					: __( 'Anyone who logs in as an administrator can edit the PHP code of plugins and themes from the dashboard: it is the quickest way to install a backdoor.', 'grs-security' ),
 				'fix'          => $constant ? 'none' : 'auto',
 				'fix_applied'  => $applied,
 				'recommended'  => ! $constant,
-				'instructions' => __( 'Nasconde e blocca l\'editor di file di plugin e temi. Le modifiche al codice si fanno via FTP o con un deploy.', 'grs-security' ),
+				'instructions' => __( 'Hides and blocks the plugin and theme file editor. Code changes are made via FTP or a deployment.', 'grs-security' ),
 			)
 		);
 	}
@@ -104,14 +104,14 @@ class Config_Checks {
 			array(
 				'id'           => 'debug_display',
 				'category'     => 'config',
-				'title'        => __( 'Errori PHP non visibili ai visitatori', 'grs-security' ),
+				'title'        => __( 'PHP errors not visible to visitors', 'grs-security' ),
 				'status'       => $bad ? 'warning' : 'ok',
 				'weight'       => 2,
 				'message'      => $bad
-					? __( 'WP_DEBUG è attivo e gli errori vengono mostrati nelle pagine: rivelano percorsi del server e dettagli dei plugin.', 'grs-security' )
-					: __( 'Gli errori PHP non vengono mostrati nelle pagine.', 'grs-security' ),
+					? __( 'WP_DEBUG is on and errors are shown on pages: they reveal server paths and plugin details.', 'grs-security' )
+					: __( 'PHP errors are not shown on pages.', 'grs-security' ),
 				'fix'          => $bad ? 'manual' : 'none',
-				'instructions' => __( 'In wp-config.php imposta define( \'WP_DEBUG\', false ); oppure, se ti serve il debug, define( \'WP_DEBUG_DISPLAY\', false ); e @ini_set( \'display_errors\', 0 );', 'grs-security' ),
+				'instructions' => __( 'In wp-config.php set define( \'WP_DEBUG\', false ); or, if you need debugging, define( \'WP_DEBUG_DISPLAY\', false ); and @ini_set( \'display_errors\', 0 );', 'grs-security' ),
 			)
 		);
 	}
@@ -128,20 +128,20 @@ class Config_Checks {
 		}
 		$inside = 0 === strpos( wp_normalize_path( $path ), wp_normalize_path( ABSPATH ) );
 		$status = 'ok';
-		$msg    = __( 'Nessun file di log raggiungibile dal browser.', 'grs-security' );
+		$msg    = __( 'No log file reachable from the browser.', 'grs-security' );
 		if ( file_exists( $path ) && $inside ) {
 			$url      = site_url( str_replace( wp_normalize_path( ABSPATH ), '', wp_normalize_path( $path ) ) );
 			$response = Loopback::request( $url, 'GET', array( 'headers' => array( 'Range' => 'bytes=0-200' ) ) );
 			$code     = Loopback::code( $response );
 			if ( null === $response ) {
 				$status = 'unknown';
-				$msg    = __( 'Esiste un file debug.log ma non è stato possibile verificare se è raggiungibile dal browser.', 'grs-security' );
+				$msg    = __( 'A debug.log file exists but it was not possible to check whether it is reachable from the browser.', 'grs-security' );
 			} elseif ( in_array( $code, array( 200, 206 ), true ) ) {
 				$status = 'critical';
 				/* translators: %s: URL */
-				$msg = sprintf( __( 'Il registro degli errori è leggibile da chiunque: %s', 'grs-security' ), $url );
+				$msg = sprintf( __( 'The error log can be read by anyone: %s', 'grs-security' ), $url );
 			} else {
-				$msg = __( 'Esiste un file debug.log ma non è raggiungibile dal browser.', 'grs-security' );
+				$msg = __( 'A debug.log file exists but it is not reachable from the browser.', 'grs-security' );
 			}
 		}
 		$can_htaccess = Htaccess::supported();
@@ -149,7 +149,7 @@ class Config_Checks {
 			array(
 				'id'           => 'debug_log',
 				'category'     => 'config',
-				'title'        => __( 'Registro errori non pubblico', 'grs-security' ),
+				'title'        => __( 'Error log not public', 'grs-security' ),
 				'status'       => $status,
 				'weight'       => 3,
 				'message'      => $msg,
@@ -157,8 +157,8 @@ class Config_Checks {
 				'fix_applied'  => Settings::fix_enabled( 'htaccess_sensitive' ),
 				'recommended'  => 'critical' === $status && $can_htaccess,
 				'instructions' => $can_htaccess
-					? __( 'Blocca l\'accesso via browser ai file di log, di backup e ai file sensibili tramite .htaccess. Valuta anche di spostare il log fuori dalla cartella pubblica con define( \'WP_DEBUG_LOG\', \'/percorso/fuori/dal/sito/debug.log\' );', 'grs-security' )
-					: __( 'Elimina il file debug.log e sposta il log fuori dalla cartella pubblica con define( \'WP_DEBUG_LOG\', \'/percorso/fuori/dal/sito/debug.log\' ); oppure chiedi all\'hosting di bloccare i file .log.', 'grs-security' ),
+					? __( 'Blocks browser access to log files, backups and sensitive files via .htaccess. Also consider moving the log outside the public folder with define( \'WP_DEBUG_LOG\', \'/path/outside/the/site/debug.log\' );', 'grs-security' )
+					: __( 'Delete the debug.log file and move the log outside the public folder with define( \'WP_DEBUG_LOG\', \'/path/outside/the/site/debug.log\' ); or ask the hosting to block .log files.', 'grs-security' ),
 			)
 		);
 	}
@@ -176,18 +176,18 @@ class Config_Checks {
 			array(
 				'id'           => 'salts',
 				'category'     => 'config',
-				'title'        => __( 'Chiavi di sicurezza (SALT) robuste', 'grs-security' ),
+				'title'        => __( 'Strong security keys (SALT)', 'grs-security' ),
 				'status'       => $ok ? 'ok' : 'critical',
 				'weight'       => 3,
 				'message'      => $ok
-					? __( 'Le chiavi di sicurezza in wp-config.php sono presenti e uniche. Puoi rigenerarle se sospetti una violazione: tutti verranno disconnessi.', 'grs-security' )
-					/* translators: %s: elenco problemi */
-					: sprintf( __( 'Problemi nelle chiavi di sicurezza: %s.', 'grs-security' ), implode( ', ', $state['problems'] ) ),
+					? __( 'The security keys in wp-config.php are present and unique. You can regenerate them if you suspect a breach: everyone will be logged out.', 'grs-security' )
+					/* translators: %s: list of problems */
+					: sprintf( __( 'Problems with the security keys: %s.', 'grs-security' ), implode( ', ', $state['problems'] ) ),
 				'fix'          => is_wp_error( $can ) ? 'manual' : 'auto',
 				'recommended'  => ! $ok && ! is_wp_error( $can ),
 				'instructions' => is_wp_error( $can )
-					? $can->get_error_message() . ' ' . __( 'Genera nuove chiavi su https://api.wordpress.org/secret-key/1.1/salt/ e sostituiscile in wp-config.php.', 'grs-security' )
-					: __( 'Genera nuove chiavi casuali e le scrive in wp-config.php con un controllo di sintassi prima del salvataggio. Tutti gli utenti, tu compreso, verranno disconnessi. I plugin GRS compatibili (come GRS SMTP 1.0.1 o successivo) aggiornano automaticamente i propri dati cifrati; per altri plugin che cifrano dati con le chiavi del sito potrebbe essere necessario reinserire password o chiavi API.', 'grs-security' ),
+					? $can->get_error_message() . ' ' . __( 'Generate new keys at https://api.wordpress.org/secret-key/1.1/salt/ and replace them in wp-config.php.', 'grs-security' )
+					: __( 'Generates new random keys and writes them to wp-config.php with a syntax check before saving. All users, including you, will be logged out. Compatible GRS plugins (such as GRS SMTP 1.0.1 or later) automatically update their encrypted data; other plugins that encrypt data with the site keys may require you to re-enter passwords or API keys.', 'grs-security' ),
 			)
 		);
 	}
@@ -204,9 +204,9 @@ class Config_Checks {
 				array(
 					'id'       => 'config_perms',
 					'category' => 'config',
-					'title'    => __( 'Permessi di wp-config.php', 'grs-security' ),
+					'title'    => __( 'wp-config.php permissions', 'grs-security' ),
 					'status'   => 'unknown',
-					'message'  => __( 'wp-config.php non trovato nelle posizioni standard.', 'grs-security' ),
+					'message'  => __( 'wp-config.php not found in the standard locations.', 'grs-security' ),
 				)
 			);
 		}
@@ -216,13 +216,13 @@ class Config_Checks {
 			array(
 				'id'           => 'config_perms',
 				'category'     => 'config',
-				'title'        => __( 'Permessi di wp-config.php', 'grs-security' ),
+				'title'        => __( 'wp-config.php permissions', 'grs-security' ),
 				'status'       => $world ? 'critical' : 'ok',
 				'weight'       => 2,
-				/* translators: %s: permessi ottali */
-				'message'      => sprintf( __( 'Permessi attuali: %s.', 'grs-security' ), sprintf( '%04o', $perms ) ) . ( $world ? ' ' . __( 'Il file è scrivibile da altri utenti del server.', 'grs-security' ) : '' ),
+				/* translators: %s: octal permissions */
+				'message'      => sprintf( __( 'Current permissions: %s.', 'grs-security' ), sprintf( '%04o', $perms ) ) . ( $world ? ' ' . __( 'The file is writable by other users on the server.', 'grs-security' ) : '' ),
 				'fix'          => $world ? 'manual' : 'none',
-				'instructions' => __( 'Imposta i permessi di wp-config.php a 640 o 600 dal file manager dell\'hosting o via FTP. Se dopo la modifica il sito non si apre, torna a 644 e chiedi all\'hosting il valore corretto.', 'grs-security' ),
+				'instructions' => __( 'Set the wp-config.php permissions to 640 or 600 from the hosting file manager or via FTP. If the site does not load after the change, go back to 644 and ask the hosting for the correct value.', 'grs-security' ),
 			)
 		);
 	}
@@ -240,14 +240,14 @@ class Config_Checks {
 			array(
 				'id'           => 'https',
 				'category'     => 'config',
-				'title'        => __( 'Sito in HTTPS', 'grs-security' ),
+				'title'        => __( 'Site on HTTPS', 'grs-security' ),
 				'status'       => $ok ? 'ok' : 'critical',
 				'weight'       => 3,
 				'message'      => $ok
-					? __( 'Indirizzo del sito e di WordPress usano HTTPS.', 'grs-security' )
-					: __( 'Il sito non usa HTTPS: password e cookie di accesso viaggiano in chiaro.', 'grs-security' ),
+					? __( 'The site address and the WordPress address use HTTPS.', 'grs-security' )
+					: __( 'The site does not use HTTPS: passwords and login cookies travel unencrypted.', 'grs-security' ),
 				'fix'          => $ok ? 'none' : 'manual',
-				'instructions' => __( 'Attiva un certificato SSL (Let\'s Encrypt è gratuito su quasi tutti gli hosting), poi in Impostazioni > Generali cambia i due indirizzi in https:// e imposta il redirect da HTTP a HTTPS. Dopo il passaggio puoi attivare l\'header HSTS da qui.', 'grs-security' ),
+				'instructions' => __( 'Enable an SSL certificate (Let\'s Encrypt is free on almost every hosting), then in Settings > General change both addresses to https:// and set up the redirect from HTTP to HTTPS. After the switch you can enable the HSTS header from here.', 'grs-security' ),
 				'link'         => admin_url( 'options-general.php' ),
 			)
 		);
@@ -276,16 +276,16 @@ class Config_Checks {
 			array(
 				'id'           => 'app_passwords',
 				'category'     => 'config',
-				'title'        => __( 'Application Passwords solo se servono', 'grs-security' ),
+				'title'        => __( 'Application Passwords only if needed', 'grs-security' ),
 				'status'       => ( ! $available || $in_use ) ? 'ok' : 'warning',
 				'weight'       => 1,
 				'message'      => $in_use
-					? __( 'Le Application Passwords sono usate da almeno un utente (app o integrazioni esterne): lasciale attive.', 'grs-security' )
-					: ( $available ? __( 'Le Application Passwords sono attive ma nessuno le usa: sono un accesso in più all\'API del sito.', 'grs-security' ) : __( 'Le Application Passwords sono disattivate.', 'grs-security' ) ),
+					? __( 'Application Passwords are used by at least one user (apps or external integrations): leave them enabled.', 'grs-security' )
+					: ( $available ? __( 'Application Passwords are enabled but nobody uses them: they are an extra way into the site API.', 'grs-security' ) : __( 'Application Passwords are disabled.', 'grs-security' ) ),
 				'fix'          => $in_use ? 'none' : 'auto',
 				'fix_applied'  => $applied,
 				'recommended'  => ! $in_use && $available,
-				'instructions' => __( 'Disattiva le Application Passwords. Riattivale se colleghi app mobili, Zapier o altri servizi che le richiedono.', 'grs-security' ),
+				'instructions' => __( 'Disables Application Passwords. Re-enable them if you connect mobile apps, Zapier or other services that need them.', 'grs-security' ),
 			)
 		);
 	}
@@ -310,18 +310,18 @@ class Config_Checks {
 			array(
 				'id'           => 'core_auto_updates',
 				'category'     => 'config',
-				'title'        => __( 'Aggiornamenti di sicurezza automatici del core', 'grs-security' ),
+				'title'        => __( 'Automatic core security updates', 'grs-security' ),
 				'status'       => $ok ? 'ok' : 'warning',
 				'weight'       => 2,
 				'message'      => $ok
-					? __( 'WordPress installa da solo gli aggiornamenti minori (di sicurezza).', 'grs-security' )
-					: ( $disabled_all ? __( 'Tutti gli aggiornamenti automatici sono disattivati (AUTOMATIC_UPDATER_DISABLED o DISALLOW_FILE_MODS).', 'grs-security' ) : __( 'Gli aggiornamenti automatici minori del core sono disattivati.', 'grs-security' ) ),
+					? __( 'WordPress installs minor (security) updates on its own.', 'grs-security' )
+					: ( $disabled_all ? __( 'All automatic updates are disabled (AUTOMATIC_UPDATER_DISABLED or DISALLOW_FILE_MODS).', 'grs-security' ) : __( 'Automatic minor core updates are disabled.', 'grs-security' ) ),
 				'fix'          => $disabled_all ? 'manual' : ( $ok && ! $applied ? 'none' : 'auto' ),
 				'fix_applied'  => $applied,
 				'recommended'  => ! $ok && ! $disabled_all,
 				'instructions' => $disabled_all
-					? __( 'Rimuovi da wp-config.php AUTOMATIC_UPDATER_DISABLED (o DISALLOW_FILE_MODS, se non serve), oppure assicurati di aggiornare WordPress a mano entro pochi giorni da ogni rilascio.', 'grs-security' )
-					: __( 'Riattiva gli aggiornamenti automatici minori del core (es. 7.1.2 → 7.1.3), che contengono le correzioni di sicurezza.', 'grs-security' ),
+					? __( 'Remove AUTOMATIC_UPDATER_DISABLED (or DISALLOW_FILE_MODS, if not needed) from wp-config.php, or make sure you update WordPress manually within a few days of each release.', 'grs-security' )
+					: __( 'Re-enables automatic minor core updates (e.g. 7.1.2 → 7.1.3), which contain the security fixes.', 'grs-security' ),
 			)
 		);
 	}
@@ -342,15 +342,15 @@ class Config_Checks {
 			array(
 				'id'           => 'backup',
 				'category'     => 'config',
-				'title'        => __( 'Backup del sito', 'grs-security' ),
+				'title'        => __( 'Site backup', 'grs-security' ),
 				'status'       => $found ? 'ok' : 'warning',
 				'weight'       => 2,
 				'message'      => $found
 					/* translators: %s: plugin */
-					? sprintf( __( 'Plugin di backup attivo: %s. Verifica che i backup vengano salvati fuori dal server (cloud, storage esterno).', 'grs-security' ), implode( ', ', $found ) )
-					: __( 'Nessun plugin di backup riconosciuto. Se l\'hosting esegue già backup giornalieri, puoi ignorare questo controllo.', 'grs-security' ),
+					? sprintf( __( 'Backup plugin active: %s. Make sure backups are stored off the server (cloud, external storage).', 'grs-security' ), implode( ', ', $found ) )
+					: __( 'No known backup plugin. If the hosting already runs daily backups, you can ignore this check.', 'grs-security' ),
 				'fix'          => $found ? 'none' : 'manual',
-				'instructions' => __( 'Il backup è l\'unica protezione che funziona sempre. Verifica con l\'hosting se fa backup giornalieri conservati almeno 14 giorni, oppure installa un plugin come UpdraftPlus con salvataggio su cloud. Prova almeno una volta il ripristino.', 'grs-security' ),
+				'instructions' => __( 'Backups are the only protection that always works. Check with the hosting whether it runs daily backups kept for at least 14 days, or install a plugin such as UpdraftPlus saving to the cloud. Test a restore at least once.', 'grs-security' ),
 			)
 		);
 	}
@@ -367,12 +367,12 @@ class Config_Checks {
 			array(
 				'id'       => 'db_prefix',
 				'category' => 'config',
-				'title'    => __( 'Prefisso delle tabelle del database', 'grs-security' ),
+				'title'    => __( 'Database table prefix', 'grs-security' ),
 				'status'   => 'info',
 				'optional' => true,
 				'message'  => $default
-					? __( 'Il prefisso è quello predefinito "wp_". Cambiarlo su un sito esistente è rischioso e porta un beneficio minimo: non serve intervenire.', 'grs-security' )
-					: __( 'Il prefisso delle tabelle non è quello predefinito.', 'grs-security' ),
+					? __( 'The prefix is the default "wp_". Changing it on an existing site is risky and brings little benefit: no action needed.', 'grs-security' )
+					: __( 'The table prefix is not the default one.', 'grs-security' ),
 			)
 		);
 	}

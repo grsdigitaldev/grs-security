@@ -49,9 +49,9 @@ class Two_Factor {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- solo messaggio informativo.
 		$state = isset( $_GET['grs_2fa'] ) ? sanitize_key( wp_unslash( $_GET['grs_2fa'] ) ) : '';
 		if ( 'expired' === $state ) {
-			$errors->add( 'grs_2fa_expired', __( 'La verifica in due passaggi è scaduta: accedi di nuovo.', 'grs-security' ) );
+			$errors->add( 'grs_2fa_expired', __( 'Two-step verification has expired: log in again.', 'grs-security' ) );
 		} elseif ( 'too_many' === $state ) {
-			$errors->add( 'grs_2fa_too_many', __( 'Troppi codici non validi: accedi di nuovo.', 'grs-security' ) );
+			$errors->add( 'grs_2fa_too_many', __( 'Too many invalid codes: log in again.', 'grs-security' ) );
 		}
 		return $errors;
 	}
@@ -100,10 +100,10 @@ class Two_Factor {
 			return $user;
 		}
 		if ( ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
-			return new \WP_Error( 'grs_security_2fa_required', __( 'Questo account usa la verifica in due passaggi: per le app usa una Application Password.', 'grs-security' ) );
+			return new \WP_Error( 'grs_security_2fa_required', __( 'This account uses two-step verification: for apps use an Application Password.', 'grs-security' ) );
 		}
 		if ( wp_doing_ajax() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
-			return new \WP_Error( 'grs_security_2fa_required', __( 'Questo account usa la verifica in due passaggi: accedi dalla pagina di login del sito.', 'grs-security' ) );
+			return new \WP_Error( 'grs_security_2fa_required', __( 'This account uses two-step verification: log in from the site login page.', 'grs-security' ) );
 		}
 
 		// phpcs:disable WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Recommended -- il form di login core non ha nonce; leggiamo solo preferenze di redirect.
@@ -201,7 +201,7 @@ class Two_Factor {
 		$method = isset( $_SERVER['REQUEST_METHOD'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) : '';
 		if ( 'POST' === $method ) {
 			if ( ! isset( $_POST['_grs_2fa_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_grs_2fa_nonce'] ) ), 'grs_security_2fa_' . $user_id ) ) {
-				$errors->add( 'nonce', __( 'Sessione scaduta, inserisci di nuovo il codice.', 'grs-security' ) );
+				$errors->add( 'nonce', __( 'Session expired, enter the code again.', 'grs-security' ) );
 			} elseif ( Settings::fix_enabled( 'login_guard' ) && Login_Guard::locked_remaining( Ip::current() ) > 0 && ! Ip::is_whitelisted( Ip::current() ) ) {
 				delete_user_meta( $user_id, self::META_LOGIN );
 				wp_safe_redirect( wp_login_url() );
@@ -216,7 +216,7 @@ class Two_Factor {
 				Logger::log(
 					'2fa_failed',
 					'warning',
-					__( 'Codice di verifica in due passaggi non valido.', 'grs-security' ),
+					__( 'Invalid two-step verification code.', 'grs-security' ),
 					array(
 						'user_id'  => $user->ID,
 						'username' => $user->user_login,
@@ -228,7 +228,7 @@ class Two_Factor {
 					exit;
 				}
 				update_user_meta( $user_id, self::META_LOGIN, $data );
-				$errors->add( 'invalid_code', __( 'Codice non valido. Controlla l\'ora del telefono e riprova.', 'grs-security' ) );
+				$errors->add( 'invalid_code', __( 'Invalid code. Check the phone time and try again.', 'grs-security' ) );
 			}
 		}
 
@@ -256,8 +256,8 @@ class Two_Factor {
 			Logger::log(
 				'2fa_recovery_used',
 				'warning',
-				/* translators: %d: codici rimasti */
-				sprintf( __( 'Accesso con un codice di recupero (ne restano %d).', 'grs-security' ), $left ),
+				/* translators: %d: codes left */
+				sprintf( __( 'Login with a recovery code (%d left).', 'grs-security' ), $left ),
 				array(
 					'user_id'  => $user->ID,
 					'username' => $user->user_login,
@@ -300,21 +300,21 @@ class Two_Factor {
 	 */
 	private static function render_form( $user_id, $token, $errors ) {
 		if ( function_exists( 'login_header' ) ) {
-			login_header( __( 'Verifica in due passaggi', 'grs-security' ), '', $errors );
+			login_header( __( 'Two-step verification', 'grs-security' ), '', $errors );
 		}
 		?>
 		<form name="grs_2fa_form" id="loginform" action="<?php echo esc_url( self::form_url( $user_id, $token ) ); ?>" method="post" autocomplete="off">
-			<p><?php esc_html_e( 'Apri l\'app di autenticazione e inserisci il codice di 6 cifre. Se non hai il telefono, usa uno dei codici di recupero.', 'grs-security' ); ?></p>
+			<p><?php esc_html_e( 'Open the authenticator app and enter the 6-digit code. If you don\'t have your phone, use one of the recovery codes.', 'grs-security' ); ?></p>
 			<p>
-				<label for="grs_2fa_code"><?php esc_html_e( 'Codice di verifica', 'grs-security' ); ?></label>
+				<label for="grs_2fa_code"><?php esc_html_e( 'Verification code', 'grs-security' ); ?></label>
 				<input type="text" name="grs_2fa_code" id="grs_2fa_code" class="input" value="" size="20" autocomplete="one-time-code" inputmode="text" autofocus required />
 			</p>
 			<?php wp_nonce_field( 'grs_security_2fa_' . $user_id, '_grs_2fa_nonce' ); ?>
 			<p class="submit">
-				<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e( 'Verifica', 'grs-security' ); ?>" />
+				<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e( 'Verify', 'grs-security' ); ?>" />
 			</p>
 		</form>
-		<p id="nav"><a href="<?php echo esc_url( wp_login_url() ); ?>"><?php esc_html_e( 'Torna al login', 'grs-security' ); ?></a></p>
+		<p id="nav"><a href="<?php echo esc_url( wp_login_url() ); ?>"><?php esc_html_e( 'Back to login', 'grs-security' ); ?></a></p>
 		<?php
 		if ( function_exists( 'login_footer' ) ) {
 			login_footer( 'grs_2fa_code' );
@@ -380,7 +380,7 @@ class Two_Factor {
 		Logger::log(
 			'2fa_enabled',
 			'info',
-			__( 'Verifica in due passaggi attivata.', 'grs-security' ),
+			__( 'Two-step verification enabled.', 'grs-security' ),
 			array(
 				'user_id'  => $user_id,
 				'username' => $user ? $user->user_login : '',
@@ -406,9 +406,9 @@ class Two_Factor {
 			'2fa_disabled',
 			'warning',
 			'admin' === $by
-				/* translators: %s: amministratore */
-				? sprintf( __( 'Verifica in due passaggi azzerata da %s.', 'grs-security' ), $actor->user_login )
-				: __( 'Verifica in due passaggi disattivata dall\'utente.', 'grs-security' ),
+				/* translators: %s: administrator */
+				? sprintf( __( 'Two-step verification reset by %s.', 'grs-security' ), $actor->user_login )
+				: __( 'Two-step verification disabled by the user.', 'grs-security' ),
 			array(
 				'user_id'  => $user_id,
 				'username' => $user ? $user->user_login : '',

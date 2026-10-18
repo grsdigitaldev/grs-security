@@ -2,6 +2,22 @@
 
 Tutte le modifiche rilevanti a questo plugin. Formato [Keep a Changelog](https://keepachangelog.com/it/1.1.0/), versioni [SemVer](https://semver.org/lang/it/).
 
+## [1.3.0] - 2026-10-18
+
+### Aggiunto
+- Traduzione italiana inclusa (`languages/grs-security-it_IT.po`, `.mo`, `.l10n.php`) e modello `grs-security.pot` aggiornato (432 testi) per Loco Translate e WPML.
+- Componente condiviso GRS i18n 1.0.0 (`includes/grs-i18n/`), incluso per standard: GRS Security non ha testi delle impostazioni mostrati ai visitatori, quindi non registra testi nel ponte.
+- Filtro `grs_security_firewall_text` per cambiare i testi della pagina di blocco e del registro del firewall.
+
+### Modificato
+- Testi del codice in inglese (lingua base), con l'italiano originale come traduzione it_IT: sui siti in italiano l'interfaccia resta identica; un amministratore con il profilo in un'altra lingua vede il plugin in inglese o nella sua lingua.
+- Pagina di login, verifica in due passaggi, messaggi di blocco dei tentativi: nella lingua della richiesta (WPML/Polylang).
+- Email di avviso e del nuovo indirizzo di login nella lingua del destinatario (lingua del profilo se l'indirizzo è di un utente registrato, altrimenti lingua del sito).
+- Firewall: pagina di blocco, righe del registro e nomi delle regole in italiano o inglese secondo la lingua del sito (gira prima del caricamento delle traduzioni).
+- Analisi: salva la lingua in cui è stata eseguita e viene rifatta se la apre un amministratore con un'altra lingua. Il registro attività resta nella lingua in cui è stato scritto ogni evento.
+- Date nel formato del sito (Impostazioni > Generali) invece di `d/m/Y`.
+- Commento del blocco `.htaccess` in inglese.
+
 ## [1.2.0] - 2026-10-17
 
 ### Modificato

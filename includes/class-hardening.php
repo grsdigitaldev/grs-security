@@ -226,7 +226,7 @@ class Hardening {
 		if ( array_intersect( $codes, array( 'invalid_username', 'invalid_email', 'incorrect_password' ) ) ) {
 			return new \WP_Error(
 				'grs_security_invalid_credentials',
-				'<strong>' . esc_html__( 'Errore:', 'grs-security' ) . '</strong> ' . esc_html__( 'nome utente, email o password non corretti.', 'grs-security' )
+				'<strong>' . esc_html__( 'Error:', 'grs-security' ) . '</strong> ' . esc_html__( 'incorrect username, email or password.', 'grs-security' )
 			);
 		}
 		return $user;

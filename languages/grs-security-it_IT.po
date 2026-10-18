@@ -1,0 +1,2485 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: GRS Security 1.3.0\n"
+"Report-Msgid-Bugs-To: info@grsdigital.it\n"
+"POT-Creation-Date: 2026-10-18T06:03:05+00:00\n"
+"PO-Revision-Date: 2026-10-18 10:00+0200\n"
+"Last-Translator: GRS Digital <info@grsdigital.it>\n"
+"Language-Team: GRS Digital <info@grsdigital.it>\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: grs-security\n"
+"X-Generator: WP-CLI 2.12.0\n"
+
+#. Plugin Name of the plugin
+#: grs-security.php
+msgid "GRS Security"
+msgstr "GRS Security"
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: grs-security.php
+msgid "https://grsdigital.it"
+msgstr "https://grsdigital.it"
+
+#. Description of the plugin
+#: grs-security.php
+msgid ""
+"Analyzes site security, applies the recommended fixes in one click and "
+"protects logins, users and files."
+msgstr ""
+"Analizza la sicurezza del sito, applica con un clic le correzioni "
+"consigliate e protegge login, utenti e file."
+
+#. Author of the plugin
+#: grs-security.php
+msgid "GRS Digital"
+msgstr "GRS Digital"
+
+#: grs-security.php:32
+msgid "GRS Security requires PHP 7.4 or higher."
+msgstr "GRS Security richiede PHP 7.4 o superiore."
+
+#: includes/admin/class-admin.php:80
+msgid ""
+"Security analysis, one-click fixes, login protection, two-step verification,"
+" firewall and file monitoring."
+msgstr ""
+"Analisi della sicurezza, correzioni con un clic, protezione del login, "
+"verifica in due passaggi, firewall e controllo dei file."
+
+#: includes/admin/class-admin.php:115
+msgid "Security"
+msgstr "Security"
+
+#: includes/admin/class-admin.php:134
+msgid ""
+"The security keys will be regenerated and all users, including you, will be "
+"logged out. Compatible GRS plugins (such as GRS SMTP) automatically update "
+"their encrypted data. Continue?"
+msgstr ""
+"Le chiavi di sicurezza verranno rigenerate e tutti gli utenti, tu compreso, "
+"verranno disconnessi. I plugin GRS compatibili (come GRS SMTP) aggiornano "
+"automaticamente i propri dati cifrati. Continuare?"
+
+#: includes/admin/class-admin.php:135
+msgid "Do you want to undo this fix?"
+msgstr "Vuoi annullare questa correzione?"
+
+#: includes/admin/class-admin.php:148 includes/admin/class-pages.php:63
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: includes/admin/class-admin.php:178
+msgid "You are not allowed to perform this action."
+msgstr "Non hai i permessi per questa azione."
+
+#: includes/admin/class-admin.php:240
+msgid "Analysis completed."
+msgstr "Analisi completata."
+
+#: includes/admin/class-admin.php:267
+msgid "Fix undone."
+msgstr "Correzione annullata."
+
+#: includes/admin/class-admin.php:267
+msgid "Fix applied."
+msgstr "Correzione applicata."
+
+#: includes/admin/class-admin.php:284
+msgid "No fix selected."
+msgstr "Nessuna correzione selezionata."
+
+#. translators: %d: number of fixes
+#: includes/admin/class-admin.php:290
+msgid "%d fix applied."
+msgid_plural "%d fixes applied."
+msgstr[0] "%d correzione applicata."
+msgstr[1] "%d correzioni applicate."
+
+#: includes/admin/class-admin.php:370
+msgid ""
+"Invalid login address: use at least 4 characters (letters, numbers, hyphens)"
+" and avoid words such as login, admin, dashboard."
+msgstr ""
+"Indirizzo di login non valido: usa almeno 4 caratteri (lettere, numeri, "
+"trattini) ed evita parole come login, admin, dashboard."
+
+#: includes/admin/class-admin.php:372
+msgid "To move the login page, enter the new address."
+msgstr "Per spostare il login indica il nuovo indirizzo."
+
+#: includes/admin/class-admin.php:375
+msgid "A page with this address already exists: choose another one."
+msgstr "Esiste già una pagina con questo indirizzo: scegline un altro."
+
+#: includes/admin/class-admin.php:405
+msgid "Settings saved."
+msgstr "Impostazioni salvate."
+
+#. translators: %s: URL
+#: includes/admin/class-admin.php:410
+msgid ""
+"From now on the login page is %s: bookmark it. The new address has also been"
+" sent by email."
+msgstr ""
+"Da ora la pagina di accesso è %s: salvala nei preferiti. Il nuovo indirizzo "
+"è stato inviato anche via email."
+
+#: includes/admin/class-admin.php:429
+msgid ""
+"Check started: it continues in the background, reload the page in a few "
+"minutes."
+msgstr ""
+"Controllo avviato: prosegue in background, ricarica la pagina tra qualche "
+"minuto."
+
+#: includes/admin/class-admin.php:430
+msgid "File check completed."
+msgstr "Controllo dei file completato."
+
+#: includes/admin/class-admin.php:453
+msgid "File ignored: it will be reported again only if it changes."
+msgstr "File ignorato: verrà segnalato di nuovo solo se cambia."
+
+#. translators: %s: IP
+#: includes/admin/class-admin.php:494
+msgid "IP %s unblocked."
+msgstr "IP %s sbloccato."
+
+#: includes/admin/class-admin.php:506
+#: includes/checks/class-protection-checks.php:52
+msgid "Login attempt limit"
+msgstr "Limite ai tentativi di accesso"
+
+#: includes/admin/class-admin.php:507
+msgid "Mandatory two-step verification for the selected roles"
+msgstr "Verifica in due passaggi obbligatoria per i ruoli scelti"
+
+#: includes/admin/class-admin.php:508
+#: includes/checks/class-exposure-checks.php:217
+msgid "Generic login errors"
+msgstr "Errori di login generici"
+
+#: includes/admin/class-admin.php:509
+msgid "Block the plugin and theme file editor"
+msgstr "Blocca l'editor di file di plugin e temi"
+
+#: includes/admin/class-admin.php:510
+msgid "Disable XML-RPC"
+msgstr "Disattiva XML-RPC"
+
+#: includes/admin/class-admin.php:511
+msgid "Block the public list of usernames"
+msgstr "Blocca l'elenco pubblico dei nomi utente"
+
+#: includes/admin/class-admin.php:512
+msgid "Disable Application Passwords"
+msgstr "Disattiva le Application Passwords"
+
+#: includes/admin/class-admin.php:513
+#: includes/checks/class-exposure-checks.php:160
+msgid "Security HTTP headers"
+msgstr "Header HTTP di sicurezza"
+
+#: includes/admin/class-admin.php:514
+msgid "HSTS (HTTPS-only sites)"
+msgstr "HSTS (solo siti interamente in HTTPS)"
+
+#: includes/admin/class-admin.php:515
+msgid "Hide the WordPress version"
+msgstr "Nascondi la versione di WordPress"
+
+#: includes/admin/class-admin.php:516
+msgid "Force automatic minor core updates"
+msgstr "Forza gli aggiornamenti automatici minori del core"
+
+#: includes/admin/class-admin.php:517
+msgid "Block PHP in the uploads folder (.htaccess)"
+msgstr "Blocca PHP nella cartella uploads (.htaccess)"
+
+#: includes/admin/class-admin.php:518
+msgid "Block sensitive files, logs and backups (.htaccess)"
+msgstr "Blocca file sensibili, log e backup (.htaccess)"
+
+#: includes/admin/class-admin.php:519
+msgid "Disable folder file listing (.htaccess)"
+msgstr "Disattiva l'elenco dei file delle cartelle (.htaccess)"
+
+#: includes/admin/class-admin.php:520
+#: includes/checks/class-protection-checks.php:115
+msgid "Application firewall"
+msgstr "Firewall applicativo"
+
+#: includes/admin/class-admin.php:521
+msgid "Daily file integrity check"
+msgstr "Controllo giornaliero dell'integrità dei file"
+
+#: includes/admin/class-admin.php:522
+msgid "Move the login page"
+msgstr "Sposta la pagina di login"
+
+#: includes/admin/class-pages.php:34
+msgid "OK"
+msgstr "OK"
+
+#: includes/admin/class-pages.php:35
+msgid "Needs improvement"
+msgstr "Da migliorare"
+
+#: includes/admin/class-pages.php:36 includes/admin/class-pages.php:366
+msgid "Critical"
+msgstr "Critico"
+
+#: includes/admin/class-pages.php:37 includes/admin/class-pages.php:364
+msgid "Info"
+msgstr "Info"
+
+#: includes/admin/class-pages.php:38
+msgid "Cannot be verified"
+msgstr "Non verificabile"
+
+#: includes/admin/class-pages.php:60
+msgid "Analysis"
+msgstr "Analisi"
+
+#: includes/admin/class-pages.php:61 includes/admin/class-pages.php:369
+msgid "Activity log"
+msgstr "Registro attività"
+
+#: includes/admin/class-pages.php:62 includes/admin/class-pages.php:454
+msgid "File integrity"
+msgstr "Integrità file"
+
+#: includes/admin/class-pages.php:110
+msgid "Site analysis, fixes and protections."
+msgstr "Analisi, correzioni e protezioni del sito."
+
+#: includes/admin/class-pages.php:115
+msgid "GRS Security sections"
+msgstr "Sezioni di GRS Security"
+
+#: includes/admin/class-pages.php:168
+msgid "The site is well protected."
+msgstr "Il sito è ben protetto."
+
+#: includes/admin/class-pages.php:169
+msgid "A good base, with a few points to improve."
+msgstr "Buona base, con alcuni punti da migliorare."
+
+#: includes/admin/class-pages.php:170
+msgid "There are important actions to take."
+msgstr "Ci sono interventi importanti da fare."
+
+#: includes/admin/class-pages.php:173
+msgid "GRS Security: analysis and fixes"
+msgstr "GRS Security: analisi e correzioni"
+
+#. translators: %d: score
+#: includes/admin/class-pages.php:176
+msgid "Security score: %d out of 100"
+msgstr "Punteggio di sicurezza: %d su 100"
+
+#: includes/admin/class-pages.php:178
+msgid "out of 100"
+msgstr "su 100"
+
+#. translators: %d: number
+#: includes/admin/class-pages.php:187
+msgid "%d critical"
+msgid_plural "%d critical"
+msgstr[0] "%d critico"
+msgstr[1] "%d critici"
+
+#. translators: %d: number
+#: includes/admin/class-pages.php:195
+msgid "%d to improve"
+msgid_plural "%d to improve"
+msgstr[0] "%d da migliorare"
+msgstr[1] "%d da migliorare"
+
+#. translators: %d: number
+#: includes/admin/class-pages.php:202
+msgid "%d OK"
+msgid_plural "%d OK"
+msgstr[0] "%d OK"
+msgstr[1] "%d OK"
+
+#. translators: %s: date and time
+#: includes/admin/class-pages.php:209
+msgid "Last analysis: %s."
+msgstr "Ultima analisi: %s."
+
+#: includes/admin/class-pages.php:213
+msgid ""
+"Some checks require a request from the site to itself, which the hosting did"
+" not allow: those checks are marked \"cannot be verified\"."
+msgstr ""
+"Alcuni controlli richiedono una richiesta del sito verso sé stesso, che "
+"l'hosting non ha permesso: quei controlli risultano \"non verificabili\"."
+
+#: includes/admin/class-pages.php:217
+msgid "Analyze again"
+msgstr "Analizza di nuovo"
+
+#: includes/admin/class-pages.php:226
+msgid "Welcome to GRS Security"
+msgstr "Benvenuto in GRS Security"
+
+#: includes/admin/class-pages.php:227
+msgid ""
+"We analyzed the site. The fixes we can apply automatically are already "
+"selected below: review them and click \"Apply selected fixes\". Each one can"
+" be undone at any time, and deactivating the plugin restores the site as it "
+"was."
+msgstr ""
+"Abbiamo analizzato il sito. Le correzioni che possiamo applicare in "
+"automatico sono già selezionate qui sotto: controllale e premi \"Applica le "
+"correzioni selezionate\". Ognuna si può annullare in qualsiasi momento, e "
+"disattivando il plugin il sito torna com'era."
+
+#: includes/admin/class-pages.php:228
+msgid ""
+"Items marked \"Instructions\" require manual action: open them to see what "
+"to do."
+msgstr ""
+"Le voci con \"Istruzioni\" richiedono un intervento manuale: aprile per "
+"sapere cosa fare."
+
+#: includes/admin/class-pages.php:233 includes/admin/class-pages.php:271
+msgid "Apply selected fixes"
+msgstr "Applica le correzioni selezionate"
+
+#: includes/admin/class-pages.php:235
+msgid "Skip, I'll decide later"
+msgstr "Salta, decido dopo"
+
+#. translators: %d: number
+#: includes/admin/class-pages.php:259
+msgid "%d to fix"
+msgid_plural "%d to fix"
+msgstr[0] "%d da sistemare"
+msgstr[1] "%d da sistemare"
+
+#: includes/admin/class-pages.php:261
+msgid "All good"
+msgstr "Tutto a posto"
+
+#: includes/admin/class-pages.php:303
+msgid "Ignored"
+msgstr "Ignorato"
+
+#: includes/admin/class-pages.php:307
+msgid "optional"
+msgstr "facoltativo"
+
+#: includes/admin/class-pages.php:310
+msgid "enabled by GRS Security"
+msgstr "attivo da GRS Security"
+
+#: includes/admin/class-pages.php:315
+msgid "Instructions"
+msgstr "Istruzioni"
+
+#: includes/admin/class-pages.php:315
+msgid "What the fix does"
+msgstr "Cosa fa la correzione"
+
+#: includes/admin/class-pages.php:322
+msgid "Regenerate"
+msgstr "Rigenera"
+
+#: includes/admin/class-pages.php:322
+msgid "Fix"
+msgstr "Correggi"
+
+#: includes/admin/class-pages.php:324
+msgid "Configure"
+msgstr "Configura"
+
+#: includes/admin/class-pages.php:327
+msgid "Undo"
+msgstr "Annulla"
+
+#: includes/admin/class-pages.php:330
+msgid "Open"
+msgstr "Apri"
+
+#: includes/admin/class-pages.php:333
+msgid "Restore"
+msgstr "Ripristina"
+
+#: includes/admin/class-pages.php:333
+msgid "Ignore"
+msgstr "Ignora"
+
+#: includes/admin/class-pages.php:365
+msgid "Warning"
+msgstr "Attenzione"
+
+#: includes/admin/class-pages.php:375
+msgid "All severities"
+msgstr "Tutte le gravità"
+
+#: includes/admin/class-pages.php:381
+msgid "All events"
+msgstr "Tutti gli eventi"
+
+#: includes/admin/class-pages.php:386
+msgid "Filter"
+msgstr "Filtra"
+
+#: includes/admin/class-pages.php:390 includes/class-privacy.php:99
+msgid "Date"
+msgstr "Data"
+
+#: includes/admin/class-pages.php:391
+msgid "Severity"
+msgstr "Gravità"
+
+#: includes/admin/class-pages.php:392 includes/class-privacy.php:103
+msgid "Event"
+msgstr "Evento"
+
+#: includes/admin/class-pages.php:393
+msgid "User"
+msgstr "Utente"
+
+#: includes/admin/class-pages.php:394 includes/class-privacy.php:107
+msgid "IP"
+msgstr "IP"
+
+#: includes/admin/class-pages.php:398
+msgid "No events logged."
+msgstr "Nessun evento registrato."
+
+#. translators: %d: days
+#: includes/admin/class-pages.php:429
+msgid "Events are kept for %d days."
+msgstr "Gli eventi vengono conservati per %d giorni."
+
+#: includes/admin/class-pages.php:445
+msgid "Core file modified"
+msgstr "File del core modificato"
+
+#: includes/admin/class-pages.php:446
+msgid "Core file missing"
+msgstr "File del core mancante"
+
+#: includes/admin/class-pages.php:447
+msgid "Unknown PHP file in wp-admin or wp-includes"
+msgstr "File PHP sconosciuto in wp-admin o wp-includes"
+
+#: includes/admin/class-pages.php:448
+msgid "Plugin file modified compared to wordpress.org"
+msgstr "File di plugin modificato rispetto a wordpress.org"
+
+#: includes/admin/class-pages.php:449
+msgid "PHP file added to a plugin"
+msgstr "File PHP aggiunto in un plugin"
+
+#: includes/admin/class-pages.php:450
+msgid "PHP file in the uploads folder"
+msgstr "File PHP nella cartella uploads"
+
+#: includes/admin/class-pages.php:451
+msgid "Unknown PHP file in the root folder"
+msgstr "File PHP sconosciuto nella cartella principale"
+
+#: includes/admin/class-pages.php:456
+msgid ""
+"The check compares WordPress files and wordpress.org plugins with the "
+"official versions, looks for PHP files in uploads and unknown files in the "
+"root folder. Commercial or custom plugins have no public checksums and are "
+"marked \"cannot be verified\"."
+msgstr ""
+"Il controllo confronta i file di WordPress e dei plugin di wordpress.org con"
+" le versioni ufficiali, cerca file PHP dentro uploads e file estranei nella "
+"cartella principale. I plugin commerciali o personalizzati non hanno "
+"checksum pubblici e risultano \"non verificabili\"."
+
+#: includes/admin/class-pages.php:458
+msgid ""
+"The automatic daily check is off: enable it from the Analysis or Settings "
+"tab."
+msgstr ""
+"Il controllo giornaliero automatico è spento: attivalo dalla scheda Analisi "
+"o Impostazioni."
+
+#: includes/admin/class-pages.php:462
+msgid "Check files now"
+msgstr "Controlla i file ora"
+
+#. translators: 1: completed items, 2: total
+#: includes/admin/class-pages.php:467
+msgid "Check in progress: %1$d of %2$d items."
+msgstr "Controllo in corso: %1$d di %2$d elementi."
+
+#: includes/admin/class-pages.php:474
+msgid "No check run yet."
+msgstr "Nessun controllo eseguito finora."
+
+#. translators: %s: date
+#: includes/admin/class-pages.php:479
+msgid "Last check: %s"
+msgstr "Ultimo controllo: %s"
+
+#: includes/admin/class-pages.php:487
+msgid "No anomalies found."
+msgstr "Nessuna anomalia trovata."
+
+#: includes/admin/class-pages.php:489
+msgid "Type"
+msgstr "Tipo"
+
+#: includes/admin/class-pages.php:489
+msgid "File"
+msgstr "File"
+
+#: includes/admin/class-pages.php:497
+msgid "Ignore (known file)"
+msgstr "Ignora (file conosciuto)"
+
+#: includes/admin/class-pages.php:502
+msgid ""
+"What to do: modified or missing core files are fixed with Dashboard > "
+"Updates > Reinstall. For plugins, reinstall the same version from the "
+"official zip. An unknown PHP file, especially in uploads, is often a sign of"
+" a compromise: back up before deleting it and, if you don't know what it is,"
+" have the case assessed."
+msgstr ""
+"Cosa fare: file del core modificati o mancanti si sistemano con Bacheca > "
+"Aggiornamenti > Reinstalla. Per i plugin, reinstalla la stessa versione "
+"dallo zip ufficiale. Un file PHP sconosciuto, soprattutto in uploads, è "
+"spesso il segno di una compromissione: prima di eliminarlo fai un backup e, "
+"se non sai cos'è, fai valutare il caso."
+
+#: includes/admin/class-pages.php:512
+msgid ""
+"Plugins that cannot be verified (not on wordpress.org or checksums not "
+"available):"
+msgstr ""
+"Plugin non verificabili (non presenti su wordpress.org o checksum non "
+"disponibili):"
+
+#: includes/admin/class-pages.php:531
+msgid "GRS Security settings"
+msgstr "Impostazioni GRS Security"
+
+#: includes/admin/class-pages.php:537
+msgid "Protections"
+msgstr "Protezioni"
+
+#: includes/admin/class-pages.php:538
+msgid ""
+"The same fixes offered in the Analysis tab. Unchecking a box removes the "
+"protection."
+msgstr ""
+"Le stesse correzioni proposte nella scheda Analisi. Togliendo la spunta la "
+"protezione viene rimossa."
+
+#: includes/admin/class-pages.php:540
+msgid ""
+"The server does not seem to use .htaccess files: the .htaccess items would "
+"have no effect."
+msgstr ""
+"Il server non sembra usare file .htaccess: le voci .htaccess non avrebbero "
+"effetto."
+
+#: includes/admin/class-pages.php:555
+msgid "XML-RPC mode"
+msgstr "Modalità XML-RPC"
+
+#: includes/admin/class-pages.php:557
+msgid "Disable completely (recommended)"
+msgstr "Disattiva del tutto (consigliato)"
+
+#: includes/admin/class-pages.php:558
+msgid "Block only pingbacks and multicall (for Jetpack or the WordPress app)"
+msgstr "Blocca solo pingback e multicall (per Jetpack o l'app WordPress)"
+
+#: includes/admin/class-pages.php:562
+msgid "Firewall mode"
+msgstr "Modalità firewall"
+
+#: includes/admin/class-pages.php:564
+msgid "Block suspicious requests"
+msgstr "Blocca le richieste sospette"
+
+#: includes/admin/class-pages.php:565
+msgid "Log only (useful in the first days to rule out false positives)"
+msgstr ""
+"Solo registrazione (utile i primi giorni per escludere falsi positivi)"
+
+#: includes/admin/class-pages.php:572
+msgid "Login"
+msgstr "Accesso"
+
+#: includes/admin/class-pages.php:575
+msgid "Attempts before blocking"
+msgstr "Tentativi prima del blocco"
+
+#: includes/admin/class-pages.php:577
+msgid "within"
+msgstr "entro"
+
+#: includes/admin/class-pages.php:578
+msgid "minutes"
+msgstr "minuti"
+
+#: includes/admin/class-pages.php:581
+msgid "First block duration"
+msgstr "Durata del primo blocco"
+
+#: includes/admin/class-pages.php:582
+msgid "minutes (doubles with each new block within 24 hours, up to 24 hours)"
+msgstr "minuti (raddoppia a ogni nuovo blocco nelle 24 ore, massimo 24 ore)"
+
+#: includes/admin/class-pages.php:585
+msgid "IP source"
+msgstr "Sorgente dell'IP"
+
+#: includes/admin/class-pages.php:594
+msgid ""
+"In brackets, the IP read in this request. Choose the source that shows your "
+"real IP. Use a proxy header only if the site really is behind that proxy."
+msgstr ""
+"Tra parentesi l'IP letto in questa richiesta. Scegli la sorgente che mostra "
+"il tuo vero IP. Usa un header di proxy solo se il sito è davvero dietro quel"
+" proxy."
+
+#: includes/admin/class-pages.php:598
+msgid "Trusted IPs"
+msgstr "IP fidati"
+
+#. translators: %s: IP
+#: includes/admin/class-pages.php:604
+msgid ""
+"One IP or CIDR range per line: they are never blocked or filtered by the "
+"firewall. Your current IP is %s."
+msgstr ""
+"Un IP o intervallo CIDR per riga: non vengono mai bloccati né filtrati dal "
+"firewall. Il tuo IP attuale è %s."
+
+#: includes/admin/class-pages.php:610 includes/admin/class-profile.php:76
+#: includes/admin/class-profile.php:172 includes/class-two-factor.php:303
+msgid "Two-step verification"
+msgstr "Verifica in due passaggi"
+
+#: includes/admin/class-pages.php:612
+msgid ""
+"Each user can enable it from their profile. Make it mandatory for these "
+"roles (with the \"Mandatory two-step verification\" protection enabled):"
+msgstr ""
+"Ogni utente può attivarla dal proprio profilo. Rendila obbligatoria per "
+"questi ruoli (con la protezione \"Verifica in due passaggi obbligatoria\" "
+"attiva):"
+
+#: includes/admin/class-pages.php:616
+msgid ""
+"Emergency (lost phone and recovery codes used up): add define( "
+"'GRS_SECURITY_DISABLE_2FA', true ); to wp-config.php, log in and reset the "
+"verification from the profile, then remove the line."
+msgstr ""
+"Emergenza (telefono perso e codici di recupero esauriti): aggiungi define( "
+"'GRS_SECURITY_DISABLE_2FA', true ); in wp-config.php, accedi e azzera la "
+"verifica dal profilo, poi rimuovi la riga."
+
+#: includes/admin/class-pages.php:620
+msgid "Login page"
+msgstr "Pagina di login"
+
+#: includes/admin/class-pages.php:622
+msgid "Move the login page to this address:"
+msgstr "Sposta la pagina di login su questo indirizzo:"
+
+#: includes/admin/class-pages.php:624
+msgid "e.g. private-access"
+msgstr "es. accesso-riservato"
+
+#: includes/admin/class-pages.php:625
+msgid ""
+"Optional. Once enabled, wp-login.php and wp-admin answer \"page not found\" "
+"to visitors who are not logged in, and you receive the new address by email."
+" Emergency: define( 'GRS_SECURITY_DISABLE_LOGIN_URL', true ); in wp-"
+"config.php. Not available on multisite."
+msgstr ""
+"Facoltativo. Dopo l'attivazione wp-login.php e wp-admin rispondono \"pagina "
+"non trovata\" ai visitatori non connessi e il nuovo indirizzo ti arriva via "
+"email. Emergenza: define( 'GRS_SECURITY_DISABLE_LOGIN_URL', true ); in wp-"
+"config.php. Non disponibile in multisite."
+
+#: includes/admin/class-pages.php:627
+msgid "Current address:"
+msgstr "Indirizzo attuale:"
+
+#: includes/admin/class-pages.php:635
+msgid "Alerts and log"
+msgstr "Avvisi e registro"
+
+#: includes/admin/class-pages.php:638
+msgid "Email alerts"
+msgstr "Avvisi email"
+
+#: includes/admin/class-pages.php:640
+msgid ""
+"Send an email for important events (new administrator, modified files, "
+"protections disabled...)"
+msgstr ""
+"Invia un'email per gli eventi importanti (nuovo amministratore, file "
+"modificati, protezioni disattivate...)"
+
+#: includes/admin/class-pages.php:642
+msgid "Empty = site administration email."
+msgstr "Vuoto = email di amministrazione del sito."
+
+#: includes/admin/class-pages.php:646
+msgid "Log retention"
+msgstr "Conservazione registro"
+
+#: includes/admin/class-pages.php:647
+msgid "days"
+msgstr "giorni"
+
+#: includes/admin/class-pages.php:650
+msgid "Uninstall"
+msgstr "Disinstallazione"
+
+#: includes/admin/class-pages.php:651
+msgid "Keep settings and log when the plugin is deleted"
+msgstr "Conserva impostazioni e registro quando il plugin viene eliminato"
+
+#: includes/admin/class-pages.php:655
+msgid "Save settings"
+msgstr "Salva le impostazioni"
+
+#: includes/admin/class-pages.php:659
+msgid "Currently blocked IPs"
+msgstr "IP bloccati ora"
+
+#: includes/admin/class-pages.php:663
+msgid "No blocked IPs."
+msgstr "Nessun IP bloccato."
+
+#: includes/admin/class-pages.php:665
+msgid "Last username tried"
+msgstr "Ultimo nome utente tentato"
+
+#: includes/admin/class-pages.php:665
+msgid "Blocked until"
+msgstr "Bloccato fino a"
+
+#: includes/admin/class-pages.php:670
+msgid "Unblock"
+msgstr "Sblocca"
+
+#: includes/admin/class-profile.php:64
+msgid "Two-step verification is mandatory."
+msgstr "Verifica in due passaggi obbligatoria."
+
+#: includes/admin/class-profile.php:64
+msgid ""
+"To keep using the dashboard, set up two-step verification in the section "
+"below."
+msgstr ""
+"Per continuare a usare la bacheca configura la verifica in due passaggi "
+"nella sezione qui sotto."
+
+#: includes/admin/class-profile.php:64
+msgid "Go to setup"
+msgstr "Vai alla configurazione"
+
+#: includes/admin/class-profile.php:79
+msgid ""
+"Two-step verification is temporarily disabled on the whole site "
+"(GRS_SECURITY_DISABLE_2FA constant)."
+msgstr ""
+"La verifica in due passaggi è temporaneamente disattivata su tutto il sito "
+"(costante GRS_SECURITY_DISABLE_2FA)."
+
+#: includes/admin/class-profile.php:92
+msgid "Save your recovery codes now."
+msgstr "Salva ora i codici di recupero."
+
+#: includes/admin/class-profile.php:92
+msgid ""
+"Each code works only once, instead of the app code, if you lose your phone. "
+"They will not be shown again."
+msgstr ""
+"Ogni codice funziona una sola volta, al posto del codice dell'app, se perdi "
+"il telefono. Non verranno mostrati di nuovo."
+
+#: includes/admin/class-profile.php:104
+msgid "Status"
+msgstr "Stato"
+
+#: includes/admin/class-profile.php:106
+msgid "Active"
+msgstr "Attiva"
+
+#. translators: %d: codes left
+#: includes/admin/class-profile.php:109
+msgid "You have %d recovery code left."
+msgid_plural "You have %d recovery codes left."
+msgstr[0] "Ti resta %d codice di recupero."
+msgstr[1] "Ti restano %d codici di recupero."
+
+#: includes/admin/class-profile.php:115
+msgid "Management"
+msgstr "Gestione"
+
+#: includes/admin/class-profile.php:118
+msgid "No change"
+msgstr "Nessuna modifica"
+
+#: includes/admin/class-profile.php:119
+msgid "Generate new recovery codes"
+msgstr "Genera nuovi codici di recupero"
+
+#: includes/admin/class-profile.php:121
+msgid "Disable two-step verification"
+msgstr "Disattiva la verifica in due passaggi"
+
+#: includes/admin/class-profile.php:124
+msgid "Current app code"
+msgstr "Codice attuale dell'app"
+
+#: includes/admin/class-profile.php:125
+msgid ""
+"To confirm, enter the current app code (or a recovery code) and click "
+"\"Update Profile\"."
+msgstr ""
+"Per confermare inserisci il codice attuale dell'app (o un codice di "
+"recupero) e premi \"Aggiorna profilo\"."
+
+#: includes/admin/class-profile.php:127
+msgid ""
+"Two-step verification is mandatory for your role and cannot be disabled."
+msgstr ""
+"Per il tuo ruolo la verifica in due passaggi è obbligatoria e non può essere"
+" disattivata."
+
+#: includes/admin/class-profile.php:143
+msgid "1. Connect the app"
+msgstr "1. Collega l'app"
+
+#: includes/admin/class-profile.php:145
+msgid ""
+"Scan the QR code with an authenticator app (Google Authenticator, Microsoft "
+"Authenticator, 1Password, Bitwarden...)."
+msgstr ""
+"Inquadra il codice QR con un'app di autenticazione (Google Authenticator, "
+"Microsoft Authenticator, 1Password, Bitwarden...)."
+
+#: includes/admin/class-profile.php:147
+msgid "Or enter this key manually:"
+msgstr "Oppure inserisci a mano questa chiave:"
+
+#: includes/admin/class-profile.php:151
+msgid "2. Confirm"
+msgstr "2. Conferma"
+
+#: includes/admin/class-profile.php:154
+msgid ""
+"Enter the 6-digit code shown by the app and click \"Update Profile\". You "
+"will receive recovery codes to keep."
+msgstr ""
+"Inserisci il codice di 6 cifre mostrato dall'app e premi \"Aggiorna "
+"profilo\". Riceverai i codici di recupero da conservare."
+
+#: includes/admin/class-profile.php:176
+msgid "Not active for this user."
+msgstr "Non attiva per questo utente."
+
+#: includes/admin/class-profile.php:176
+msgid ""
+"It is mandatory for their role: they will have to set it up at the next "
+"login."
+msgstr ""
+"È obbligatoria per il suo ruolo: dovrà configurarla al prossimo accesso."
+
+#: includes/admin/class-profile.php:192
+msgid "Reset"
+msgstr "Azzera"
+
+#: includes/admin/class-profile.php:194
+msgid ""
+"Disable two-step verification for this account (for example if the user lost"
+" their phone)"
+msgstr ""
+"Disattiva la verifica in due passaggi per questo account (ad esempio se "
+"l'utente ha perso il telefono)"
+
+#: includes/admin/class-profile.php:239
+msgid ""
+"Two-step verification: the code is not correct. Make sure the phone time is "
+"set automatically and try again."
+msgstr ""
+"Verifica in due passaggi: il codice non è corretto. Controlla che l'ora del "
+"telefono sia automatica e riprova."
+
+#: includes/admin/class-profile.php:253
+msgid "Two-step verification: invalid confirmation code, no change made."
+msgstr ""
+"Verifica in due passaggi: codice di conferma non valido, nessuna modifica "
+"eseguita."
+
+#: includes/admin/class-profile.php:261
+msgid "Two-step verification is mandatory for your role."
+msgstr "La verifica in due passaggi è obbligatoria per il tuo ruolo."
+
+#: includes/checks/class-config-checks.php:80
+msgid "Plugin and theme editor disabled"
+msgstr "Editor di plugin e temi disattivato"
+
+#: includes/checks/class-config-checks.php:84
+msgid "Plugin and theme code cannot be edited from the dashboard."
+msgstr "Dalla bacheca non è possibile modificare il codice di plugin e temi."
+
+#: includes/checks/class-config-checks.php:85
+msgid ""
+"Anyone who logs in as an administrator can edit the PHP code of plugins and "
+"themes from the dashboard: it is the quickest way to install a backdoor."
+msgstr ""
+"Chi entra come amministratore può modificare il codice PHP di plugin e temi "
+"dalla bacheca: è il modo più rapido per installare una backdoor."
+
+#: includes/checks/class-config-checks.php:89
+msgid ""
+"Hides and blocks the plugin and theme file editor. Code changes are made via"
+" FTP or a deployment."
+msgstr ""
+"Nasconde e blocca l'editor di file di plugin e temi. Le modifiche al codice "
+"si fanno via FTP o con un deploy."
+
+#: includes/checks/class-config-checks.php:107
+msgid "PHP errors not visible to visitors"
+msgstr "Errori PHP non visibili ai visitatori"
+
+#: includes/checks/class-config-checks.php:111
+msgid ""
+"WP_DEBUG is on and errors are shown on pages: they reveal server paths and "
+"plugin details."
+msgstr ""
+"WP_DEBUG è attivo e gli errori vengono mostrati nelle pagine: rivelano "
+"percorsi del server e dettagli dei plugin."
+
+#: includes/checks/class-config-checks.php:112
+msgid "PHP errors are not shown on pages."
+msgstr "Gli errori PHP non vengono mostrati nelle pagine."
+
+#: includes/checks/class-config-checks.php:114
+msgid ""
+"In wp-config.php set define( 'WP_DEBUG', false ); or, if you need debugging,"
+" define( 'WP_DEBUG_DISPLAY', false ); and @ini_set( 'display_errors', 0 );"
+msgstr ""
+"In wp-config.php imposta define( 'WP_DEBUG', false ); oppure, se ti serve il"
+" debug, define( 'WP_DEBUG_DISPLAY', false ); e @ini_set( 'display_errors', 0"
+" );"
+
+#: includes/checks/class-config-checks.php:131
+msgid "No log file reachable from the browser."
+msgstr "Nessun file di log raggiungibile dal browser."
+
+#: includes/checks/class-config-checks.php:138
+msgid ""
+"A debug.log file exists but it was not possible to check whether it is "
+"reachable from the browser."
+msgstr ""
+"Esiste un file debug.log ma non è stato possibile verificare se è "
+"raggiungibile dal browser."
+
+#. translators: %s: URL
+#: includes/checks/class-config-checks.php:142
+msgid "The error log can be read by anyone: %s"
+msgstr "Il registro degli errori è leggibile da chiunque: %s"
+
+#: includes/checks/class-config-checks.php:144
+msgid "A debug.log file exists but it is not reachable from the browser."
+msgstr "Esiste un file debug.log ma non è raggiungibile dal browser."
+
+#: includes/checks/class-config-checks.php:152
+msgid "Error log not public"
+msgstr "Registro errori non pubblico"
+
+#: includes/checks/class-config-checks.php:160
+msgid ""
+"Blocks browser access to log files, backups and sensitive files via "
+".htaccess. Also consider moving the log outside the public folder with "
+"define( 'WP_DEBUG_LOG', '/path/outside/the/site/debug.log' );"
+msgstr ""
+"Blocca l'accesso via browser ai file di log, di backup e ai file sensibili "
+"tramite .htaccess. Valuta anche di spostare il log fuori dalla cartella "
+"pubblica con define( 'WP_DEBUG_LOG', '/percorso/fuori/dal/sito/debug.log' );"
+
+#: includes/checks/class-config-checks.php:161
+msgid ""
+"Delete the debug.log file and move the log outside the public folder with "
+"define( 'WP_DEBUG_LOG', '/path/outside/the/site/debug.log' ); or ask the "
+"hosting to block .log files."
+msgstr ""
+"Elimina il file debug.log e sposta il log fuori dalla cartella pubblica con "
+"define( 'WP_DEBUG_LOG', '/percorso/fuori/dal/sito/debug.log' ); oppure "
+"chiedi all'hosting di bloccare i file .log."
+
+#: includes/checks/class-config-checks.php:179
+msgid "Strong security keys (SALT)"
+msgstr "Chiavi di sicurezza (SALT) robuste"
+
+#: includes/checks/class-config-checks.php:183
+msgid ""
+"The security keys in wp-config.php are present and unique. You can "
+"regenerate them if you suspect a breach: everyone will be logged out."
+msgstr ""
+"Le chiavi di sicurezza in wp-config.php sono presenti e uniche. Puoi "
+"rigenerarle se sospetti una violazione: tutti verranno disconnessi."
+
+#. translators: %s: list of problems
+#: includes/checks/class-config-checks.php:185
+msgid "Problems with the security keys: %s."
+msgstr "Problemi nelle chiavi di sicurezza: %s."
+
+#: includes/checks/class-config-checks.php:189
+msgid ""
+"Generate new keys at https://api.wordpress.org/secret-key/1.1/salt/ and "
+"replace them in wp-config.php."
+msgstr ""
+"Genera nuove chiavi su https://api.wordpress.org/secret-key/1.1/salt/ e "
+"sostituiscile in wp-config.php."
+
+#: includes/checks/class-config-checks.php:190
+msgid ""
+"Generates new random keys and writes them to wp-config.php with a syntax "
+"check before saving. All users, including you, will be logged out. "
+"Compatible GRS plugins (such as GRS SMTP 1.0.1 or later) automatically "
+"update their encrypted data; other plugins that encrypt data with the site "
+"keys may require you to re-enter passwords or API keys."
+msgstr ""
+"Genera nuove chiavi casuali e le scrive in wp-config.php con un controllo di"
+" sintassi prima del salvataggio. Tutti gli utenti, tu compreso, verranno "
+"disconnessi. I plugin GRS compatibili (come GRS SMTP 1.0.1 o successivo) "
+"aggiornano automaticamente i propri dati cifrati; per altri plugin che "
+"cifrano dati con le chiavi del sito potrebbe essere necessario reinserire "
+"password o chiavi API."
+
+#: includes/checks/class-config-checks.php:207
+#: includes/checks/class-config-checks.php:219
+msgid "wp-config.php permissions"
+msgstr "Permessi di wp-config.php"
+
+#: includes/checks/class-config-checks.php:209
+msgid "wp-config.php not found in the standard locations."
+msgstr "wp-config.php non trovato nelle posizioni standard."
+
+#. translators: %s: octal permissions
+#: includes/checks/class-config-checks.php:223
+msgid "Current permissions: %s."
+msgstr "Permessi attuali: %s."
+
+#. translators: %s: octal permissions
+#: includes/checks/class-config-checks.php:223
+msgid "The file is writable by other users on the server."
+msgstr "Il file è scrivibile da altri utenti del server."
+
+#: includes/checks/class-config-checks.php:225
+msgid ""
+"Set the wp-config.php permissions to 640 or 600 from the hosting file "
+"manager or via FTP. If the site does not load after the change, go back to "
+"644 and ask the hosting for the correct value."
+msgstr ""
+"Imposta i permessi di wp-config.php a 640 o 600 dal file manager "
+"dell'hosting o via FTP. Se dopo la modifica il sito non si apre, torna a 644"
+" e chiedi all'hosting il valore corretto."
+
+#: includes/checks/class-config-checks.php:243
+msgid "Site on HTTPS"
+msgstr "Sito in HTTPS"
+
+#: includes/checks/class-config-checks.php:247
+msgid "The site address and the WordPress address use HTTPS."
+msgstr "Indirizzo del sito e di WordPress usano HTTPS."
+
+#: includes/checks/class-config-checks.php:248
+msgid ""
+"The site does not use HTTPS: passwords and login cookies travel unencrypted."
+msgstr ""
+"Il sito non usa HTTPS: password e cookie di accesso viaggiano in chiaro."
+
+#: includes/checks/class-config-checks.php:250
+msgid ""
+"Enable an SSL certificate (Let's Encrypt is free on almost every hosting), "
+"then in Settings > General change both addresses to https:// and set up the "
+"redirect from HTTP to HTTPS. After the switch you can enable the HSTS header"
+" from here."
+msgstr ""
+"Attiva un certificato SSL (Let's Encrypt è gratuito su quasi tutti gli "
+"hosting), poi in Impostazioni > Generali cambia i due indirizzi in https:// "
+"e imposta il redirect da HTTP a HTTPS. Dopo il passaggio puoi attivare "
+"l'header HSTS da qui."
+
+#: includes/checks/class-config-checks.php:279
+msgid "Application Passwords only if needed"
+msgstr "Application Passwords solo se servono"
+
+#: includes/checks/class-config-checks.php:283
+msgid ""
+"Application Passwords are used by at least one user (apps or external "
+"integrations): leave them enabled."
+msgstr ""
+"Le Application Passwords sono usate da almeno un utente (app o integrazioni "
+"esterne): lasciale attive."
+
+#: includes/checks/class-config-checks.php:284
+msgid ""
+"Application Passwords are enabled but nobody uses them: they are an extra "
+"way into the site API."
+msgstr ""
+"Le Application Passwords sono attive ma nessuno le usa: sono un accesso in "
+"più all'API del sito."
+
+#: includes/checks/class-config-checks.php:284
+msgid "Application Passwords are disabled."
+msgstr "Le Application Passwords sono disattivate."
+
+#: includes/checks/class-config-checks.php:288
+msgid ""
+"Disables Application Passwords. Re-enable them if you connect mobile apps, "
+"Zapier or other services that need them."
+msgstr ""
+"Disattiva le Application Passwords. Riattivale se colleghi app mobili, "
+"Zapier o altri servizi che le richiedono."
+
+#: includes/checks/class-config-checks.php:313
+msgid "Automatic core security updates"
+msgstr "Aggiornamenti di sicurezza automatici del core"
+
+#: includes/checks/class-config-checks.php:317
+msgid "WordPress installs minor (security) updates on its own."
+msgstr "WordPress installa da solo gli aggiornamenti minori (di sicurezza)."
+
+#: includes/checks/class-config-checks.php:318
+msgid ""
+"All automatic updates are disabled (AUTOMATIC_UPDATER_DISABLED or "
+"DISALLOW_FILE_MODS)."
+msgstr ""
+"Tutti gli aggiornamenti automatici sono disattivati "
+"(AUTOMATIC_UPDATER_DISABLED o DISALLOW_FILE_MODS)."
+
+#: includes/checks/class-config-checks.php:318
+msgid "Automatic minor core updates are disabled."
+msgstr "Gli aggiornamenti automatici minori del core sono disattivati."
+
+#: includes/checks/class-config-checks.php:323
+msgid ""
+"Remove AUTOMATIC_UPDATER_DISABLED (or DISALLOW_FILE_MODS, if not needed) "
+"from wp-config.php, or make sure you update WordPress manually within a few "
+"days of each release."
+msgstr ""
+"Rimuovi da wp-config.php AUTOMATIC_UPDATER_DISABLED (o DISALLOW_FILE_MODS, "
+"se non serve), oppure assicurati di aggiornare WordPress a mano entro pochi "
+"giorni da ogni rilascio."
+
+#: includes/checks/class-config-checks.php:324
+msgid ""
+"Re-enables automatic minor core updates (e.g. 7.1.2 → 7.1.3), which contain "
+"the security fixes."
+msgstr ""
+"Riattiva gli aggiornamenti automatici minori del core (es. 7.1.2 → 7.1.3), "
+"che contengono le correzioni di sicurezza."
+
+#: includes/checks/class-config-checks.php:345
+msgid "Site backup"
+msgstr "Backup del sito"
+
+#. translators: %s: plugin
+#: includes/checks/class-config-checks.php:350
+msgid ""
+"Backup plugin active: %s. Make sure backups are stored off the server "
+"(cloud, external storage)."
+msgstr ""
+"Plugin di backup attivo: %s. Verifica che i backup vengano salvati fuori dal"
+" server (cloud, storage esterno)."
+
+#: includes/checks/class-config-checks.php:351
+msgid ""
+"No known backup plugin. If the hosting already runs daily backups, you can "
+"ignore this check."
+msgstr ""
+"Nessun plugin di backup riconosciuto. Se l'hosting esegue già backup "
+"giornalieri, puoi ignorare questo controllo."
+
+#: includes/checks/class-config-checks.php:353
+msgid ""
+"Backups are the only protection that always works. Check with the hosting "
+"whether it runs daily backups kept for at least 14 days, or install a plugin"
+" such as UpdraftPlus saving to the cloud. Test a restore at least once."
+msgstr ""
+"Il backup è l'unica protezione che funziona sempre. Verifica con l'hosting "
+"se fa backup giornalieri conservati almeno 14 giorni, oppure installa un "
+"plugin come UpdraftPlus con salvataggio su cloud. Prova almeno una volta il "
+"ripristino."
+
+#: includes/checks/class-config-checks.php:370
+msgid "Database table prefix"
+msgstr "Prefisso delle tabelle del database"
+
+#: includes/checks/class-config-checks.php:374
+msgid ""
+"The prefix is the default \"wp_\". Changing it on an existing site is risky "
+"and brings little benefit: no action needed."
+msgstr ""
+"Il prefisso è quello predefinito \"wp_\". Cambiarlo su un sito esistente è "
+"rischioso e porta un beneficio minimo: non serve intervenire."
+
+#: includes/checks/class-config-checks.php:375
+msgid "The table prefix is not the default one."
+msgstr "Il prefisso delle tabelle non è quello predefinito."
+
+#: includes/checks/class-exposure-checks.php:48
+msgid ""
+"The server does not use .htaccess files (probably Nginx): ask the hosting to"
+" add these rules to the site configuration:"
+msgstr ""
+"Il server non usa file .htaccess (probabilmente Nginx): chiedi all'hosting "
+"di aggiungere queste regole alla configurazione del sito:"
+
+#: includes/checks/class-exposure-checks.php:76
+msgid ""
+"XML-RPC enabled without pingbacks and multicall (used for attacks and to "
+"amplify brute force)."
+msgstr ""
+"XML-RPC attivo senza pingback e multicall (usati per attacchi e "
+"amplificazione del brute force)."
+
+#: includes/checks/class-exposure-checks.php:77
+msgid "XML-RPC disabled."
+msgstr "XML-RPC disattivato."
+
+#: includes/checks/class-exposure-checks.php:80
+msgid ""
+"XML-RPC appears to be enabled (check from the site not available). It is a "
+"frequent target of password attacks."
+msgstr ""
+"XML-RPC risulta attivo (verifica dal sito non disponibile). È un bersaglio "
+"frequente per attacchi alle password."
+
+#: includes/checks/class-exposure-checks.php:83
+msgid ""
+"XML-RPC is enabled and answers with pingbacks and multicall: it allows "
+"hundreds of passwords to be tried with a single request."
+msgstr ""
+"XML-RPC è attivo e risponde con pingback e multicall: permette di provare "
+"centinaia di password con una sola richiesta."
+
+#: includes/checks/class-exposure-checks.php:86
+msgid "XML-RPC is already blocked (by the hosting or another plugin)."
+msgstr "XML-RPC è già bloccato (dall'hosting o da un altro plugin)."
+
+#: includes/checks/class-exposure-checks.php:92
+msgid "XML-RPC disabled"
+msgstr "XML-RPC disattivato"
+
+#: includes/checks/class-exposure-checks.php:99
+msgid ""
+"Disables XML-RPC. If you use Jetpack or the WordPress mobile app, in the "
+"settings you can choose to block only pingbacks and multicall."
+msgstr ""
+"Disattiva XML-RPC. Se usi Jetpack o l'app WordPress per smartphone, nelle "
+"impostazioni puoi scegliere di bloccare solo pingback e multicall."
+
+#: includes/checks/class-exposure-checks.php:124
+msgid "Usernames not listable"
+msgstr "Nomi utente non elencabili"
+
+#: includes/checks/class-exposure-checks.php:128
+msgid "Usernames are not publicly listed by ?author= and by the REST API."
+msgstr ""
+"I nomi utente non sono elencati pubblicamente da ?author= e dalla REST API."
+
+#: includes/checks/class-exposure-checks.php:129
+msgid ""
+"Anyone can get the list of usernames from /wp-json/wp/v2/users or from "
+"?author=1: half the work needed to guess a login."
+msgstr ""
+"Chiunque può ottenere l'elenco dei nomi utente da /wp-json/wp/v2/users o da "
+"?author=1: metà del lavoro per indovinare un accesso."
+
+#: includes/checks/class-exposure-checks.php:133
+msgid ""
+"Blocks ?author=N, the users REST endpoint and the authors sitemap for "
+"visitors who are not logged in, and removes the author name from embeds. "
+"Author archive pages remain visible."
+msgstr ""
+"Blocca ?author=N, l'endpoint REST degli utenti e la sitemap degli autori per"
+" i visitatori non connessi, e toglie il nome dell'autore dagli embed. Le "
+"pagine archivio degli autori restano visibili."
+
+#: includes/checks/class-exposure-checks.php:164
+msgid ""
+"The site sends the X-Content-Type-Options, X-Frame-Options and Referrer-"
+"Policy headers."
+msgstr ""
+"Il sito invia gli header X-Content-Type-Options, X-Frame-Options e Referrer-"
+"Policy."
+
+#: includes/checks/class-exposure-checks.php:166
+msgid "Unable to read the site headers (request to the site failed)."
+msgstr ""
+"Impossibile leggere gli header del sito (richiesta al sito non riuscita)."
+
+#. translators: %s: list of headers
+#: includes/checks/class-exposure-checks.php:168
+msgid ""
+"Missing headers: %s. They protect against clickjacking and some browser "
+"attacks."
+msgstr ""
+"Header mancanti: %s. Proteggono da clickjacking e da alcuni attacchi nel "
+"browser."
+
+#: includes/checks/class-exposure-checks.php:172
+msgid ""
+"Sends the headers X-Content-Type-Options: nosniff, X-Frame-Options: "
+"SAMEORIGIN and Referrer-Policy: strict-origin-when-cross-origin. Do not "
+"enable it if the site must be shown inside an iframe on another domain."
+msgstr ""
+"Invia gli header X-Content-Type-Options: nosniff, X-Frame-Options: "
+"SAMEORIGIN e Referrer-Policy: strict-origin-when-cross-origin. Se il sito "
+"deve essere mostrato dentro un iframe di un altro dominio, non attivarlo."
+
+#: includes/checks/class-exposure-checks.php:192
+msgid "HSTS (HTTPS enforced in the browser)"
+msgstr "HSTS (HTTPS obbligatorio nel browser)"
+
+#: includes/checks/class-exposure-checks.php:197
+msgid "The browser is told to always use HTTPS for this site."
+msgstr "Il browser è istruito a usare sempre HTTPS per questo sito."
+
+#: includes/checks/class-exposure-checks.php:198
+msgid ""
+"HSTS header missing. Optional: enable it only if the whole domain works "
+"reliably on HTTPS."
+msgstr ""
+"Header HSTS assente. Facoltativo: attivalo solo se l'intero dominio funziona"
+" stabilmente in HTTPS."
+
+#: includes/checks/class-exposure-checks.php:201
+msgid ""
+"Sends Strict-Transport-Security valid for one year (on HTTPS pages only). "
+"Warning: for one year, browsers that visited the site will refuse the HTTP "
+"version, even if the certificate expires."
+msgstr ""
+"Invia Strict-Transport-Security con validità di un anno (solo sulle pagine "
+"HTTPS). Attenzione: per un anno i browser che hanno visitato il sito "
+"rifiuteranno la versione HTTP, anche se il certificato scade."
+
+#: includes/checks/class-exposure-checks.php:221
+msgid "Login does not reveal whether a username or email exists."
+msgstr "Il login non rivela se un nome utente o un'email esistono."
+
+#: includes/checks/class-exposure-checks.php:222
+msgid ""
+"The login error message confirms whether a username exists (\"incorrect "
+"password for the user...\")."
+msgstr ""
+"Il messaggio di errore del login conferma se un nome utente esiste "
+"(\"password errata per l'utente...\")."
+
+#: includes/checks/class-exposure-checks.php:226
+msgid ""
+"Shows the same generic message for a non-existent user and a wrong password."
+msgstr ""
+"Mostra lo stesso messaggio generico per utente inesistente e password "
+"errata."
+
+#: includes/checks/class-exposure-checks.php:242
+msgid "WordPress version hidden"
+msgstr "Versione di WordPress nascosta"
+
+#: includes/checks/class-exposure-checks.php:247
+msgid ""
+"The generator meta tag and the version in core CSS/JS files are hidden."
+msgstr ""
+"Il meta generator e la versione nei file CSS/JS del core sono nascosti."
+
+#: includes/checks/class-exposure-checks.php:248
+msgid ""
+"The WordPress version is visible in the page code. Hiding it is a minor "
+"measure: the real protection is keeping WordPress up to date."
+msgstr ""
+"La versione di WordPress è visibile nel codice della pagina. Nasconderla è "
+"una misura minore: la vera protezione è tenere WordPress aggiornato."
+
+#: includes/checks/class-exposure-checks.php:251
+msgid ""
+"Removes the generator meta tag and replaces ?ver= of core files with a code "
+"that changes with each version (browser caching keeps working)."
+msgstr ""
+"Rimuove il meta generator e sostituisce ?ver= dei file del core con un "
+"codice che cambia a ogni versione (la cache dei browser continua a "
+"funzionare)."
+
+#: includes/checks/class-exposure-checks.php:268
+msgid "PHP files uploaded to uploads are not executed."
+msgstr "I file PHP caricati in uploads non vengono eseguiti."
+
+#: includes/checks/class-exposure-checks.php:271
+msgid ""
+"A PHP file placed in uploads is executed: if a vulnerable plugin allows file"
+" uploads, an attacker takes control of the site."
+msgstr ""
+"Un file PHP messo in uploads viene eseguito: se un plugin vulnerabile "
+"permette di caricare file, l'attaccante prende il controllo del sito."
+
+#: includes/checks/class-exposure-checks.php:275
+msgid "Blocking rule active (check from the site not available)."
+msgstr "Regola di blocco attiva (verifica dal sito non disponibile)."
+
+#: includes/checks/class-exposure-checks.php:276
+msgid ""
+"It was not possible to check whether PHP files in uploads are executed."
+msgstr ""
+"Non è stato possibile verificare se i file PHP in uploads vengono eseguiti."
+
+#: includes/checks/class-exposure-checks.php:279
+msgid ""
+"The .htaccess rule is in place but has no effect: the server may be ignoring"
+" .htaccess files."
+msgstr ""
+"La regola .htaccess è attiva ma non ha effetto: il server potrebbe ignorare "
+"i file .htaccess."
+
+#: includes/checks/class-exposure-checks.php:285
+msgid "PHP blocked in the uploads folder"
+msgstr "PHP bloccato nella cartella uploads"
+
+#: includes/checks/class-exposure-checks.php:293
+msgid ""
+"Adds a rule to wp-content/uploads/.htaccess that prevents the execution of "
+".php, .phtml, .phar and similar files."
+msgstr ""
+"Aggiunge in wp-content/uploads/.htaccess una regola che impedisce "
+"l'esecuzione di file .php, .phtml, .phar e simili."
+
+#. translators: %s: list of files
+#: includes/checks/class-exposure-checks.php:364
+msgid ""
+"The root folder contains files that may hold passwords or the database: %s."
+msgstr ""
+"Nella cartella principale ci sono file che possono contenere password o il "
+"database: %s."
+
+#: includes/checks/class-exposure-checks.php:367
+msgid ""
+"readme.html and license.txt are reachable and reveal that the site runs "
+"WordPress and, sometimes, its version."
+msgstr ""
+"readme.html e license.txt sono raggiungibili e rivelano che il sito è "
+"WordPress e, a volte, la versione."
+
+#: includes/checks/class-exposure-checks.php:371
+msgid ""
+"Browser access blocked for readme.html, license.txt, log files, backups and "
+".git folders."
+msgstr ""
+"Accesso via browser bloccato per readme.html, license.txt, file di log, "
+"backup e cartelle .git."
+
+#: includes/checks/class-exposure-checks.php:372
+msgid "No sensitive files found in the root folder."
+msgstr "Nessun file sensibile trovato nella cartella principale."
+
+#: includes/checks/class-exposure-checks.php:376
+msgid ""
+"Download the listed files locally if you need them, then delete them from "
+"the server via FTP or the hosting file manager: copies of wp-config and "
+"database dumps must not sit in the public folder."
+msgstr ""
+"Scarica in locale i file elencati se ti servono, poi eliminali dal server "
+"via FTP o dal file manager dell'hosting: le copie di wp-config e i dump del "
+"database non devono stare nella cartella pubblica."
+
+#: includes/checks/class-exposure-checks.php:379
+msgid ""
+"The automatic fix blocks access via .htaccess to readme.html, license.txt, "
+".log, .sql, .bak, .old files and .git folders."
+msgstr ""
+"La correzione automatica blocca via .htaccess l'accesso a readme.html, "
+"license.txt, file .log, .sql, .bak, .old e alle cartelle .git."
+
+#: includes/checks/class-exposure-checks.php:386
+msgid "Sensitive files protected"
+msgstr "File sensibili protetti"
+
+#: includes/checks/class-exposure-checks.php:417
+msgid ""
+"The server shows the file list of folders without an index (e.g. uploads): "
+"anyone can browse the uploaded files."
+msgstr ""
+"Il server mostra l'elenco dei file delle cartelle senza index (es. uploads):"
+" chiunque può sfogliare i file caricati."
+
+#: includes/checks/class-exposure-checks.php:420
+msgid "It was not possible to check folder file listing."
+msgstr "Non è stato possibile verificare l'elenco dei file delle cartelle."
+
+#: includes/checks/class-exposure-checks.php:423
+msgid "Folder file listing is not visible."
+msgstr "L'elenco dei file delle cartelle non è visibile."
+
+#: includes/checks/class-exposure-checks.php:429
+msgid "Folder file listing disabled"
+msgstr "Elenco dei file delle cartelle disattivato"
+
+#: includes/checks/class-exposure-checks.php:437
+msgid ""
+"Adds \"Options -Indexes\" to the main .htaccess. If the hosting does not "
+"allow it, the plugin notices and undoes the change."
+msgstr ""
+"Aggiunge \"Options -Indexes\" al .htaccess principale. Se l'hosting non lo "
+"consente, il plugin se ne accorge e annulla la modifica."
+
+#. translators: 1: attempts, 2: minutes
+#: includes/checks/class-protection-checks.php:57
+msgid ""
+"After %1$d failed attempts the IP is blocked for %2$d minutes (the block "
+"doubles if the attack continues)."
+msgstr ""
+"Dopo %1$d tentativi falliti l'IP viene bloccato per %2$d minuti (il blocco "
+"raddoppia se l'attacco continua)."
+
+#: includes/checks/class-protection-checks.php:58
+msgid "No limit on login attempts: a bot can try passwords nonstop."
+msgstr ""
+"Nessun limite ai tentativi di accesso: un bot può provare password senza "
+"sosta."
+
+#: includes/checks/class-protection-checks.php:62
+msgid ""
+"Temporarily blocks IPs that enter the wrong password too many times (also "
+"via XML-RPC and Application Passwords). You can set trusted IPs in the "
+"settings."
+msgstr ""
+"Blocca temporaneamente gli IP che sbagliano troppe volte la password (anche "
+"via XML-RPC e Application Passwords). Puoi indicare gli IP fidati nelle "
+"impostazioni."
+
+#: includes/checks/class-protection-checks.php:77
+msgid "The visitor IP address source matches the server configuration."
+msgstr ""
+"La sorgente dell'indirizzo IP dei visitatori è coerente con la "
+"configurazione del server."
+
+#: includes/checks/class-protection-checks.php:80
+msgid ""
+"The site seems to be behind Cloudflare but the IP is read from REMOTE_ADDR: "
+"all visitors appear with the Cloudflare IP and a block could hit everyone."
+msgstr ""
+"Il sito sembra dietro Cloudflare ma l'IP viene letto da REMOTE_ADDR: tutti i"
+" visitatori risultano con l'IP di Cloudflare e un blocco potrebbe colpire "
+"tutti."
+
+#: includes/checks/class-protection-checks.php:83
+msgid ""
+"The request goes through a proxy (X-Forwarded-For header present): check the"
+" IP source in the settings."
+msgstr ""
+"La richiesta passa da un proxy (header X-Forwarded-For presente): verifica "
+"la sorgente IP nelle impostazioni."
+
+#: includes/checks/class-protection-checks.php:86
+msgid ""
+"The configured IP source is not present in this request: REMOTE_ADDR is "
+"used."
+msgstr ""
+"La sorgente IP impostata non è presente in questa richiesta: viene usato "
+"REMOTE_ADDR."
+
+#: includes/checks/class-protection-checks.php:92
+msgid "Correct IP detection"
+msgstr "Rilevamento corretto dell'IP"
+
+#: includes/checks/class-protection-checks.php:97
+msgid ""
+"In GRS DEVs > Security, Settings tab, choose the correct IP source "
+"(Cloudflare, proxy or direct connection). Use a proxy header only if the "
+"site really is behind that proxy: otherwise the IP can be spoofed."
+msgstr ""
+"In GRS DEVs > Security, scheda Impostazioni, scegli la sorgente IP corretta "
+"(Cloudflare, proxy o connessione diretta). Usa un header di proxy solo se il"
+" sito è davvero dietro quel proxy: altrimenti l'IP si può falsificare."
+
+#: includes/checks/class-protection-checks.php:119
+msgid "The firewall blocks requests with obvious attack patterns."
+msgstr "Il firewall blocca le richieste con schemi di attacco evidenti."
+
+#: includes/checks/class-protection-checks.php:119
+msgid "The firewall is in log-only mode: suspicious requests are not blocked."
+msgstr ""
+"Il firewall è in modalità solo registrazione: le richieste sospette non "
+"vengono bloccate."
+
+#: includes/checks/class-protection-checks.php:120
+msgid "The application firewall is off."
+msgstr "Il firewall applicativo è spento."
+
+#: includes/checks/class-protection-checks.php:124
+msgid ""
+"Blocks requests with SQL injection, code injection, directory traversal and "
+"known automated scanners. Logged-in users with editing permissions are "
+"excluded. It does not replace the hosting or Cloudflare firewall, which stop"
+" attacks before they reach WordPress."
+msgstr ""
+"Blocca richieste con SQL injection, iniezione di codice, directory traversal"
+" e scanner automatici noti. Gli utenti connessi con permessi di redazione "
+"sono esclusi. Non sostituisce il firewall dell'hosting o di Cloudflare, che "
+"fermano gli attacchi prima che arrivino a WordPress."
+
+#: includes/checks/class-protection-checks.php:140
+msgid "Daily file check"
+msgstr "Controllo giornaliero dei file"
+
+#: includes/checks/class-protection-checks.php:144
+msgid ""
+"Every day WordPress files and wordpress.org plugins are compared with the "
+"originals."
+msgstr ""
+"Ogni giorno i file di WordPress e dei plugin di wordpress.org vengono "
+"confrontati con gli originali."
+
+#: includes/checks/class-protection-checks.php:145
+msgid ""
+"No automatic file check: a malicious change could go unnoticed for months."
+msgstr ""
+"Nessun controllo automatico dei file: una modifica malevola potrebbe passare"
+" inosservata per mesi."
+
+#: includes/checks/class-protection-checks.php:149
+msgid ""
+"Compares core and plugins with the official wordpress.org checksums every "
+"day, looks for PHP files in uploads and unknown files in the root folder, "
+"and alerts you by email about anything new."
+msgstr ""
+"Confronta ogni giorno core e plugin con i checksum ufficiali di "
+"wordpress.org, cerca file PHP in uploads e file estranei nella cartella "
+"principale, e ti avvisa via email delle novità."
+
+#: includes/checks/class-protection-checks.php:166
+#: includes/checks/class-protection-checks.php:178
+msgid "Files intact"
+msgstr "File integri"
+
+#: includes/checks/class-protection-checks.php:168
+msgid "The file check has not been run yet."
+msgstr "Il controllo dei file non è ancora stato eseguito."
+
+#. translators: %s: date
+#: includes/checks/class-protection-checks.php:183
+msgid "No anomalies in the last check (%s)."
+msgstr "Nessuna anomalia nell'ultimo controllo (%s)."
+
+#. translators: %d: number
+#: includes/checks/class-protection-checks.php:185
+msgid "%d anomalous file found in the last check."
+msgid_plural "%d anomalous files found in the last check."
+msgstr[0] "%d file anomalo trovato nell'ultimo controllo."
+msgstr[1] "%d file anomali trovati nell'ultimo controllo."
+
+#: includes/checks/class-protection-checks.php:187
+msgid ""
+"Open the File integrity tab to see the list. Modified core files: reinstall "
+"WordPress from Dashboard > Updates > Reinstall. Modified plugins: reinstall "
+"them from the official zip. PHP files in uploads or unknown files: if you "
+"don't recognize them, the site may be compromised; have the case assessed "
+"before deleting them."
+msgstr ""
+"Apri la scheda Integrità file per vedere l'elenco. File del core modificati:"
+" reinstalla WordPress da Bacheca > Aggiornamenti > Reinstalla. Plugin "
+"modificati: reinstallali dallo zip ufficiale. File PHP in uploads o "
+"sconosciuti: se non li riconosci, il sito potrebbe essere compromesso; fai "
+"valutare il caso prima di cancellarli."
+
+#: includes/checks/class-protection-checks.php:204
+msgid "Custom login address"
+msgstr "Indirizzo di login personalizzato"
+
+#. translators: %s: URL
+#: includes/checks/class-protection-checks.php:210
+msgid ""
+"The login page is %s; wp-login.php and wp-admin answer \"page not found\" to"
+" visitors."
+msgstr ""
+"La pagina di accesso è %s; wp-login.php e wp-admin rispondono \"pagina non "
+"trovata\" ai visitatori."
+
+#: includes/checks/class-protection-checks.php:211
+msgid ""
+"Optional: moving the login page reduces bot traffic, but does not replace "
+"strong passwords and two-step verification."
+msgstr ""
+"Facoltativo: spostare la pagina di login riduce il traffico dei bot, ma non "
+"sostituisce password robuste e verifica in due passaggi."
+
+#: includes/checks/class-protection-checks.php:214
+msgid ""
+"Enable it from the Settings tab by choosing the address. You will receive "
+"the new address by email: save it, because wp-login.php will no longer work."
+" In an emergency, disable it with define( 'GRS_SECURITY_DISABLE_LOGIN_URL', "
+"true ); in wp-config.php."
+msgstr ""
+"Si attiva dalla scheda Impostazioni scegliendo l'indirizzo. Riceverai il "
+"nuovo indirizzo via email: salvalo, perché wp-login.php non funzionerà più. "
+"In emergenza si disattiva con define( 'GRS_SECURITY_DISABLE_LOGIN_URL', true"
+" ); in wp-config.php."
+
+#: includes/checks/class-protection-checks.php:231
+msgid "Email alerts enabled"
+msgstr "Avvisi email attivi"
+
+#. translators: %s: email
+#: includes/checks/class-protection-checks.php:236
+msgid "Important events are reported to %s."
+msgstr "Gli eventi importanti vengono segnalati a %s."
+
+#: includes/checks/class-protection-checks.php:237
+msgid ""
+"Email alerts are disabled: events such as the creation of a new "
+"administrator would go unnoticed."
+msgstr ""
+"Gli avvisi email sono disattivati: eventi come la creazione di un nuovo "
+"amministratore passerebbero inosservati."
+
+#: includes/checks/class-protection-checks.php:239
+msgid ""
+"Enable alerts in GRS DEVs > Security, Settings tab, and make sure the site "
+"sends email correctly (an SMTP plugin such as GRS SMTP is recommended)."
+msgstr ""
+"Attiva gli avvisi in GRS DEVs > Security, scheda Impostazioni, e verifica "
+"che il sito invii email correttamente (consigliato un plugin SMTP come GRS "
+"SMTP)."
+
+#: includes/checks/class-update-checks.php:72
+msgid ""
+"Unable to contact wordpress.org to check for updates. Check manually in "
+"Dashboard > Updates."
+msgstr ""
+"Impossibile contattare wordpress.org per verificare gli aggiornamenti. "
+"Controlla a mano in Bacheca > Aggiornamenti."
+
+#: includes/checks/class-update-checks.php:74
+msgid ""
+"If the problem persists, the hosting may be blocking outgoing connections to"
+" wordpress.org: in that case automatic security updates do not work either. "
+"Report it to the hosting."
+msgstr ""
+"Se il problema persiste, l'hosting potrebbe bloccare le connessioni in "
+"uscita verso wordpress.org: in quel caso nemmeno gli aggiornamenti di "
+"sicurezza automatici funzionano. Segnalalo all'hosting."
+
+#: includes/checks/class-update-checks.php:92
+#: includes/checks/class-update-checks.php:110
+#: includes/checks/class-update-checks.php:123
+msgid "WordPress up to date"
+msgstr "WordPress aggiornato"
+
+#. translators: %s: version
+#: includes/checks/class-update-checks.php:114
+msgid "WordPress %s is the latest available version."
+msgstr "WordPress %s è la versione più recente disponibile."
+
+#. translators: 1: installed version, 2: available version
+#: includes/checks/class-update-checks.php:127
+msgid "Version %1$s installed, %2$s available."
+msgstr "Installata la versione %1$s, disponibile la %2$s."
+
+#: includes/checks/class-update-checks.php:129
+msgid ""
+"Back up, then update from Dashboard > Updates. Minor updates almost always "
+"contain security fixes: do not postpone them."
+msgstr ""
+"Fai un backup, poi aggiorna da Bacheca > Aggiornamenti. Gli aggiornamenti "
+"minori contengono quasi sempre correzioni di sicurezza: non rimandarli."
+
+#: includes/checks/class-update-checks.php:147
+#: includes/checks/class-update-checks.php:161
+msgid "Plugins up to date"
+msgstr "Plugin aggiornati"
+
+#: includes/checks/class-update-checks.php:165
+msgid "All plugins are up to date."
+msgstr "Tutti i plugin sono aggiornati."
+
+#. translators: 1: number, 2: list
+#: includes/checks/class-update-checks.php:167
+msgid "%1$d plugin to update: %2$s."
+msgid_plural "%1$d plugins to update: %2$s."
+msgstr[0] "%1$d plugin da aggiornare: %2$s."
+msgstr[1] "%1$d plugin da aggiornare: %2$s."
+
+#: includes/checks/class-update-checks.php:169
+msgid ""
+"Outdated plugins are the leading cause of hacked WordPress sites. Update "
+"them from Plugins > Installed Plugins and consider automatic updates for the"
+" reliable ones."
+msgstr ""
+"I plugin non aggiornati sono la prima causa di siti WordPress violati. "
+"Aggiornali da Plugin > Plugin installati e valuta gli aggiornamenti "
+"automatici per quelli affidabili."
+
+#: includes/checks/class-update-checks.php:187
+#: includes/checks/class-update-checks.php:194
+msgid "Themes up to date"
+msgstr "Temi aggiornati"
+
+#: includes/checks/class-update-checks.php:198
+msgid "All themes are up to date."
+msgstr "Tutti i temi sono aggiornati."
+
+#. translators: %d: number
+#: includes/checks/class-update-checks.php:200
+msgid "%d theme to update."
+msgid_plural "%d themes to update."
+msgstr[0] "%d tema da aggiornare."
+msgstr[1] "%d temi da aggiornare."
+
+#: includes/checks/class-update-checks.php:202
+msgid ""
+"Update themes from Dashboard > Updates. If the theme was edited directly, "
+"move the changes to a child theme before updating."
+msgstr ""
+"Aggiorna i temi da Bacheca > Aggiornamenti. Se il tema è stato modificato "
+"direttamente, sposta le modifiche in un tema child prima di aggiornare."
+
+#: includes/checks/class-update-checks.php:225
+msgid "No unused plugins"
+msgstr "Nessun plugin inutilizzato"
+
+#: includes/checks/class-update-checks.php:229
+msgid "There are no inactive plugins."
+msgstr "Non ci sono plugin disattivati."
+
+#. translators: 1: number, 2: list
+#: includes/checks/class-update-checks.php:231
+msgid "%1$d inactive plugin: %2$s."
+msgid_plural "%1$d inactive plugins: %2$s."
+msgstr[0] "%1$d plugin disattivato: %2$s."
+msgstr[1] "%1$d plugin disattivati: %2$s."
+
+#: includes/checks/class-update-checks.php:233
+msgid ""
+"An inactive plugin does not run, but its files remain reachable and may "
+"contain vulnerabilities. If you don't need it, delete it."
+msgstr ""
+"Un plugin disattivato non gira, ma i suoi file restano raggiungibili e "
+"possono contenere vulnerabilità. Se non ti serve, eliminalo."
+
+#: includes/checks/class-update-checks.php:263
+msgid "No unused themes"
+msgstr "Nessun tema inutilizzato"
+
+#: includes/checks/class-update-checks.php:267
+msgid ""
+"Only the active theme and, if present, a default fallback theme are "
+"installed."
+msgstr ""
+"Sono installati solo il tema attivo e, se presente, un tema predefinito di "
+"riserva."
+
+#. translators: 1: number, 2: list
+#: includes/checks/class-update-checks.php:269
+msgid "%1$d unused theme: %2$s."
+msgid_plural "%1$d unused themes: %2$s."
+msgstr[0] "%1$d tema non usato: %2$s."
+msgstr[1] "%1$d temi non usati: %2$s."
+
+#: includes/checks/class-update-checks.php:271
+msgid ""
+"Delete the themes you don't use from Appearance > Themes. Keep only the "
+"active theme, its parent theme and a recent default theme as a fallback."
+msgstr ""
+"Elimina i temi che non usi da Aspetto > Temi. Tieni solo il tema attivo, il "
+"suo tema genitore e un tema predefinito recente come riserva."
+
+#. translators: 1: version, 2: date
+#: includes/checks/class-update-checks.php:289
+msgid "PHP %1$s no longer receives security updates since %2$s."
+msgstr "PHP %1$s non riceve più aggiornamenti di sicurezza dal %2$s."
+
+#. translators: 1: version, 2: date
+#: includes/checks/class-update-checks.php:293
+msgid "PHP %1$s will stop receiving security updates on %2$s."
+msgstr "PHP %1$s smetterà di ricevere aggiornamenti di sicurezza il %2$s."
+
+#. translators: %s: version
+#: includes/checks/class-update-checks.php:297
+msgid "PHP %s is supported."
+msgstr "PHP %s è supportato."
+
+#: includes/checks/class-update-checks.php:303
+msgid "Supported PHP version"
+msgstr "Versione PHP supportata"
+
+#: includes/checks/class-update-checks.php:308
+msgid ""
+"Change the PHP version from the hosting control panel, choosing a supported "
+"version (8.3 or later). Test on a staging site first: outdated plugins or "
+"themes may not be compatible."
+msgstr ""
+"Cambia la versione PHP dal pannello dell'hosting scegliendo una versione "
+"supportata (8.3 o successiva). Prova prima su uno staging: plugin o temi "
+"datati potrebbero non essere compatibili."
+
+#: includes/checks/class-user-checks.php:54
+msgid "No \"admin\" user"
+msgstr "Nessun utente \"admin\""
+
+#: includes/checks/class-user-checks.php:58
+msgid ""
+"There is a user named \"admin\": it is the first one bots try in password "
+"attacks."
+msgstr ""
+"Esiste un utente con nome \"admin\": è il primo che i bot provano negli "
+"attacchi alle password."
+
+#: includes/checks/class-user-checks.php:59
+msgid "No user with the predictable name \"admin\"."
+msgstr "Nessun utente con il nome prevedibile \"admin\"."
+
+#: includes/checks/class-user-checks.php:61
+msgid ""
+"Create a new administrator with a non-obvious name, log in with it and "
+"delete the \"admin\" user, assigning its content to the new user. WordPress "
+"usernames cannot be renamed from the dashboard."
+msgstr ""
+"Crea un nuovo amministratore con un nome non ovvio, accedi con quello ed "
+"elimina l'utente \"admin\" assegnando i suoi contenuti al nuovo utente. Il "
+"nome utente in WordPress non si può rinominare dalla bacheca."
+
+#: includes/checks/class-user-checks.php:80
+msgid "Few administrators"
+msgstr "Pochi amministratori"
+
+#. translators: 1: number, 2: list
+#: includes/checks/class-user-checks.php:84
+msgid "%1$d administrator: %2$s."
+msgid_plural "%1$d administrators: %2$s."
+msgstr[0] "%1$d amministratore: %2$s."
+msgstr[1] "%1$d amministratori: %2$s."
+
+#: includes/checks/class-user-checks.php:86
+msgid ""
+"Every administrator is a way in. Check that all of them are still needed, "
+"delete accounts of former collaborators and assign lower roles (Editor, "
+"Author) to those who do not manage the site."
+msgstr ""
+"Ogni amministratore è una porta d'ingresso. Verifica che tutti siano ancora "
+"necessari, elimina gli account di ex collaboratori e assegna ruoli più bassi"
+" (Editore, Autore) a chi non gestisce il sito."
+
+#. translators: %s: role
+#: includes/checks/class-user-checks.php:106
+msgid ""
+"The role assigned to new users is \"%s\", which allows creating or editing "
+"content."
+msgstr ""
+"Il ruolo assegnato ai nuovi utenti è \"%s\", che permette di creare o "
+"modificare contenuti."
+
+#: includes/checks/class-user-checks.php:108
+msgid "Registration is open to anyone."
+msgstr "La registrazione è aperta a chiunque."
+
+#. translators: %s: role
+#: includes/checks/class-user-checks.php:114
+msgid "Registration open with default role \"%s\" (no editing permissions)."
+msgstr ""
+"Registrazione aperta con ruolo predefinito \"%s\" (senza permessi di "
+"modifica)."
+
+#: includes/checks/class-user-checks.php:115
+msgid "Public registration disabled."
+msgstr "Registrazione pubblica disattivata."
+
+#: includes/checks/class-user-checks.php:121
+msgid "Safe registration and default role"
+msgstr "Registrazione e ruolo predefinito sicuri"
+
+#: includes/checks/class-user-checks.php:126
+msgid ""
+"In Settings > General set \"New User Default Role\" to Subscriber (or "
+"Customer for WooCommerce) and turn off \"Anyone can register\" if not "
+"needed. A high role here is a typical sign of a compromised site."
+msgstr ""
+"In Impostazioni > Generali imposta \"Ruolo predefinito del nuovo utente\" su"
+" Sottoscrittore (o Cliente per WooCommerce) e disattiva \"Chiunque può "
+"registrarsi\" se non serve. Un ruolo elevato qui è un segnale tipico di sito"
+" compromesso."
+
+#: includes/checks/class-user-checks.php:148
+msgid ""
+"Two-step verification is disabled by the GRS_SECURITY_DISABLE_2FA constant "
+"in wp-config.php."
+msgstr ""
+"La verifica in due passaggi è disattivata dalla costante "
+"GRS_SECURITY_DISABLE_2FA in wp-config.php."
+
+#: includes/checks/class-user-checks.php:151
+msgid "All administrators use two-step verification."
+msgstr "Tutti gli amministratori usano la verifica in due passaggi."
+
+#. translators: %s: list
+#: includes/checks/class-user-checks.php:155
+msgid ""
+"Mandatory two-step verification: they still have to set it up at their next "
+"login: %s."
+msgstr ""
+"Verifica in due passaggi obbligatoria: devono ancora configurarla al "
+"prossimo accesso: %s."
+
+#. translators: %s: list
+#: includes/checks/class-user-checks.php:159
+msgid ""
+"Administrators without two-step verification: %s. With a password alone, a "
+"stolen password is enough to get in."
+msgstr ""
+"Amministratori senza verifica in due passaggi: %s. Con la sola password, una"
+" password rubata basta per entrare."
+
+#: includes/checks/class-user-checks.php:165
+msgid "Two-step verification for administrators"
+msgstr "Verifica in due passaggi per gli amministratori"
+
+#: includes/checks/class-user-checks.php:172
+msgid ""
+"Makes two-step verification mandatory for the selected roles (default: "
+"Administrator). At the next login each administrator will have to connect an"
+" app such as Google Authenticator, Microsoft Authenticator or 1Password and "
+"save the recovery codes."
+msgstr ""
+"Rende obbligatoria la verifica in due passaggi per i ruoli scelti "
+"(predefinito: Amministratore). Al prossimo accesso ogni amministratore dovrà"
+" collegare un'app come Google Authenticator, Microsoft Authenticator o "
+"1Password e salvare i codici di recupero."
+
+#: includes/class-activator.php:27
+msgid ""
+"GRS Security does not support network activation on multisite. Activate it "
+"on the single site."
+msgstr ""
+"GRS Security non supporta l'attivazione di rete in multisite. Attivalo sul "
+"singolo sito."
+
+#: includes/class-activator.php:28
+msgid "Activation not supported"
+msgstr "Attivazione non supportata"
+
+#. translators: 1: username, 2: email, 3: role
+#: includes/class-event-monitor.php:93
+msgid ""
+"New user created with administrator permissions: %1$s (%2$s), role %3$s."
+msgstr ""
+"Creato un nuovo utente con permessi di amministrazione: %1$s (%2$s), ruolo "
+"%3$s."
+
+#. translators: 1: username, 2: roles
+#: includes/class-event-monitor.php:104
+msgid "User %1$s created with role %2$s."
+msgstr "Creato l'utente %1$s con ruolo %2$s."
+
+#. translators: 1: user, 2: new role, 3: previous roles
+#: includes/class-event-monitor.php:158
+msgid "User %1$s now has the role %2$s (previously: %3$s)."
+msgstr "L'utente %1$s ha ora il ruolo %2$s (prima: %3$s)."
+
+#. translators: %d: user ID
+#: includes/class-event-monitor.php:178
+msgid "Deleted user with ID %d."
+msgstr "Eliminato l'utente con ID %d."
+
+#. translators: %s: username
+#: includes/class-event-monitor.php:198
+msgid "Successful login: %s."
+msgstr "Accesso riuscito: %s."
+
+#. translators: %s: username
+#: includes/class-event-monitor.php:220
+msgid "Password reset via the recovery link: %s."
+msgstr "Password reimpostata tramite il link di recupero: %s."
+
+#. translators: 1: option, 2: old value, 3: new value
+#: includes/class-event-monitor.php:253
+msgid "Setting \"%1$s\" changed from \"%2$s\" to \"%3$s\"."
+msgstr "Impostazione \"%1$s\" modificata: da \"%2$s\" a \"%3$s\"."
+
+#. translators: %s: plugin
+#: includes/class-event-monitor.php:270
+msgid "Plugin activated: %s."
+msgstr "Plugin attivato: %s."
+
+#. translators: %s: plugin
+#: includes/class-event-monitor.php:281
+msgid "Plugin deactivated: %s."
+msgstr "Plugin disattivato: %s."
+
+#. translators: %s: plugin
+#: includes/class-event-monitor.php:294
+msgid "Plugin deleted: %s."
+msgstr "Plugin eliminato: %s."
+
+#: includes/class-event-monitor.php:313
+msgid "New plugin installed."
+msgstr "Installato un nuovo plugin."
+
+#: includes/class-event-monitor.php:313
+msgid "New theme installed."
+msgstr "Installato un nuovo tema."
+
+#. translators: 1: type, 2: list
+#: includes/class-event-monitor.php:327
+msgid "Update completed (%1$s) %2$s"
+msgstr "Aggiornamento completato (%1$s) %2$s"
+
+#. translators: %s: theme
+#: includes/class-event-monitor.php:341
+msgid "Active theme changed to: %s."
+msgstr "Tema attivo cambiato in: %s."
+
+#. translators: %s: list of protections
+#: includes/class-event-monitor.php:363
+msgid "Protections disabled in GRS Security: %s."
+msgstr "Protezioni disattivate in GRS Security: %s."
+
+#: includes/class-fixer.php:56 includes/class-fixer.php:91
+msgid "Fix not available."
+msgstr "Correzione non disponibile."
+
+#: includes/class-fixer.php:59
+msgid "First choose the login address in the settings."
+msgstr "Scegli prima l'indirizzo di login nelle impostazioni."
+
+#: includes/class-hardening.php:229
+msgid "Error:"
+msgstr "Errore:"
+
+#: includes/class-hardening.php:229
+msgid "incorrect username, email or password."
+msgstr "nome utente, email o password non corretti."
+
+#. translators: %s: file path
+#: includes/class-htaccess.php:188
+msgid "The file %s is not writable."
+msgstr "Il file %s non è scrivibile."
+
+#: includes/class-htaccess.php:225
+msgid "Writing the .htaccess file failed."
+msgstr "Scrittura del file .htaccess non riuscita."
+
+#: includes/class-htaccess.php:232
+msgid ""
+"After the .htaccess change the site answered with a server error: the change"
+" was undone automatically. The hosting probably does not allow some "
+"directives; apply the rules manually or ask the hosting."
+msgstr ""
+"Dopo la modifica del file .htaccess il sito ha risposto con un errore del "
+"server: la modifica è stata annullata automaticamente. Probabilmente "
+"l'hosting non consente alcune direttive; applica le regole a mano o chiedi "
+"all'hosting."
+
+#. translators: %d: number of anomalies
+#: includes/class-integrity.php:147
+msgid "Integrity check: %d new file anomaly."
+msgid_plural "Integrity check: %d new file anomalies."
+msgstr[0] "Controllo integrità: %d nuova anomalia nei file."
+msgstr[1] "Controllo integrità: %d nuove anomalie nei file."
+
+#: includes/class-integrity.php:307
+msgid "Unable to download the official checksums from wordpress.org."
+msgstr "Impossibile scaricare i checksum ufficiali da wordpress.org."
+
+#: includes/class-ip.php:24
+msgid "Direct connection (REMOTE_ADDR, default)"
+msgstr "Connessione diretta (REMOTE_ADDR, predefinito)"
+
+#: includes/class-ip.php:25
+msgid "Cloudflare (CF-Connecting-IP)"
+msgstr "Cloudflare (CF-Connecting-IP)"
+
+#: includes/class-ip.php:26
+msgid "Proxy or load balancer (X-Forwarded-For)"
+msgstr "Proxy o bilanciatore (X-Forwarded-For)"
+
+#: includes/class-ip.php:27
+msgid "Nginx proxy (X-Real-IP)"
+msgstr "Proxy Nginx (X-Real-IP)"
+
+#: includes/class-login-guard.php:55
+msgid "Access temporarily blocked:"
+msgstr "Accesso temporaneamente bloccato:"
+
+#. translators: %d: minutes
+#: includes/class-login-guard.php:58
+msgid "too many failed attempts. Try again in %d minute."
+msgid_plural "too many failed attempts. Try again in %d minutes."
+msgstr[0] "troppi tentativi non riusciti. Riprova tra %d minuto."
+msgstr[1] "troppi tentativi non riusciti. Riprova tra %d minuti."
+
+#. translators: 1: IP, 2: minutes
+#: includes/class-login-guard.php:151
+msgid "IP %1$s blocked for %2$d minutes after too many failed login attempts."
+msgstr ""
+"IP %1$s bloccato per %2$d minuti dopo troppi tentativi di accesso non "
+"riusciti."
+
+#. translators: %s: URL
+#: includes/class-login-url.php:79
+msgid "New login address: %s"
+msgstr "Nuovo indirizzo di login: %s"
+
+#: includes/class-login-url.php:89
+msgid "New site login address"
+msgstr "Nuovo indirizzo di accesso al sito"
+
+#. translators: 1: URL, 2: constant
+#: includes/class-login-url.php:92
+msgid ""
+"The site login page has been moved. The new address is:\n"
+"\n"
+"%1$s\n"
+"\n"
+"Bookmark it: wp-login.php and wp-admin no longer show the login to visitors.\n"
+"In an emergency add to wp-config.php: %2$s"
+msgstr ""
+"La pagina di accesso al sito è stata spostata. Il nuovo indirizzo è:\n"
+"\n"
+"%1$s\n"
+"\n"
+"Salvalo nei preferiti: wp-login.php e wp-admin non mostrano più il login ai visitatori.\n"
+"In caso di emergenza aggiungi in wp-config.php: %2$s"
+
+#: includes/class-login-url.php:240
+msgid "Page not found."
+msgstr "Pagina non trovata."
+
+#: includes/class-login-url.php:241
+msgid "Page not found"
+msgstr "Pagina non trovata"
+
+#. translators: %s: user
+#: includes/class-notifier.php:77
+msgid "User: %s"
+msgstr "Utente: %s"
+
+#. translators: %s: IP
+#: includes/class-notifier.php:82
+msgid "IP: %s"
+msgstr "IP: %s"
+
+#. translators: %s: date and time
+#: includes/class-notifier.php:89
+msgid "Date: %s"
+msgstr "Data: %s"
+
+#: includes/class-notifier.php:91
+msgid "If you do not recognize this activity, check the site immediately:"
+msgstr "Se non riconosci questa attività, controlla subito il sito:"
+
+#: includes/class-notifier.php:95
+msgid "Important security alert"
+msgstr "Avviso di sicurezza importante"
+
+#: includes/class-notifier.php:95
+msgid "Security alert"
+msgstr "Avviso di sicurezza"
+
+#. translators: 1: site, 2: URL
+#: includes/class-notifier.php:118
+msgid "GRS Security on %1$s (%2$s)"
+msgstr "GRS Security su %1$s (%2$s)"
+
+#: includes/class-privacy.php:39
+msgid ""
+"To protect the site from unauthorized access and cyber attacks we record, "
+"for a limited period, the IP address, the username used in login attempts "
+"and some actions performed by registered users (for example logins, changes "
+"to roles and settings). This data is processed on the basis of the "
+"legitimate interest in site security and is deleted automatically after the "
+"configured retention period."
+msgstr ""
+"Per proteggere il sito da accessi non autorizzati e attacchi informatici "
+"registriamo, per un periodo limitato, l'indirizzo IP, il nome utente usato "
+"nei tentativi di accesso e alcune azioni compiute dagli utenti registrati "
+"(ad esempio accessi, modifiche ai ruoli e alle impostazioni). Questi dati "
+"sono trattati sulla base del legittimo interesse alla sicurezza del sito e "
+"vengono cancellati automaticamente dopo il periodo di conservazione "
+"impostato."
+
+#: includes/class-privacy.php:51 includes/class-privacy.php:65
+msgid "Security log (GRS Security)"
+msgstr "Registro di sicurezza (GRS Security)"
+
+#: includes/class-privacy.php:95
+msgid "Security log"
+msgstr "Registro di sicurezza"
+
+#. translators: %s: constant name
+#: includes/class-salts.php:46
+msgid "%s not defined"
+msgstr "%s non definita"
+
+#. translators: %s: constant name
+#: includes/class-salts.php:52
+msgid "%s weak or default"
+msgstr "%s debole o predefinita"
+
+#: includes/class-salts.php:57
+msgid "some keys have the same value"
+msgstr "alcune chiavi hanno lo stesso valore"
+
+#: includes/class-salts.php:83
+msgid "wp-config.php file not found."
+msgstr "File wp-config.php non trovato."
+
+#: includes/class-salts.php:86
+msgid "The wp-config.php file is not writable by the server."
+msgstr "Il file wp-config.php non è scrivibile dal server."
+
+#: includes/class-salts.php:89
+msgid "The wp-config.php folder is not writable (needed for the backup copy)."
+msgstr ""
+"La cartella di wp-config.php non è scrivibile (serve per la copia di "
+"sicurezza)."
+
+#. translators: %s: constant name
+#: includes/class-salts.php:95
+msgid ""
+"The definition of %s in wp-config.php is not in the standard format: manual "
+"editing recommended."
+msgstr ""
+"La definizione di %s in wp-config.php non è nel formato standard: modifica "
+"manuale consigliata."
+
+#: includes/class-salts.php:146
+msgid "The new wp-config.php fails the syntax check: no change made."
+msgstr ""
+"Il nuovo wp-config.php non supera il controllo di sintassi: nessuna modifica"
+" eseguita."
+
+#: includes/class-salts.php:151
+msgid "Unable to create the backup copy of wp-config.php: no change made."
+msgstr ""
+"Impossibile creare la copia di sicurezza di wp-config.php: nessuna modifica "
+"eseguita."
+
+#: includes/class-salts.php:161
+msgid "Writing wp-config.php failed: the original file was restored."
+msgstr ""
+"Scrittura di wp-config.php non riuscita: ripristinato il file originale."
+
+#. translators: %s: error message
+#: includes/class-salts.php:192
+msgid "A plugin hooked to the key regeneration raised an error: %s"
+msgstr ""
+"Un plugin collegato alla rigenerazione delle chiavi ha generato un errore: "
+"%s"
+
+#: includes/class-salts.php:197
+msgid "Security keys (SALT) regenerated: all users have been logged out."
+msgstr ""
+"Chiavi di sicurezza (SALT) rigenerate: tutti gli utenti sono stati "
+"disconnessi."
+
+#: includes/class-scanner.php:26
+msgid "Updates"
+msgstr "Aggiornamenti"
+
+#: includes/class-scanner.php:27
+msgid "Users and logins"
+msgstr "Utenti e accessi"
+
+#: includes/class-scanner.php:28
+msgid "Configuration"
+msgstr "Configurazione"
+
+#: includes/class-scanner.php:29
+msgid "Site exposure"
+msgstr "Esposizione del sito"
+
+#: includes/class-scanner.php:30
+msgid "Active protections and monitoring"
+msgstr "Protezioni attive e monitoraggio"
+
+#: includes/class-two-factor.php:52
+msgid "Two-step verification has expired: log in again."
+msgstr "La verifica in due passaggi è scaduta: accedi di nuovo."
+
+#: includes/class-two-factor.php:54
+msgid "Too many invalid codes: log in again."
+msgstr "Troppi codici non validi: accedi di nuovo."
+
+#: includes/class-two-factor.php:103
+msgid ""
+"This account uses two-step verification: for apps use an Application "
+"Password."
+msgstr ""
+"Questo account usa la verifica in due passaggi: per le app usa una "
+"Application Password."
+
+#: includes/class-two-factor.php:106
+msgid ""
+"This account uses two-step verification: log in from the site login page."
+msgstr ""
+"Questo account usa la verifica in due passaggi: accedi dalla pagina di login"
+" del sito."
+
+#: includes/class-two-factor.php:204
+msgid "Session expired, enter the code again."
+msgstr "Sessione scaduta, inserisci di nuovo il codice."
+
+#: includes/class-two-factor.php:219
+msgid "Invalid two-step verification code."
+msgstr "Codice di verifica in due passaggi non valido."
+
+#: includes/class-two-factor.php:231
+msgid "Invalid code. Check the phone time and try again."
+msgstr "Codice non valido. Controlla l'ora del telefono e riprova."
+
+#. translators: %d: codes left
+#: includes/class-two-factor.php:260
+msgid "Login with a recovery code (%d left)."
+msgstr "Accesso con un codice di recupero (ne restano %d)."
+
+#: includes/class-two-factor.php:307
+msgid ""
+"Open the authenticator app and enter the 6-digit code. If you don't have "
+"your phone, use one of the recovery codes."
+msgstr ""
+"Apri l'app di autenticazione e inserisci il codice di 6 cifre. Se non hai il"
+" telefono, usa uno dei codici di recupero."
+
+#: includes/class-two-factor.php:309
+msgid "Verification code"
+msgstr "Codice di verifica"
+
+#: includes/class-two-factor.php:314
+msgid "Verify"
+msgstr "Verifica"
+
+#: includes/class-two-factor.php:317
+msgid "Back to login"
+msgstr "Torna al login"
+
+#: includes/class-two-factor.php:383
+msgid "Two-step verification enabled."
+msgstr "Verifica in due passaggi attivata."
+
+#. translators: %s: administrator
+#: includes/class-two-factor.php:410
+msgid "Two-step verification reset by %s."
+msgstr "Verifica in due passaggi azzerata da %s."
+
+#: includes/class-two-factor.php:411
+msgid "Two-step verification disabled by the user."
+msgstr "Verifica in due passaggi disattivata dall'utente."

@@ -51,14 +51,14 @@ class User_Checks {
 			array(
 				'id'           => 'admin_username',
 				'category'     => 'users',
-				'title'        => __( 'Nessun utente "admin"', 'grs-security' ),
+				'title'        => __( 'No "admin" user', 'grs-security' ),
 				'status'       => $bad ? 'warning' : 'ok',
 				'weight'       => 2,
 				'message'      => $bad
-					? __( 'Esiste un utente con nome "admin": è il primo che i bot provano negli attacchi alle password.', 'grs-security' )
-					: __( 'Nessun utente con il nome prevedibile "admin".', 'grs-security' ),
+					? __( 'There is a user named "admin": it is the first one bots try in password attacks.', 'grs-security' )
+					: __( 'No user with the predictable name "admin".', 'grs-security' ),
 				'fix'          => $bad ? 'manual' : 'none',
-				'instructions' => __( 'Crea un nuovo amministratore con un nome non ovvio, accedi con quello ed elimina l\'utente "admin" assegnando i suoi contenuti al nuovo utente. Il nome utente in WordPress non si può rinominare dalla bacheca.', 'grs-security' ),
+				'instructions' => __( 'Create a new administrator with a non-obvious name, log in with it and delete the "admin" user, assigning its content to the new user. WordPress usernames cannot be renamed from the dashboard.', 'grs-security' ),
 				'link'         => admin_url( 'user-new.php' ),
 			)
 		);
@@ -77,13 +77,13 @@ class User_Checks {
 			array(
 				'id'           => 'admin_count',
 				'category'     => 'users',
-				'title'        => __( 'Pochi amministratori', 'grs-security' ),
+				'title'        => __( 'Few administrators', 'grs-security' ),
 				'status'       => $count > 3 ? 'warning' : 'ok',
 				'weight'       => 1,
-				/* translators: 1: numero, 2: elenco */
-				'message'      => sprintf( _n( '%1$d amministratore: %2$s.', '%1$d amministratori: %2$s.', $count, 'grs-security' ), $count, implode( ', ', array_slice( $names, 0, 15 ) ) ),
+				/* translators: 1: number, 2: list */
+				'message'      => sprintf( _n( '%1$d administrator: %2$s.', '%1$d administrators: %2$s.', $count, 'grs-security' ), $count, implode( ', ', array_slice( $names, 0, 15 ) ) ),
 				'fix'          => $count > 3 ? 'manual' : 'none',
-				'instructions' => __( 'Ogni amministratore è una porta d\'ingresso. Verifica che tutti siano ancora necessari, elimina gli account di ex collaboratori e assegna ruoli più bassi (Editore, Autore) a chi non gestisce il sito.', 'grs-security' ),
+				'instructions' => __( 'Every administrator is a way in. Check that all of them are still needed, delete accounts of former collaborators and assign lower roles (Editor, Author) to those who do not manage the site.', 'grs-security' ),
 				'link'         => admin_url( 'users.php?role=administrator' ),
 			)
 		);
@@ -102,28 +102,28 @@ class User_Checks {
 
 		if ( ! $safe ) {
 			$status = $open ? 'critical' : 'warning';
-			/* translators: %s: ruolo */
-			$message = sprintf( __( 'Il ruolo assegnato ai nuovi utenti è "%s", che permette di creare o modificare contenuti.', 'grs-security' ), $role );
+			/* translators: %s: role */
+			$message = sprintf( __( 'The role assigned to new users is "%s", which allows creating or editing content.', 'grs-security' ), $role );
 			if ( $open ) {
-				$message .= ' ' . __( 'La registrazione è aperta a chiunque.', 'grs-security' );
+				$message .= ' ' . __( 'Registration is open to anyone.', 'grs-security' );
 			}
 		} else {
 			$status  = 'ok';
 			$message = $open
-				/* translators: %s: ruolo */
-				? sprintf( __( 'Registrazione aperta con ruolo predefinito "%s" (senza permessi di modifica).', 'grs-security' ), $role )
-				: __( 'Registrazione pubblica disattivata.', 'grs-security' );
+				/* translators: %s: role */
+				? sprintf( __( 'Registration open with default role "%s" (no editing permissions).', 'grs-security' ), $role )
+				: __( 'Public registration disabled.', 'grs-security' );
 		}
 		return Scanner::result(
 			array(
 				'id'           => 'registration',
 				'category'     => 'users',
-				'title'        => __( 'Registrazione e ruolo predefinito sicuri', 'grs-security' ),
+				'title'        => __( 'Safe registration and default role', 'grs-security' ),
 				'status'       => $status,
 				'weight'       => 3,
 				'message'      => $message,
 				'fix'          => 'ok' === $status ? 'none' : 'manual',
-				'instructions' => __( 'In Impostazioni > Generali imposta "Ruolo predefinito del nuovo utente" su Sottoscrittore (o Cliente per WooCommerce) e disattiva "Chiunque può registrarsi" se non serve. Un ruolo elevato qui è un segnale tipico di sito compromesso.', 'grs-security' ),
+				'instructions' => __( 'In Settings > General set "New User Default Role" to Subscriber (or Customer for WooCommerce) and turn off "Anyone can register" if not needed. A high role here is a typical sign of a compromised site.', 'grs-security' ),
 				'link'         => admin_url( 'options-general.php' ),
 			)
 		);
@@ -145,31 +145,31 @@ class User_Checks {
 		$required = Settings::fix_enabled( 'twofa' );
 		if ( Two_Factor::globally_disabled() ) {
 			$status  = 'critical';
-			$message = __( 'La verifica in due passaggi è disattivata dalla costante GRS_SECURITY_DISABLE_2FA in wp-config.php.', 'grs-security' );
+			$message = __( 'Two-step verification is disabled by the GRS_SECURITY_DISABLE_2FA constant in wp-config.php.', 'grs-security' );
 		} elseif ( empty( $without ) ) {
 			$status  = 'ok';
-			$message = __( 'Tutti gli amministratori usano la verifica in due passaggi.', 'grs-security' );
+			$message = __( 'All administrators use two-step verification.', 'grs-security' );
 		} elseif ( $required ) {
 			$status = 'ok';
-			/* translators: %s: elenco */
-			$message = sprintf( __( 'Verifica in due passaggi obbligatoria: devono ancora configurarla al prossimo accesso: %s.', 'grs-security' ), implode( ', ', $without ) );
+			/* translators: %s: list */
+			$message = sprintf( __( 'Mandatory two-step verification: they still have to set it up at their next login: %s.', 'grs-security' ), implode( ', ', $without ) );
 		} else {
 			$status = 'critical';
-			/* translators: %s: elenco */
-			$message = sprintf( __( 'Amministratori senza verifica in due passaggi: %s. Con la sola password, una password rubata basta per entrare.', 'grs-security' ), implode( ', ', $without ) );
+			/* translators: %s: list */
+			$message = sprintf( __( 'Administrators without two-step verification: %s. With a password alone, a stolen password is enough to get in.', 'grs-security' ), implode( ', ', $without ) );
 		}
 		return Scanner::result(
 			array(
 				'id'           => 'twofa',
 				'category'     => 'users',
-				'title'        => __( 'Verifica in due passaggi per gli amministratori', 'grs-security' ),
+				'title'        => __( 'Two-step verification for administrators', 'grs-security' ),
 				'status'       => $status,
 				'weight'       => 3,
 				'message'      => $message,
 				'fix'          => 'auto',
 				'fix_applied'  => $required,
 				'recommended'  => true,
-				'instructions' => __( 'Rende obbligatoria la verifica in due passaggi per i ruoli scelti (predefinito: Amministratore). Al prossimo accesso ogni amministratore dovrà collegare un\'app come Google Authenticator, Microsoft Authenticator o 1Password e salvare i codici di recupero.', 'grs-security' ),
+				'instructions' => __( 'Makes two-step verification mandatory for the selected roles (default: Administrator). At the next login each administrator will have to connect an app such as Google Authenticator, Microsoft Authenticator or 1Password and save the recovery codes.', 'grs-security' ),
 			)
 		);
 	}

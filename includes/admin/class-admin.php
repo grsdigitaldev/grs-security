@@ -77,7 +77,7 @@ class Admin {
 		$plugins[ self::SLUG ] = array(
 			'name'        => 'GRS Security',
 			'version'     => GRS_SECURITY_VERSION,
-			'description' => __( 'Analisi della sicurezza, correzioni con un clic, protezione del login, verifica in due passaggi, firewall e controllo dei file.', 'grs-security' ),
+			'description' => __( 'Security analysis, one-click fixes, login protection, two-step verification, firewall and file monitoring.', 'grs-security' ),
 			'url'         => Plugin::admin_url(),
 		);
 		return $plugins;
@@ -131,8 +131,8 @@ class Admin {
 				'grs-security-admin',
 				'grsSecurity',
 				array(
-					'confirmSalts'  => __( 'Le chiavi di sicurezza verranno rigenerate e tutti gli utenti, tu compreso, verranno disconnessi. I plugin GRS compatibili (come GRS SMTP) aggiornano automaticamente i propri dati cifrati. Continuare?', 'grs-security' ),
-					'confirmRevert' => __( 'Vuoi annullare questa correzione?', 'grs-security' ),
+					'confirmSalts'  => __( 'The security keys will be regenerated and all users, including you, will be logged out. Compatible GRS plugins (such as GRS SMTP) automatically update their encrypted data. Continue?', 'grs-security' ),
+					'confirmRevert' => __( 'Do you want to undo this fix?', 'grs-security' ),
 				)
 			);
 		}
@@ -145,7 +145,7 @@ class Admin {
 	 * @return array
 	 */
 	public static function action_links( $links ) {
-		array_unshift( $links, '<a href="' . esc_url( Plugin::admin_url() ) . '">' . esc_html__( 'Impostazioni', 'grs-security' ) . '</a>' );
+		array_unshift( $links, '<a href="' . esc_url( Plugin::admin_url() ) . '">' . esc_html__( 'Settings', 'grs-security' ) . '</a>' );
 		return $links;
 	}
 
@@ -175,7 +175,7 @@ class Admin {
 	 */
 	private static function guard( $action ) {
 		if ( ! current_user_can( self::CAP ) ) {
-			wp_die( esc_html__( 'Non hai i permessi per questa azione.', 'grs-security' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'You are not allowed to perform this action.', 'grs-security' ), '', array( 'response' => 403 ) );
 		}
 		check_admin_referer( 'grs_security_' . $action );
 	}
@@ -237,7 +237,7 @@ class Admin {
 	public static function handle_scan() {
 		self::guard( 'scan' );
 		Scanner::run();
-		self::notice( 'success', __( 'Analisi completata.', 'grs-security' ) );
+		self::notice( 'success', __( 'Analysis completed.', 'grs-security' ) );
 		self::back();
 	}
 
@@ -264,7 +264,7 @@ class Admin {
 			wp_safe_redirect( wp_login_url( Plugin::admin_url() ) );
 			exit;
 		} else {
-			self::notice( 'success', 'revert' === $mode ? __( 'Correzione annullata.', 'grs-security' ) : __( 'Correzione applicata.', 'grs-security' ) );
+			self::notice( 'success', 'revert' === $mode ? __( 'Fix undone.', 'grs-security' ) : __( 'Fix applied.', 'grs-security' ) );
 		}
 		Scanner::run();
 		self::back();
@@ -281,13 +281,13 @@ class Admin {
 		$checks = isset( $_POST['checks'] ) && is_array( $_POST['checks'] ) ? array_map( 'sanitize_key', wp_unslash( $_POST['checks'] ) ) : array();
 		update_option( self::WIZARD, 1, false );
 		if ( empty( $checks ) ) {
-			self::notice( 'warning', __( 'Nessuna correzione selezionata.', 'grs-security' ) );
+			self::notice( 'warning', __( 'No fix selected.', 'grs-security' ) );
 			self::back();
 		}
 		$out = Fixer::apply_many( $checks );
 		if ( $out['applied'] ) {
-			/* translators: %d: numero correzioni */
-			self::notice( 'success', sprintf( _n( '%d correzione applicata.', '%d correzioni applicate.', count( $out['applied'] ), 'grs-security' ), count( $out['applied'] ) ) );
+			/* translators: %d: number of fixes */
+			self::notice( 'success', sprintf( _n( '%d fix applied.', '%d fixes applied.', count( $out['applied'] ), 'grs-security' ), count( $out['applied'] ) ) );
 		}
 		foreach ( $out['errors'] as $check => $message ) {
 			self::notice( 'error', $check . ': ' . $message );
@@ -367,12 +367,12 @@ class Admin {
 
 		$slug_raw = trim( (string) $input['login_slug'] );
 		if ( '' !== $slug_raw && '' === Login_Url::sanitize_slug( $slug_raw ) ) {
-			self::notice( 'error', __( 'Indirizzo di login non valido: usa almeno 4 caratteri (lettere, numeri, trattini) ed evita parole come login, admin, dashboard.', 'grs-security' ) );
+			self::notice( 'error', __( 'Invalid login address: use at least 4 characters (letters, numbers, hyphens) and avoid words such as login, admin, dashboard.', 'grs-security' ) );
 		} elseif ( ! empty( $input['fixes']['login_url'] ) && '' === $slug_raw ) {
-			self::notice( 'error', __( 'Per spostare il login indica il nuovo indirizzo.', 'grs-security' ) );
+			self::notice( 'error', __( 'To move the login page, enter the new address.', 'grs-security' ) );
 		}
 		if ( '' !== Login_Url::sanitize_slug( $slug_raw ) && get_page_by_path( Login_Url::sanitize_slug( $slug_raw ) ) ) {
-			self::notice( 'error', __( 'Esiste già una pagina con questo indirizzo: scegline un altro.', 'grs-security' ) );
+			self::notice( 'error', __( 'A page with this address already exists: choose another one.', 'grs-security' ) );
 			$input['login_slug']         = $old['login_slug'];
 			$input['fixes']['login_url'] = $old['fixes']['login_url'];
 		}
@@ -402,12 +402,12 @@ class Admin {
 			Integrity::start();
 		}
 
-		self::notice( 'success', __( 'Impostazioni salvate.', 'grs-security' ) );
+		self::notice( 'success', __( 'Settings saved.', 'grs-security' ) );
 		if ( ! empty( $new['fixes']['login_url'] ) && '' !== $new['login_slug'] && ( $new['login_slug'] !== $old['login_slug'] || ! $old['fixes']['login_url'] ) ) {
 			self::notice(
 				'warning',
 				/* translators: %s: URL */
-				sprintf( __( 'Da ora la pagina di accesso è %s: salvala nei preferiti. Il nuovo indirizzo è stato inviato anche via email.', 'grs-security' ), Login_Url::login_url() )
+				sprintf( __( 'From now on the login page is %s: bookmark it. The new address has also been sent by email.', 'grs-security' ), Login_Url::login_url() )
 			);
 		}
 		Scanner::run();
@@ -426,8 +426,8 @@ class Admin {
 		self::notice(
 			'success',
 			$progress
-				? __( 'Controllo avviato: prosegue in background, ricarica la pagina tra qualche minuto.', 'grs-security' )
-				: __( 'Controllo dei file completato.', 'grs-security' )
+				? __( 'Check started: it continues in the background, reload the page in a few minutes.', 'grs-security' )
+				: __( 'File check completed.', 'grs-security' )
 		);
 		self::back( 'integrity' );
 	}
@@ -450,7 +450,7 @@ class Admin {
 		$abs                 = self::issue_abs_path( $type, $path );
 		if ( '' !== $abs ) {
 			Integrity::ignore( $path, $abs );
-			self::notice( 'success', __( 'File ignorato: verrà segnalato di nuovo solo se cambia.', 'grs-security' ) );
+			self::notice( 'success', __( 'File ignored: it will be reported again only if it changes.', 'grs-security' ) );
 		}
 		self::back( 'integrity' );
 	}
@@ -491,7 +491,7 @@ class Admin {
 		if ( filter_var( $ip, FILTER_VALIDATE_IP ) ) {
 			Login_Guard::unlock( $ip );
 			/* translators: %s: IP */
-			self::notice( 'success', sprintf( __( 'IP %s sbloccato.', 'grs-security' ), $ip ) );
+			self::notice( 'success', sprintf( __( 'IP %s unblocked.', 'grs-security' ), $ip ) );
 		}
 		self::back( 'settings' );
 	}
@@ -503,23 +503,23 @@ class Admin {
 	 */
 	public static function fix_labels() {
 		return array(
-			'login_guard'        => __( 'Limite ai tentativi di accesso', 'grs-security' ),
-			'twofa'              => __( 'Verifica in due passaggi obbligatoria per i ruoli scelti', 'grs-security' ),
-			'login_errors'       => __( 'Errori di login generici', 'grs-security' ),
-			'file_edit'          => __( 'Blocca l\'editor di file di plugin e temi', 'grs-security' ),
-			'xmlrpc'             => __( 'Disattiva XML-RPC', 'grs-security' ),
-			'user_enum'          => __( 'Blocca l\'elenco pubblico dei nomi utente', 'grs-security' ),
-			'app_passwords'      => __( 'Disattiva le Application Passwords', 'grs-security' ),
-			'headers'            => __( 'Header HTTP di sicurezza', 'grs-security' ),
-			'hsts'               => __( 'HSTS (solo siti interamente in HTTPS)', 'grs-security' ),
-			'hide_version'       => __( 'Nascondi la versione di WordPress', 'grs-security' ),
-			'core_minor_updates' => __( 'Forza gli aggiornamenti automatici minori del core', 'grs-security' ),
-			'htaccess_uploads'   => __( 'Blocca PHP nella cartella uploads (.htaccess)', 'grs-security' ),
-			'htaccess_sensitive' => __( 'Blocca file sensibili, log e backup (.htaccess)', 'grs-security' ),
-			'htaccess_indexes'   => __( 'Disattiva l\'elenco dei file delle cartelle (.htaccess)', 'grs-security' ),
-			'firewall'           => __( 'Firewall applicativo', 'grs-security' ),
-			'integrity'          => __( 'Controllo giornaliero dell\'integrità dei file', 'grs-security' ),
-			'login_url'          => __( 'Sposta la pagina di login', 'grs-security' ),
+			'login_guard'        => __( 'Login attempt limit', 'grs-security' ),
+			'twofa'              => __( 'Mandatory two-step verification for the selected roles', 'grs-security' ),
+			'login_errors'       => __( 'Generic login errors', 'grs-security' ),
+			'file_edit'          => __( 'Block the plugin and theme file editor', 'grs-security' ),
+			'xmlrpc'             => __( 'Disable XML-RPC', 'grs-security' ),
+			'user_enum'          => __( 'Block the public list of usernames', 'grs-security' ),
+			'app_passwords'      => __( 'Disable Application Passwords', 'grs-security' ),
+			'headers'            => __( 'Security HTTP headers', 'grs-security' ),
+			'hsts'               => __( 'HSTS (HTTPS-only sites)', 'grs-security' ),
+			'hide_version'       => __( 'Hide the WordPress version', 'grs-security' ),
+			'core_minor_updates' => __( 'Force automatic minor core updates', 'grs-security' ),
+			'htaccess_uploads'   => __( 'Block PHP in the uploads folder (.htaccess)', 'grs-security' ),
+			'htaccess_sensitive' => __( 'Block sensitive files, logs and backups (.htaccess)', 'grs-security' ),
+			'htaccess_indexes'   => __( 'Disable folder file listing (.htaccess)', 'grs-security' ),
+			'firewall'           => __( 'Application firewall', 'grs-security' ),
+			'integrity'          => __( 'Daily file integrity check', 'grs-security' ),
+			'login_url'          => __( 'Move the login page', 'grs-security' ),
 		);
 	}
 

@@ -89,8 +89,8 @@ class Event_Monitor {
 				Logger::log(
 					'admin_created',
 					'critical',
-					/* translators: 1: nome utente, 2: email, 3: ruolo */
-					sprintf( __( 'Creato un nuovo utente con permessi di amministrazione: %1$s (%2$s), ruolo %3$s.', 'grs-security' ), $user->user_login, $user->user_email, $role ),
+					/* translators: 1: username, 2: email, 3: role */
+					sprintf( __( 'New user created with administrator permissions: %1$s (%2$s), role %3$s.', 'grs-security' ), $user->user_login, $user->user_email, $role ),
 					array_merge( self::actor(), array( 'context' => array( 'new_user_id' => $user_id ) ) )
 				);
 				return;
@@ -100,8 +100,8 @@ class Event_Monitor {
 			Logger::log(
 				'user_created',
 				'info',
-				/* translators: 1: nome utente, 2: ruoli */
-				sprintf( __( 'Creato l\'utente %1$s con ruolo %2$s.', 'grs-security' ), $user->user_login, implode( ', ', (array) $user->roles ) ),
+				/* translators: 1: username, 2: roles */
+				sprintf( __( 'User %1$s created with role %2$s.', 'grs-security' ), $user->user_login, implode( ', ', (array) $user->roles ) ),
 				self::actor()
 			);
 		}
@@ -154,8 +154,8 @@ class Event_Monitor {
 			$admin ? 'admin_role_granted' : 'role_changed',
 			$admin ? 'critical' : 'info',
 			sprintf(
-				/* translators: 1: utente, 2: nuovo ruolo, 3: ruoli precedenti */
-				__( 'L\'utente %1$s ha ora il ruolo %2$s (prima: %3$s).', 'grs-security' ),
+				/* translators: 1: user, 2: new role, 3: previous roles */
+				__( 'User %1$s now has the role %2$s (previously: %3$s).', 'grs-security' ),
 				$user->user_login,
 				$role,
 				$old_roles ? implode( ', ', $old_roles ) : '-'
@@ -174,8 +174,8 @@ class Event_Monitor {
 		Logger::log(
 			'user_deleted',
 			'info',
-			/* translators: %d: id utente */
-			sprintf( __( 'Eliminato l\'utente con ID %d.', 'grs-security' ), $user_id ),
+			/* translators: %d: user ID */
+			sprintf( __( 'Deleted user with ID %d.', 'grs-security' ), $user_id ),
 			self::actor()
 		);
 	}
@@ -194,8 +194,8 @@ class Event_Monitor {
 		Logger::log(
 			'login_success',
 			'info',
-			/* translators: %s: nome utente */
-			sprintf( __( 'Accesso riuscito: %s.', 'grs-security' ), $login ),
+			/* translators: %s: username */
+			sprintf( __( 'Successful login: %s.', 'grs-security' ), $login ),
 			array(
 				'user_id'  => $user->ID,
 				'username' => $login,
@@ -216,8 +216,8 @@ class Event_Monitor {
 		Logger::log(
 			'password_reset',
 			$user->has_cap( 'manage_options' ) ? 'warning' : 'info',
-			/* translators: %s: nome utente */
-			sprintf( __( 'Password reimpostata tramite il link di recupero: %s.', 'grs-security' ), $user->user_login ),
+			/* translators: %s: username */
+			sprintf( __( 'Password reset via the recovery link: %s.', 'grs-security' ), $user->user_login ),
 			array(
 				'user_id'  => $user->ID,
 				'username' => $user->user_login,
@@ -249,8 +249,8 @@ class Event_Monitor {
 			'option_changed',
 			$severity,
 			sprintf(
-				/* translators: 1: opzione, 2: vecchio valore, 3: nuovo valore */
-				__( 'Impostazione "%1$s" modificata: da "%2$s" a "%3$s".', 'grs-security' ),
+				/* translators: 1: option, 2: old value, 3: new value */
+				__( 'Setting "%1$s" changed from "%2$s" to "%3$s".', 'grs-security' ),
 				$option,
 				is_scalar( $old ) ? (string) $old : wp_json_encode( $old ),
 				is_scalar( $value ) ? (string) $value : wp_json_encode( $value )
@@ -267,7 +267,7 @@ class Event_Monitor {
 	 */
 	public static function plugin_activated( $plugin ) {
 		/* translators: %s: plugin */
-		Logger::log( 'plugin_activated', 'info', sprintf( __( 'Plugin attivato: %s.', 'grs-security' ), $plugin ), self::actor() );
+		Logger::log( 'plugin_activated', 'info', sprintf( __( 'Plugin activated: %s.', 'grs-security' ), $plugin ), self::actor() );
 	}
 
 	/**
@@ -278,7 +278,7 @@ class Event_Monitor {
 	 */
 	public static function plugin_deactivated( $plugin ) {
 		/* translators: %s: plugin */
-		Logger::log( 'plugin_deactivated', 'info', sprintf( __( 'Plugin disattivato: %s.', 'grs-security' ), $plugin ), self::actor() );
+		Logger::log( 'plugin_deactivated', 'info', sprintf( __( 'Plugin deactivated: %s.', 'grs-security' ), $plugin ), self::actor() );
 	}
 
 	/**
@@ -291,7 +291,7 @@ class Event_Monitor {
 	public static function plugin_deleted( $plugin, $deleted ) {
 		if ( $deleted ) {
 			/* translators: %s: plugin */
-			Logger::log( 'plugin_deleted', 'info', sprintf( __( 'Plugin eliminato: %s.', 'grs-security' ), $plugin ), self::actor() );
+			Logger::log( 'plugin_deleted', 'info', sprintf( __( 'Plugin deleted: %s.', 'grs-security' ), $plugin ), self::actor() );
 		}
 	}
 
@@ -310,7 +310,7 @@ class Event_Monitor {
 			Logger::log(
 				$type . '_installed',
 				'warning',
-				'plugin' === $type ? __( 'Installato un nuovo plugin.', 'grs-security' ) : __( 'Installato un nuovo tema.', 'grs-security' ),
+				'plugin' === $type ? __( 'New plugin installed.', 'grs-security' ) : __( 'New theme installed.', 'grs-security' ),
 				self::actor()
 			);
 		} elseif ( 'update' === $action ) {
@@ -323,8 +323,8 @@ class Event_Monitor {
 			Logger::log(
 				'updated_' . sanitize_key( $type ),
 				'info',
-				/* translators: 1: tipo, 2: elenco */
-				sprintf( __( 'Aggiornamento completato (%1$s) %2$s', 'grs-security' ), $type, $items ? implode( ', ', $items ) : '' ),
+				/* translators: 1: type, 2: list */
+				sprintf( __( 'Update completed (%1$s) %2$s', 'grs-security' ), $type, $items ? implode( ', ', $items ) : '' ),
 				self::actor()
 			);
 		}
@@ -337,8 +337,8 @@ class Event_Monitor {
 	 * @return void
 	 */
 	public static function theme_switched( $name ) {
-		/* translators: %s: tema */
-		Logger::log( 'theme_switched', 'warning', sprintf( __( 'Tema attivo cambiato in: %s.', 'grs-security' ), $name ), self::actor() );
+		/* translators: %s: theme */
+		Logger::log( 'theme_switched', 'warning', sprintf( __( 'Active theme changed to: %s.', 'grs-security' ), $name ), self::actor() );
 	}
 
 	/**
@@ -359,8 +359,8 @@ class Event_Monitor {
 			Logger::log(
 				'protection_disabled',
 				'warning',
-				/* translators: %s: elenco protezioni */
-				sprintf( __( 'Protezioni disattivate in GRS Security: %s.', 'grs-security' ), implode( ', ', $off ) ),
+				/* translators: %s: list of protections */
+				sprintf( __( 'Protections disabled in GRS Security: %s.', 'grs-security' ), implode( ', ', $off ) ),
 				self::actor()
 			);
 		}

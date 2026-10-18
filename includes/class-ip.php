@@ -21,10 +21,10 @@ class Ip {
 	 */
 	public static function sources() {
 		return array(
-			'REMOTE_ADDR'           => __( 'Connessione diretta (REMOTE_ADDR, predefinito)', 'grs-security' ),
+			'REMOTE_ADDR'           => __( 'Direct connection (REMOTE_ADDR, default)', 'grs-security' ),
 			'HTTP_CF_CONNECTING_IP' => __( 'Cloudflare (CF-Connecting-IP)', 'grs-security' ),
-			'HTTP_X_FORWARDED_FOR'  => __( 'Proxy o bilanciatore (X-Forwarded-For)', 'grs-security' ),
-			'HTTP_X_REAL_IP'        => __( 'Proxy Nginx (X-Real-IP)', 'grs-security' ),
+			'HTTP_X_FORWARDED_FOR'  => __( 'Proxy or load balancer (X-Forwarded-For)', 'grs-security' ),
+			'HTTP_X_REAL_IP'        => __( 'Nginx proxy (X-Real-IP)', 'grs-security' ),
 		);
 	}
 

@@ -53,10 +53,10 @@ class Fixer {
 			return Salts::regenerate();
 		}
 		if ( ! isset( self::MAP[ $check ] ) ) {
-			return new \WP_Error( 'grs_security_unknown_fix', __( 'Correzione non disponibile.', 'grs-security' ) );
+			return new \WP_Error( 'grs_security_unknown_fix', __( 'Fix not available.', 'grs-security' ) );
 		}
 		if ( 'login_url' === $check && '' === (string) Settings::get( 'login_slug', '' ) ) {
-			return new \WP_Error( 'grs_security_no_slug', __( 'Scegli prima l\'indirizzo di login nelle impostazioni.', 'grs-security' ) );
+			return new \WP_Error( 'grs_security_no_slug', __( 'First choose the login address in the settings.', 'grs-security' ) );
 		}
 		$fixes  = self::MAP[ $check ];
 		$values = array_fill_keys( $fixes, true );
@@ -88,7 +88,7 @@ class Fixer {
 	 */
 	public static function revert( $check ) {
 		if ( ! isset( self::MAP[ $check ] ) ) {
-			return new \WP_Error( 'grs_security_unknown_fix', __( 'Correzione non disponibile.', 'grs-security' ) );
+			return new \WP_Error( 'grs_security_unknown_fix', __( 'Fix not available.', 'grs-security' ) );
 		}
 		$fixes = self::MAP[ $check ];
 		Settings::update( array( 'fixes' => array_fill_keys( $fixes, false ) ) );

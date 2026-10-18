@@ -49,17 +49,17 @@ class Protection_Checks {
 			array(
 				'id'           => 'login_guard',
 				'category'     => 'monitoring',
-				'title'        => __( 'Limite ai tentativi di accesso', 'grs-security' ),
+				'title'        => __( 'Login attempt limit', 'grs-security' ),
 				'status'       => $applied ? 'ok' : 'critical',
 				'weight'       => 3,
 				'message'      => $applied
-					/* translators: 1: tentativi, 2: minuti */
-					? sprintf( __( 'Dopo %1$d tentativi falliti l\'IP viene bloccato per %2$d minuti (il blocco raddoppia se l\'attacco continua).', 'grs-security' ), (int) Settings::get( 'login_max_attempts' ), (int) Settings::get( 'login_lockout' ) )
-					: __( 'Nessun limite ai tentativi di accesso: un bot può provare password senza sosta.', 'grs-security' ),
+					/* translators: 1: attempts, 2: minutes */
+					? sprintf( __( 'After %1$d failed attempts the IP is blocked for %2$d minutes (the block doubles if the attack continues).', 'grs-security' ), (int) Settings::get( 'login_max_attempts' ), (int) Settings::get( 'login_lockout' ) )
+					: __( 'No limit on login attempts: a bot can try passwords nonstop.', 'grs-security' ),
 				'fix'          => 'auto',
 				'fix_applied'  => $applied,
 				'recommended'  => ! $applied,
-				'instructions' => __( 'Blocca temporaneamente gli IP che sbagliano troppe volte la password (anche via XML-RPC e Application Passwords). Puoi indicare gli IP fidati nelle impostazioni.', 'grs-security' ),
+				'instructions' => __( 'Temporarily blocks IPs that enter the wrong password too many times (also via XML-RPC and Application Passwords). You can set trusted IPs in the settings.', 'grs-security' ),
 			)
 		);
 	}
@@ -74,27 +74,27 @@ class Protection_Checks {
 		$cf     = '' !== Ip::from_server( 'HTTP_CF_CONNECTING_IP' );
 		$xff    = '' !== Ip::from_server( 'HTTP_X_FORWARDED_FOR' );
 		$status = 'ok';
-		$msg    = __( 'La sorgente dell\'indirizzo IP dei visitatori è coerente con la configurazione del server.', 'grs-security' );
+		$msg    = __( 'The visitor IP address source matches the server configuration.', 'grs-security' );
 		if ( 'REMOTE_ADDR' === $source && $cf ) {
 			$status = 'warning';
-			$msg    = __( 'Il sito sembra dietro Cloudflare ma l\'IP viene letto da REMOTE_ADDR: tutti i visitatori risultano con l\'IP di Cloudflare e un blocco potrebbe colpire tutti.', 'grs-security' );
+			$msg    = __( 'The site seems to be behind Cloudflare but the IP is read from REMOTE_ADDR: all visitors appear with the Cloudflare IP and a block could hit everyone.', 'grs-security' );
 		} elseif ( 'REMOTE_ADDR' === $source && $xff ) {
 			$status = 'warning';
-			$msg    = __( 'La richiesta passa da un proxy (header X-Forwarded-For presente): verifica la sorgente IP nelle impostazioni.', 'grs-security' );
+			$msg    = __( 'The request goes through a proxy (X-Forwarded-For header present): check the IP source in the settings.', 'grs-security' );
 		} elseif ( 'REMOTE_ADDR' !== $source && '' === Ip::from_server( $source ) ) {
 			$status = 'warning';
-			$msg    = __( 'La sorgente IP impostata non è presente in questa richiesta: viene usato REMOTE_ADDR.', 'grs-security' );
+			$msg    = __( 'The configured IP source is not present in this request: REMOTE_ADDR is used.', 'grs-security' );
 		}
 		return Scanner::result(
 			array(
 				'id'           => 'ip_source',
 				'category'     => 'monitoring',
-				'title'        => __( 'Rilevamento corretto dell\'IP', 'grs-security' ),
+				'title'        => __( 'Correct IP detection', 'grs-security' ),
 				'status'       => $status,
 				'weight'       => 2,
 				'message'      => $msg,
 				'fix'          => 'ok' === $status ? 'none' : 'manual',
-				'instructions' => __( 'In GRS DEVs > Security, scheda Impostazioni, scegli la sorgente IP corretta (Cloudflare, proxy o connessione diretta). Usa un header di proxy solo se il sito è davvero dietro quel proxy: altrimenti l\'IP si può falsificare.', 'grs-security' ),
+				'instructions' => __( 'In GRS DEVs > Security, Settings tab, choose the correct IP source (Cloudflare, proxy or direct connection). Use a proxy header only if the site really is behind that proxy: otherwise the IP can be spoofed.', 'grs-security' ),
 				'link'         => Plugin::admin_url( 'settings' ),
 			)
 		);
@@ -112,16 +112,16 @@ class Protection_Checks {
 			array(
 				'id'           => 'firewall',
 				'category'     => 'monitoring',
-				'title'        => __( 'Firewall applicativo', 'grs-security' ),
+				'title'        => __( 'Application firewall', 'grs-security' ),
 				'status'       => $applied ? ( 'block' === $mode ? 'ok' : 'warning' ) : 'warning',
 				'weight'       => 2,
 				'message'      => $applied
-					? ( 'block' === $mode ? __( 'Il firewall blocca le richieste con schemi di attacco evidenti.', 'grs-security' ) : __( 'Il firewall è in modalità solo registrazione: le richieste sospette non vengono bloccate.', 'grs-security' ) )
-					: __( 'Il firewall applicativo è spento.', 'grs-security' ),
+					? ( 'block' === $mode ? __( 'The firewall blocks requests with obvious attack patterns.', 'grs-security' ) : __( 'The firewall is in log-only mode: suspicious requests are not blocked.', 'grs-security' ) )
+					: __( 'The application firewall is off.', 'grs-security' ),
 				'fix'          => 'auto',
 				'fix_applied'  => $applied,
 				'recommended'  => ! $applied,
-				'instructions' => __( 'Blocca richieste con SQL injection, iniezione di codice, directory traversal e scanner automatici noti. Gli utenti connessi con permessi di redazione sono esclusi. Non sostituisce il firewall dell\'hosting o di Cloudflare, che fermano gli attacchi prima che arrivino a WordPress.', 'grs-security' ),
+				'instructions' => __( 'Blocks requests with SQL injection, code injection, directory traversal and known automated scanners. Logged-in users with editing permissions are excluded. It does not replace the hosting or Cloudflare firewall, which stop attacks before they reach WordPress.', 'grs-security' ),
 			)
 		);
 	}
@@ -137,16 +137,16 @@ class Protection_Checks {
 			array(
 				'id'           => 'integrity',
 				'category'     => 'monitoring',
-				'title'        => __( 'Controllo giornaliero dei file', 'grs-security' ),
+				'title'        => __( 'Daily file check', 'grs-security' ),
 				'status'       => $applied ? 'ok' : 'warning',
 				'weight'       => 2,
 				'message'      => $applied
-					? __( 'Ogni giorno i file di WordPress e dei plugin di wordpress.org vengono confrontati con gli originali.', 'grs-security' )
-					: __( 'Nessun controllo automatico dei file: una modifica malevola potrebbe passare inosservata per mesi.', 'grs-security' ),
+					? __( 'Every day WordPress files and wordpress.org plugins are compared with the originals.', 'grs-security' )
+					: __( 'No automatic file check: a malicious change could go unnoticed for months.', 'grs-security' ),
 				'fix'          => 'auto',
 				'fix_applied'  => $applied,
 				'recommended'  => ! $applied,
-				'instructions' => __( 'Confronta ogni giorno core e plugin con i checksum ufficiali di wordpress.org, cerca file PHP in uploads e file estranei nella cartella principale, e ti avvisa via email delle novità.', 'grs-security' ),
+				'instructions' => __( 'Compares core and plugins with the official wordpress.org checksums every day, looks for PHP files in uploads and unknown files in the root folder, and alerts you by email about anything new.', 'grs-security' ),
 			)
 		);
 	}
@@ -163,9 +163,9 @@ class Protection_Checks {
 				array(
 					'id'       => 'integrity_results',
 					'category' => 'monitoring',
-					'title'    => __( 'File integri', 'grs-security' ),
+					'title'    => __( 'Files intact', 'grs-security' ),
 					'status'   => 'unknown',
-					'message'  => __( 'Il controllo dei file non è ancora stato eseguito.', 'grs-security' ),
+					'message'  => __( 'The file check has not been run yet.', 'grs-security' ),
 					'link'     => Plugin::admin_url( 'integrity' ),
 				)
 			);
@@ -175,16 +175,16 @@ class Protection_Checks {
 			array(
 				'id'           => 'integrity_results',
 				'category'     => 'monitoring',
-				'title'        => __( 'File integri', 'grs-security' ),
+				'title'        => __( 'Files intact', 'grs-security' ),
 				'status'       => 0 === $count ? 'ok' : 'critical',
 				'weight'       => 3,
 				'message'      => 0 === $count
-					/* translators: %s: data */
-					? sprintf( __( 'Nessuna anomalia nell\'ultimo controllo (%s).', 'grs-security' ), wp_date( 'd/m/Y H:i', (int) $stored['time'] ) )
-					/* translators: %d: numero */
-					: sprintf( _n( '%d file anomalo trovato nell\'ultimo controllo.', '%d file anomali trovati nell\'ultimo controllo.', $count, 'grs-security' ), $count ),
+					/* translators: %s: date */
+					? sprintf( __( 'No anomalies in the last check (%s).', 'grs-security' ), wp_date( Plugin::datetime_format(), (int) $stored['time'] ) )
+					/* translators: %d: number */
+					: sprintf( _n( '%d anomalous file found in the last check.', '%d anomalous files found in the last check.', $count, 'grs-security' ), $count ),
 				'fix'          => 0 === $count ? 'none' : 'manual',
-				'instructions' => __( 'Apri la scheda Integrità file per vedere l\'elenco. File del core modificati: reinstalla WordPress da Bacheca > Aggiornamenti > Reinstalla. Plugin modificati: reinstallali dallo zip ufficiale. File PHP in uploads o sconosciuti: se non li riconosci, il sito potrebbe essere compromesso; fai valutare il caso prima di cancellarli.', 'grs-security' ),
+				'instructions' => __( 'Open the File integrity tab to see the list. Modified core files: reinstall WordPress from Dashboard > Updates > Reinstall. Modified plugins: reinstall them from the official zip. PHP files in uploads or unknown files: if you don\'t recognize them, the site may be compromised; have the case assessed before deleting them.', 'grs-security' ),
 				'link'         => Plugin::admin_url( 'integrity' ),
 			)
 		);
@@ -201,17 +201,17 @@ class Protection_Checks {
 			array(
 				'id'           => 'login_url',
 				'category'     => 'monitoring',
-				'title'        => __( 'Indirizzo di login personalizzato', 'grs-security' ),
+				'title'        => __( 'Custom login address', 'grs-security' ),
 				'status'       => $active ? 'ok' : 'info',
 				'weight'       => 1,
 				'optional'     => true,
 				'message'      => $active
 					/* translators: %s: URL */
-					? sprintf( __( 'La pagina di accesso è %s; wp-login.php e wp-admin rispondono "pagina non trovata" ai visitatori.', 'grs-security' ), Login_Url::login_url() )
-					: __( 'Facoltativo: spostare la pagina di login riduce il traffico dei bot, ma non sostituisce password robuste e verifica in due passaggi.', 'grs-security' ),
+					? sprintf( __( 'The login page is %s; wp-login.php and wp-admin answer "page not found" to visitors.', 'grs-security' ), Login_Url::login_url() )
+					: __( 'Optional: moving the login page reduces bot traffic, but does not replace strong passwords and two-step verification.', 'grs-security' ),
 				'fix'          => 'auto',
 				'fix_applied'  => $active,
-				'instructions' => __( 'Si attiva dalla scheda Impostazioni scegliendo l\'indirizzo. Riceverai il nuovo indirizzo via email: salvalo, perché wp-login.php non funzionerà più. In emergenza si disattiva con define( \'GRS_SECURITY_DISABLE_LOGIN_URL\', true ); in wp-config.php.', 'grs-security' ),
+				'instructions' => __( 'Enable it from the Settings tab by choosing the address. You will receive the new address by email: save it, because wp-login.php will no longer work. In an emergency, disable it with define( \'GRS_SECURITY_DISABLE_LOGIN_URL\', true ); in wp-config.php.', 'grs-security' ),
 				'link'         => Plugin::admin_url( 'settings' ) . '#grs-login-url',
 			)
 		);
@@ -228,15 +228,15 @@ class Protection_Checks {
 			array(
 				'id'           => 'alerts',
 				'category'     => 'monitoring',
-				'title'        => __( 'Avvisi email attivi', 'grs-security' ),
+				'title'        => __( 'Email alerts enabled', 'grs-security' ),
 				'status'       => $on ? 'ok' : 'warning',
 				'weight'       => 1,
 				'message'      => $on
 					/* translators: %s: email */
-					? sprintf( __( 'Gli eventi importanti vengono segnalati a %s.', 'grs-security' ), Settings::alert_email() )
-					: __( 'Gli avvisi email sono disattivati: eventi come la creazione di un nuovo amministratore passerebbero inosservati.', 'grs-security' ),
+					? sprintf( __( 'Important events are reported to %s.', 'grs-security' ), Settings::alert_email() )
+					: __( 'Email alerts are disabled: events such as the creation of a new administrator would go unnoticed.', 'grs-security' ),
 				'fix'          => $on ? 'none' : 'manual',
-				'instructions' => __( 'Attiva gli avvisi in GRS DEVs > Security, scheda Impostazioni, e verifica che il sito invii email correttamente (consigliato un plugin SMTP come GRS SMTP).', 'grs-security' ),
+				'instructions' => __( 'Enable alerts in GRS DEVs > Security, Settings tab, and make sure the site sends email correctly (an SMTP plugin such as GRS SMTP is recommended).', 'grs-security' ),
 				'link'         => Plugin::admin_url( 'settings' ),
 			)
 		);

@@ -143,8 +143,8 @@ class Integrity {
 			Logger::log(
 				'integrity_issues',
 				'critical',
-				/* translators: %d: numero di anomalie */
-				sprintf( _n( 'Controllo integrità: %d nuova anomalia nei file.', 'Controllo integrità: %d nuove anomalie nei file.', count( $new ), 'grs-security' ), count( $new ) ),
+				/* translators: %d: number of anomalies */
+				sprintf( _n( 'Integrity check: %d new file anomaly.', 'Integrity check: %d new file anomalies.', count( $new ), 'grs-security' ), count( $new ) ),
 				array(
 					'ip'      => '',
 					'context' => array( 'files' => $list ),
@@ -304,7 +304,7 @@ class Integrity {
 		if ( null === $sums ) {
 			return array(
 				'status' => 'error',
-				'error'  => __( 'Impossibile scaricare i checksum ufficiali da wordpress.org.', 'grs-security' ),
+				'error'  => __( 'Unable to download the official checksums from wordpress.org.', 'grs-security' ),
 			);
 		}
 		$modified = array();

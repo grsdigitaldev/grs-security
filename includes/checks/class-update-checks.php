@@ -69,9 +69,9 @@ class Update_Checks {
 				'title'        => $title,
 				'status'       => 'unknown',
 				'weight'       => $weight,
-				'message'      => __( 'Impossibile contattare wordpress.org per verificare gli aggiornamenti. Controlla a mano in Bacheca > Aggiornamenti.', 'grs-security' ),
+				'message'      => __( 'Unable to contact wordpress.org to check for updates. Check manually in Dashboard > Updates.', 'grs-security' ),
 				'fix'          => 'manual',
-				'instructions' => __( 'Se il problema persiste, l\'hosting potrebbe bloccare le connessioni in uscita verso wordpress.org: in quel caso nemmeno gli aggiornamenti di sicurezza automatici funzionano. Segnalalo all\'hosting.', 'grs-security' ),
+				'instructions' => __( 'If the problem persists, the hosting may be blocking outgoing connections to wordpress.org: in that case automatic security updates do not work either. Report it to the hosting.', 'grs-security' ),
 				'link'         => admin_url( 'update-core.php' ),
 			)
 		);
@@ -89,7 +89,7 @@ class Update_Checks {
 			$transient = get_site_transient( 'update_core' );
 		}
 		if ( ! is_object( $transient ) || empty( $transient->updates ) ) {
-			return self::unknown( 'core_update', __( 'WordPress aggiornato', 'grs-security' ), 3 );
+			return self::unknown( 'core_update', __( 'WordPress up to date', 'grs-security' ), 3 );
 		}
 		$updates = get_core_updates();
 		$latest  = '';
@@ -107,11 +107,11 @@ class Update_Checks {
 				array(
 					'id'       => 'core_update',
 					'category' => 'updates',
-					'title'    => __( 'WordPress aggiornato', 'grs-security' ),
+					'title'    => __( 'WordPress up to date', 'grs-security' ),
 					'status'   => 'ok',
 					'weight'   => 3,
-					/* translators: %s: versione */
-					'message'  => sprintf( __( 'WordPress %s è la versione più recente disponibile.', 'grs-security' ), $current ),
+					/* translators: %s: version */
+					'message'  => sprintf( __( 'WordPress %s is the latest available version.', 'grs-security' ), $current ),
 				)
 			);
 		}
@@ -120,13 +120,13 @@ class Update_Checks {
 			array(
 				'id'           => 'core_update',
 				'category'     => 'updates',
-				'title'        => __( 'WordPress aggiornato', 'grs-security' ),
+				'title'        => __( 'WordPress up to date', 'grs-security' ),
 				'status'       => $major_behind ? 'warning' : 'critical',
 				'weight'       => 3,
-				/* translators: 1: versione installata, 2: versione disponibile */
-				'message'      => sprintf( __( 'Installata la versione %1$s, disponibile la %2$s.', 'grs-security' ), $current, $latest ),
+				/* translators: 1: installed version, 2: available version */
+				'message'      => sprintf( __( 'Version %1$s installed, %2$s available.', 'grs-security' ), $current, $latest ),
 				'fix'          => 'manual',
-				'instructions' => __( 'Fai un backup, poi aggiorna da Bacheca > Aggiornamenti. Gli aggiornamenti minori contengono quasi sempre correzioni di sicurezza: non rimandarli.', 'grs-security' ),
+				'instructions' => __( 'Back up, then update from Dashboard > Updates. Minor updates almost always contain security fixes: do not postpone them.', 'grs-security' ),
 				'link'         => admin_url( 'update-core.php' ),
 			)
 		);
@@ -144,7 +144,7 @@ class Update_Checks {
 			$transient = get_site_transient( 'update_plugins' );
 		}
 		if ( ! is_object( $transient ) || ! isset( $transient->no_update ) ) {
-			return self::unknown( 'plugin_updates', __( 'Plugin aggiornati', 'grs-security' ), 3 );
+			return self::unknown( 'plugin_updates', __( 'Plugins up to date', 'grs-security' ), 3 );
 		}
 		$all   = get_plugins();
 		$names = array();
@@ -158,15 +158,15 @@ class Update_Checks {
 			array(
 				'id'           => 'plugin_updates',
 				'category'     => 'updates',
-				'title'        => __( 'Plugin aggiornati', 'grs-security' ),
+				'title'        => __( 'Plugins up to date', 'grs-security' ),
 				'status'       => 0 === $count ? 'ok' : ( $count > 3 ? 'critical' : 'warning' ),
 				'weight'       => 3,
 				'message'      => 0 === $count
-					? __( 'Tutti i plugin sono aggiornati.', 'grs-security' )
-					/* translators: 1: numero, 2: elenco */
-					: sprintf( _n( '%1$d plugin da aggiornare: %2$s.', '%1$d plugin da aggiornare: %2$s.', $count, 'grs-security' ), $count, implode( ', ', $names ) ),
+					? __( 'All plugins are up to date.', 'grs-security' )
+					/* translators: 1: number, 2: list */
+					: sprintf( _n( '%1$d plugin to update: %2$s.', '%1$d plugins to update: %2$s.', $count, 'grs-security' ), $count, implode( ', ', $names ) ),
 				'fix'          => 0 === $count ? 'none' : 'manual',
-				'instructions' => __( 'I plugin non aggiornati sono la prima causa di siti WordPress violati. Aggiornali da Plugin > Plugin installati e valuta gli aggiornamenti automatici per quelli affidabili.', 'grs-security' ),
+				'instructions' => __( 'Outdated plugins are the leading cause of hacked WordPress sites. Update them from Plugins > Installed Plugins and consider automatic updates for the reliable ones.', 'grs-security' ),
 				'link'         => admin_url( 'plugins.php?plugin_status=upgrade' ),
 			)
 		);
@@ -184,22 +184,22 @@ class Update_Checks {
 			$transient = get_site_transient( 'update_themes' );
 		}
 		if ( ! is_object( $transient ) || ! isset( $transient->no_update ) ) {
-			return self::unknown( 'theme_updates', __( 'Temi aggiornati', 'grs-security' ), 2 );
+			return self::unknown( 'theme_updates', __( 'Themes up to date', 'grs-security' ), 2 );
 		}
 		$count = ! empty( $transient->response ) ? count( (array) $transient->response ) : 0;
 		return Scanner::result(
 			array(
 				'id'           => 'theme_updates',
 				'category'     => 'updates',
-				'title'        => __( 'Temi aggiornati', 'grs-security' ),
+				'title'        => __( 'Themes up to date', 'grs-security' ),
 				'status'       => 0 === $count ? 'ok' : 'warning',
 				'weight'       => 2,
 				'message'      => 0 === $count
-					? __( 'Tutti i temi sono aggiornati.', 'grs-security' )
-					/* translators: %d: numero */
-					: sprintf( _n( '%d tema da aggiornare.', '%d temi da aggiornare.', $count, 'grs-security' ), $count ),
+					? __( 'All themes are up to date.', 'grs-security' )
+					/* translators: %d: number */
+					: sprintf( _n( '%d theme to update.', '%d themes to update.', $count, 'grs-security' ), $count ),
 				'fix'          => 0 === $count ? 'none' : 'manual',
-				'instructions' => __( 'Aggiorna i temi da Bacheca > Aggiornamenti. Se il tema è stato modificato direttamente, sposta le modifiche in un tema child prima di aggiornare.', 'grs-security' ),
+				'instructions' => __( 'Update themes from Dashboard > Updates. If the theme was edited directly, move the changes to a child theme before updating.', 'grs-security' ),
 				'link'         => admin_url( 'update-core.php' ),
 			)
 		);
@@ -222,15 +222,15 @@ class Update_Checks {
 			array(
 				'id'           => 'inactive_plugins',
 				'category'     => 'updates',
-				'title'        => __( 'Nessun plugin inutilizzato', 'grs-security' ),
+				'title'        => __( 'No unused plugins', 'grs-security' ),
 				'status'       => 0 === $count ? 'ok' : 'warning',
 				'weight'       => 1,
 				'message'      => 0 === $count
-					? __( 'Non ci sono plugin disattivati.', 'grs-security' )
-					/* translators: 1: numero, 2: elenco */
-					: sprintf( _n( '%1$d plugin disattivato: %2$s.', '%1$d plugin disattivati: %2$s.', $count, 'grs-security' ), $count, implode( ', ', array_slice( $inactive, 0, 10 ) ) ),
+					? __( 'There are no inactive plugins.', 'grs-security' )
+					/* translators: 1: number, 2: list */
+					: sprintf( _n( '%1$d inactive plugin: %2$s.', '%1$d inactive plugins: %2$s.', $count, 'grs-security' ), $count, implode( ', ', array_slice( $inactive, 0, 10 ) ) ),
 				'fix'          => 0 === $count ? 'none' : 'manual',
-				'instructions' => __( 'Un plugin disattivato non gira, ma i suoi file restano raggiungibili e possono contenere vulnerabilità. Se non ti serve, eliminalo.', 'grs-security' ),
+				'instructions' => __( 'An inactive plugin does not run, but its files remain reachable and may contain vulnerabilities. If you don\'t need it, delete it.', 'grs-security' ),
 				'link'         => admin_url( 'plugins.php?plugin_status=inactive' ),
 			)
 		);
@@ -260,15 +260,15 @@ class Update_Checks {
 			array(
 				'id'           => 'inactive_themes',
 				'category'     => 'updates',
-				'title'        => __( 'Nessun tema inutilizzato', 'grs-security' ),
+				'title'        => __( 'No unused themes', 'grs-security' ),
 				'status'       => 0 === $count ? 'ok' : 'warning',
 				'weight'       => 1,
 				'message'      => 0 === $count
-					? __( 'Sono installati solo il tema attivo e, se presente, un tema predefinito di riserva.', 'grs-security' )
-					/* translators: 1: numero, 2: elenco */
-					: sprintf( _n( '%1$d tema non usato: %2$s.', '%1$d temi non usati: %2$s.', $count, 'grs-security' ), $count, implode( ', ', $extra ) ),
+					? __( 'Only the active theme and, if present, a default fallback theme are installed.', 'grs-security' )
+					/* translators: 1: number, 2: list */
+					: sprintf( _n( '%1$d unused theme: %2$s.', '%1$d unused themes: %2$s.', $count, 'grs-security' ), $count, implode( ', ', $extra ) ),
 				'fix'          => 0 === $count ? 'none' : 'manual',
-				'instructions' => __( 'Elimina i temi che non usi da Aspetto > Temi. Tieni solo il tema attivo, il suo tema genitore e un tema predefinito recente come riserva.', 'grs-security' ),
+				'instructions' => __( 'Delete the themes you don\'t use from Appearance > Themes. Keep only the active theme, its parent theme and a recent default theme as a fallback.', 'grs-security' ),
 				'link'         => admin_url( 'themes.php' ),
 			)
 		);
@@ -285,27 +285,27 @@ class Update_Checks {
 		$now    = time();
 		if ( $eol && $eol < $now ) {
 			$status = 'critical';
-			/* translators: 1: versione, 2: data */
-			$message = sprintf( __( 'PHP %1$s non riceve più aggiornamenti di sicurezza dal %2$s.', 'grs-security' ), PHP_VERSION, wp_date( 'd/m/Y', $eol ) );
+			/* translators: 1: version, 2: date */
+			$message = sprintf( __( 'PHP %1$s no longer receives security updates since %2$s.', 'grs-security' ), PHP_VERSION, wp_date( \GRSDigital\Security\Plugin::date_format(), $eol ) );
 		} elseif ( $eol && ( $eol - $now ) < 120 * DAY_IN_SECONDS ) {
 			$status = 'warning';
-			/* translators: 1: versione, 2: data */
-			$message = sprintf( __( 'PHP %1$s smetterà di ricevere aggiornamenti di sicurezza il %2$s.', 'grs-security' ), PHP_VERSION, wp_date( 'd/m/Y', $eol ) );
+			/* translators: 1: version, 2: date */
+			$message = sprintf( __( 'PHP %1$s will stop receiving security updates on %2$s.', 'grs-security' ), PHP_VERSION, wp_date( \GRSDigital\Security\Plugin::date_format(), $eol ) );
 		} else {
 			$status = 'ok';
-			/* translators: %s: versione */
-			$message = sprintf( __( 'PHP %s è supportato.', 'grs-security' ), PHP_VERSION );
+			/* translators: %s: version */
+			$message = sprintf( __( 'PHP %s is supported.', 'grs-security' ), PHP_VERSION );
 		}
 		return Scanner::result(
 			array(
 				'id'           => 'php_version',
 				'category'     => 'updates',
-				'title'        => __( 'Versione PHP supportata', 'grs-security' ),
+				'title'        => __( 'Supported PHP version', 'grs-security' ),
 				'status'       => $status,
 				'weight'       => 2,
 				'message'      => $message,
 				'fix'          => 'ok' === $status ? 'none' : 'manual',
-				'instructions' => __( 'Cambia la versione PHP dal pannello dell\'hosting scegliendo una versione supportata (8.3 o successiva). Prova prima su uno staging: plugin o temi datati potrebbero non essere compatibili.', 'grs-security' ),
+				'instructions' => __( 'Change the PHP version from the hosting control panel, choosing a supported version (8.3 or later). Test on a staging site first: outdated plugins or themes may not be compatible.', 'grs-security' ),
 			)
 		);
 	}

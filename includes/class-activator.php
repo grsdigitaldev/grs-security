@@ -24,8 +24,8 @@ class Activator {
 		if ( is_multisite() && $network_wide ) {
 			deactivate_plugins( plugin_basename( GRS_SECURITY_FILE ), true, true );
 			wp_die(
-				esc_html__( 'GRS Security non supporta l\'attivazione di rete in multisite. Attivalo sul singolo sito.', 'grs-security' ),
-				esc_html__( 'Attivazione non supportata', 'grs-security' ),
+				esc_html__( 'GRS Security does not support network activation on multisite. Activate it on the single site.', 'grs-security' ),
+				esc_html__( 'Activation not supported', 'grs-security' ),
 				array( 'back_link' => true )
 			);
 		}

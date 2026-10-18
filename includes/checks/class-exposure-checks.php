@@ -45,7 +45,7 @@ class Exposure_Checks {
 	 * @return string
 	 */
 	private static function nginx_note() {
-		return __( 'Il server non usa file .htaccess (probabilmente Nginx): chiedi all\'hosting di aggiungere queste regole alla configurazione del sito:', 'grs-security' ) . "\n" . Htaccess::nginx_snippet();
+		return __( 'The server does not use .htaccess files (probably Nginx): ask the hosting to add these rules to the site configuration:', 'grs-security' ) . "\n" . Htaccess::nginx_snippet();
 	}
 
 	/**
@@ -73,30 +73,30 @@ class Exposure_Checks {
 		if ( $applied ) {
 			$status = 'ok';
 			$msg    = 'pingback' === Settings::get( 'xmlrpc_mode' )
-				? __( 'XML-RPC attivo senza pingback e multicall (usati per attacchi e amplificazione del brute force).', 'grs-security' )
-				: __( 'XML-RPC disattivato.', 'grs-security' );
+				? __( 'XML-RPC enabled without pingbacks and multicall (used for attacks and to amplify brute force).', 'grs-security' )
+				: __( 'XML-RPC disabled.', 'grs-security' );
 		} elseif ( null === $open ) {
 			$status = 'warning';
-			$msg    = __( 'XML-RPC risulta attivo (verifica dal sito non disponibile). È un bersaglio frequente per attacchi alle password.', 'grs-security' );
+			$msg    = __( 'XML-RPC appears to be enabled (check from the site not available). It is a frequent target of password attacks.', 'grs-security' );
 		} elseif ( $open ) {
 			$status = 'warning';
-			$msg    = __( 'XML-RPC è attivo e risponde con pingback e multicall: permette di provare centinaia di password con una sola richiesta.', 'grs-security' );
+			$msg    = __( 'XML-RPC is enabled and answers with pingbacks and multicall: it allows hundreds of passwords to be tried with a single request.', 'grs-security' );
 		} else {
 			$status = 'ok';
-			$msg    = __( 'XML-RPC è già bloccato (dall\'hosting o da un altro plugin).', 'grs-security' );
+			$msg    = __( 'XML-RPC is already blocked (by the hosting or another plugin).', 'grs-security' );
 		}
 		return Scanner::result(
 			array(
 				'id'           => 'xmlrpc',
 				'category'     => 'exposure',
-				'title'        => __( 'XML-RPC disattivato', 'grs-security' ),
+				'title'        => __( 'XML-RPC disabled', 'grs-security' ),
 				'status'       => $status,
 				'weight'       => 2,
 				'message'      => $msg,
 				'fix'          => ( 'ok' === $status && ! $applied ) ? 'none' : 'auto',
 				'fix_applied'  => $applied,
 				'recommended'  => 'ok' !== $status,
-				'instructions' => __( 'Disattiva XML-RPC. Se usi Jetpack o l\'app WordPress per smartphone, nelle impostazioni puoi scegliere di bloccare solo pingback e multicall.', 'grs-security' ),
+				'instructions' => __( 'Disables XML-RPC. If you use Jetpack or the WordPress mobile app, in the settings you can choose to block only pingbacks and multicall.', 'grs-security' ),
 			)
 		);
 	}
@@ -121,16 +121,16 @@ class Exposure_Checks {
 			array(
 				'id'           => 'user_enum',
 				'category'     => 'exposure',
-				'title'        => __( 'Nomi utente non elencabili', 'grs-security' ),
+				'title'        => __( 'Usernames not listable', 'grs-security' ),
 				'status'       => $ok ? 'ok' : 'warning',
 				'weight'       => 2,
 				'message'      => $ok
-					? __( 'I nomi utente non sono elencati pubblicamente da ?author= e dalla REST API.', 'grs-security' )
-					: __( 'Chiunque può ottenere l\'elenco dei nomi utente da /wp-json/wp/v2/users o da ?author=1: metà del lavoro per indovinare un accesso.', 'grs-security' ),
+					? __( 'Usernames are not publicly listed by ?author= and by the REST API.', 'grs-security' )
+					: __( 'Anyone can get the list of usernames from /wp-json/wp/v2/users or from ?author=1: half the work needed to guess a login.', 'grs-security' ),
 				'fix'          => ( $ok && ! $applied ) ? 'none' : 'auto',
 				'fix_applied'  => $applied,
 				'recommended'  => ! $ok,
-				'instructions' => __( 'Blocca ?author=N, l\'endpoint REST degli utenti e la sitemap degli autori per i visitatori non connessi, e toglie il nome dell\'autore dagli embed. Le pagine archivio degli autori restano visibili.', 'grs-security' ),
+				'instructions' => __( 'Blocks ?author=N, the users REST endpoint and the authors sitemap for visitors who are not logged in, and removes the author name from embeds. Author archive pages remain visible.', 'grs-security' ),
 			)
 		);
 	}
@@ -157,19 +157,19 @@ class Exposure_Checks {
 			array(
 				'id'           => 'headers',
 				'category'     => 'exposure',
-				'title'        => __( 'Header HTTP di sicurezza', 'grs-security' ),
+				'title'        => __( 'Security HTTP headers', 'grs-security' ),
 				'status'       => $ok ? 'ok' : 'warning',
 				'weight'       => 1,
 				'message'      => $ok
-					? __( 'Il sito invia gli header X-Content-Type-Options, X-Frame-Options e Referrer-Policy.', 'grs-security' )
+					? __( 'The site sends the X-Content-Type-Options, X-Frame-Options and Referrer-Policy headers.', 'grs-security' )
 					: ( null === $home
-						? __( 'Impossibile leggere gli header del sito (richiesta al sito non riuscita).', 'grs-security' )
-						/* translators: %s: elenco header */
-						: sprintf( __( 'Header mancanti: %s. Proteggono da clickjacking e da alcuni attacchi nel browser.', 'grs-security' ), implode( ', ', $missing ) ) ),
+						? __( 'Unable to read the site headers (request to the site failed).', 'grs-security' )
+						/* translators: %s: list of headers */
+						: sprintf( __( 'Missing headers: %s. They protect against clickjacking and some browser attacks.', 'grs-security' ), implode( ', ', $missing ) ) ),
 				'fix'          => ( $ok && ! $applied ) ? 'none' : 'auto',
 				'fix_applied'  => $applied,
 				'recommended'  => ! $ok,
-				'instructions' => __( 'Invia gli header X-Content-Type-Options: nosniff, X-Frame-Options: SAMEORIGIN e Referrer-Policy: strict-origin-when-cross-origin. Se il sito deve essere mostrato dentro un iframe di un altro dominio, non attivarlo.', 'grs-security' ),
+				'instructions' => __( 'Sends the headers X-Content-Type-Options: nosniff, X-Frame-Options: SAMEORIGIN and Referrer-Policy: strict-origin-when-cross-origin. Do not enable it if the site must be shown inside an iframe on another domain.', 'grs-security' ),
 			)
 		);
 	}
@@ -189,16 +189,16 @@ class Exposure_Checks {
 			array(
 				'id'           => 'hsts',
 				'category'     => 'exposure',
-				'title'        => __( 'HSTS (HTTPS obbligatorio nel browser)', 'grs-security' ),
+				'title'        => __( 'HSTS (HTTPS enforced in the browser)', 'grs-security' ),
 				'status'       => $ok ? 'ok' : ( $https ? 'warning' : 'info' ),
 				'weight'       => 1,
 				'optional'     => true,
 				'message'      => $ok
-					? __( 'Il browser è istruito a usare sempre HTTPS per questo sito.', 'grs-security' )
-					: __( 'Header HSTS assente. Facoltativo: attivalo solo se l\'intero dominio funziona stabilmente in HTTPS.', 'grs-security' ),
+					? __( 'The browser is told to always use HTTPS for this site.', 'grs-security' )
+					: __( 'HSTS header missing. Optional: enable it only if the whole domain works reliably on HTTPS.', 'grs-security' ),
 				'fix'          => ( $https && ! ( $present && ! $applied ) ) ? 'auto' : 'none',
 				'fix_applied'  => $applied,
-				'instructions' => __( 'Invia Strict-Transport-Security con validità di un anno (solo sulle pagine HTTPS). Attenzione: per un anno i browser che hanno visitato il sito rifiuteranno la versione HTTP, anche se il certificato scade.', 'grs-security' ),
+				'instructions' => __( 'Sends Strict-Transport-Security valid for one year (on HTTPS pages only). Warning: for one year, browsers that visited the site will refuse the HTTP version, even if the certificate expires.', 'grs-security' ),
 			)
 		);
 	}
@@ -214,16 +214,16 @@ class Exposure_Checks {
 			array(
 				'id'           => 'login_errors',
 				'category'     => 'exposure',
-				'title'        => __( 'Errori di login generici', 'grs-security' ),
+				'title'        => __( 'Generic login errors', 'grs-security' ),
 				'status'       => $applied ? 'ok' : 'warning',
 				'weight'       => 1,
 				'message'      => $applied
-					? __( 'Il login non rivela se un nome utente o un\'email esistono.', 'grs-security' )
-					: __( 'Il messaggio di errore del login conferma se un nome utente esiste ("password errata per l\'utente...").', 'grs-security' ),
+					? __( 'Login does not reveal whether a username or email exists.', 'grs-security' )
+					: __( 'The login error message confirms whether a username exists ("incorrect password for the user...").', 'grs-security' ),
 				'fix'          => 'auto',
 				'fix_applied'  => $applied,
 				'recommended'  => ! $applied,
-				'instructions' => __( 'Mostra lo stesso messaggio generico per utente inesistente e password errata.', 'grs-security' ),
+				'instructions' => __( 'Shows the same generic message for a non-existent user and a wrong password.', 'grs-security' ),
 			)
 		);
 	}
@@ -239,16 +239,16 @@ class Exposure_Checks {
 			array(
 				'id'           => 'wp_version',
 				'category'     => 'exposure',
-				'title'        => __( 'Versione di WordPress nascosta', 'grs-security' ),
+				'title'        => __( 'WordPress version hidden', 'grs-security' ),
 				'status'       => $applied ? 'ok' : 'info',
 				'weight'       => 1,
 				'optional'     => true,
 				'message'      => $applied
-					? __( 'Il meta generator e la versione nei file CSS/JS del core sono nascosti.', 'grs-security' )
-					: __( 'La versione di WordPress è visibile nel codice della pagina. Nasconderla è una misura minore: la vera protezione è tenere WordPress aggiornato.', 'grs-security' ),
+					? __( 'The generator meta tag and the version in core CSS/JS files are hidden.', 'grs-security' )
+					: __( 'The WordPress version is visible in the page code. Hiding it is a minor measure: the real protection is keeping WordPress up to date.', 'grs-security' ),
 				'fix'          => 'auto',
 				'fix_applied'  => $applied,
-				'instructions' => __( 'Rimuove il meta generator e sostituisce ?ver= dei file del core con un codice che cambia a ogni versione (la cache dei browser continua a funzionare).', 'grs-security' ),
+				'instructions' => __( 'Removes the generator meta tag and replaces ?ver= of core files with a code that changes with each version (browser caching keeps working).', 'grs-security' ),
 			)
 		);
 	}
@@ -265,24 +265,24 @@ class Exposure_Checks {
 
 		if ( false === $runs ) {
 			$status = 'ok';
-			$msg    = __( 'I file PHP caricati in uploads non vengono eseguiti.', 'grs-security' );
+			$msg    = __( 'PHP files uploaded to uploads are not executed.', 'grs-security' );
 		} elseif ( true === $runs ) {
 			$status = 'critical';
-			$msg    = __( 'Un file PHP messo in uploads viene eseguito: se un plugin vulnerabile permette di caricare file, l\'attaccante prende il controllo del sito.', 'grs-security' );
+			$msg    = __( 'A PHP file placed in uploads is executed: if a vulnerable plugin allows file uploads, an attacker takes control of the site.', 'grs-security' );
 		} else {
 			$status = $applied ? 'ok' : 'warning';
 			$msg    = $applied
-				? __( 'Regola di blocco attiva (verifica dal sito non disponibile).', 'grs-security' )
-				: __( 'Non è stato possibile verificare se i file PHP in uploads vengono eseguiti.', 'grs-security' );
+				? __( 'Blocking rule active (check from the site not available).', 'grs-security' )
+				: __( 'It was not possible to check whether PHP files in uploads are executed.', 'grs-security' );
 		}
 		if ( true === $runs && $applied ) {
-			$msg .= ' ' . __( 'La regola .htaccess è attiva ma non ha effetto: il server potrebbe ignorare i file .htaccess.', 'grs-security' );
+			$msg .= ' ' . __( 'The .htaccess rule is in place but has no effect: the server may be ignoring .htaccess files.', 'grs-security' );
 		}
 		return Scanner::result(
 			array(
 				'id'           => 'uploads_php',
 				'category'     => 'exposure',
-				'title'        => __( 'PHP bloccato nella cartella uploads', 'grs-security' ),
+				'title'        => __( 'PHP blocked in the uploads folder', 'grs-security' ),
 				'status'       => $status,
 				'weight'       => 3,
 				'message'      => $msg,
@@ -290,7 +290,7 @@ class Exposure_Checks {
 				'fix_applied'  => $applied,
 				'recommended'  => $supported && 'ok' !== $status,
 				'instructions' => $supported
-					? __( 'Aggiunge in wp-content/uploads/.htaccess una regola che impedisce l\'esecuzione di file .php, .phtml, .phar e simili.', 'grs-security' )
+					? __( 'Adds a rule to wp-content/uploads/.htaccess that prevents the execution of .php, .phtml, .phar and similar files.', 'grs-security' )
 					: self::nginx_note(),
 			)
 		);
@@ -360,30 +360,30 @@ class Exposure_Checks {
 
 		if ( $found ) {
 			$status = 'critical';
-			/* translators: %s: elenco file */
-			$msg = sprintf( __( 'Nella cartella principale ci sono file che possono contenere password o il database: %s.', 'grs-security' ), implode( ', ', $found ) );
+			/* translators: %s: list of files */
+			$msg = sprintf( __( 'The root folder contains files that may hold passwords or the database: %s.', 'grs-security' ), implode( ', ', $found ) );
 		} elseif ( $exposed ) {
 			$status = 'warning';
-			$msg    = __( 'readme.html e license.txt sono raggiungibili e rivelano che il sito è WordPress e, a volte, la versione.', 'grs-security' );
+			$msg    = __( 'readme.html and license.txt are reachable and reveal that the site runs WordPress and, sometimes, its version.', 'grs-security' );
 		} else {
 			$status = 'ok';
 			$msg    = $applied
-				? __( 'Accesso via browser bloccato per readme.html, license.txt, file di log, backup e cartelle .git.', 'grs-security' )
-				: __( 'Nessun file sensibile trovato nella cartella principale.', 'grs-security' );
+				? __( 'Browser access blocked for readme.html, license.txt, log files, backups and .git folders.', 'grs-security' )
+				: __( 'No sensitive files found in the root folder.', 'grs-security' );
 		}
 
 		$instructions  = $found
-			? __( 'Scarica in locale i file elencati se ti servono, poi eliminali dal server via FTP o dal file manager dell\'hosting: le copie di wp-config e i dump del database non devono stare nella cartella pubblica.', 'grs-security' ) . ' '
+			? __( 'Download the listed files locally if you need them, then delete them from the server via FTP or the hosting file manager: copies of wp-config and database dumps must not sit in the public folder.', 'grs-security' ) . ' '
 			: '';
 		$instructions .= $supported
-			? __( 'La correzione automatica blocca via .htaccess l\'accesso a readme.html, license.txt, file .log, .sql, .bak, .old e alle cartelle .git.', 'grs-security' )
+			? __( 'The automatic fix blocks access via .htaccess to readme.html, license.txt, .log, .sql, .bak, .old files and .git folders.', 'grs-security' )
 			: self::nginx_note();
 
 		return Scanner::result(
 			array(
 				'id'           => 'sensitive_files',
 				'category'     => 'exposure',
-				'title'        => __( 'File sensibili protetti', 'grs-security' ),
+				'title'        => __( 'Sensitive files protected', 'grs-security' ),
 				'status'       => $status,
 				'weight'       => 3,
 				'message'      => $msg,
@@ -414,19 +414,19 @@ class Exposure_Checks {
 
 		if ( true === $listed ) {
 			$status = 'warning';
-			$msg    = __( 'Il server mostra l\'elenco dei file delle cartelle senza index (es. uploads): chiunque può sfogliare i file caricati.', 'grs-security' );
+			$msg    = __( 'The server shows the file list of folders without an index (e.g. uploads): anyone can browse the uploaded files.', 'grs-security' );
 		} elseif ( null === $listed && ! $applied ) {
 			$status = 'unknown';
-			$msg    = __( 'Non è stato possibile verificare l\'elenco dei file delle cartelle.', 'grs-security' );
+			$msg    = __( 'It was not possible to check folder file listing.', 'grs-security' );
 		} else {
 			$status = 'ok';
-			$msg    = __( 'L\'elenco dei file delle cartelle non è visibile.', 'grs-security' );
+			$msg    = __( 'Folder file listing is not visible.', 'grs-security' );
 		}
 		return Scanner::result(
 			array(
 				'id'           => 'dir_listing',
 				'category'     => 'exposure',
-				'title'        => __( 'Elenco dei file delle cartelle disattivato', 'grs-security' ),
+				'title'        => __( 'Folder file listing disabled', 'grs-security' ),
 				'status'       => $status,
 				'weight'       => 2,
 				'message'      => $msg,
@@ -434,7 +434,7 @@ class Exposure_Checks {
 				'fix_applied'  => $applied,
 				'recommended'  => $supported && 'warning' === $status,
 				'instructions' => $supported
-					? __( 'Aggiunge "Options -Indexes" al .htaccess principale. Se l\'hosting non lo consente, il plugin se ne accorge e annulla la modifica.', 'grs-security' )
+					? __( 'Adds "Options -Indexes" to the main .htaccess. If the hosting does not allow it, the plugin notices and undoes the change.', 'grs-security' )
 					: self::nginx_note(),
 			)
 		);
